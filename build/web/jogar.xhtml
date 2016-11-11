@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formulario" >
+            <ui:include src="menu.xhtml"/>
+            <h1>Jogar</h1>
+            
+            <!--<p:remoteCommand autoRun="true" action="JDV{controladorPartida.go()}"/>-->
+            
+            <!-- Será atualizado por ajax a cada 2 segundos! -->
+            <p:poll update="@(.frequpdate)" interval="2" />
+            
+            <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field">
+                <p:panelGrid id="opanelgrid" columns="4">
+                    
+                    <h:outputText value="Status:"/>
+                    <h:outputText id="ostatu" value="#{controladorPartida.status}"/>
+                    <h:outputText value="Position:"/>
+                    <h:outputText value="#{controladorPartida.myPosicao}"/>
+                    
+                    
+                    <h:outputText value="Trunfo e corrente:"/>
+                    <h:outputText value="#{controladorPartida.trumphNaipe}"/>
+                    <h:outputText value="#{controladorPartida.trumphCarta}"/>
+                    <h:outputText value="#{controladorPartida.partida == null}"/>
+                    
+                    
+                    <h:outputText value="Placar (TOTAL,NS,EW):"/>
+                    <h:outputText value="#{controladorPartida.placarTotal}"/>
+                    <h:outputText value="#{controladorPartida.placarNS}"/>
+                    <h:outputText value="#{controladorPartida.placarEW}"/>
+                    
+                    
+                    <h:outputText value="NORTE"/>
+                    <h:outputText value="LESTE"/>
+                    <h:outputText value="SUL"/>
+                    <h:outputText value="OESTE"/>
+                    
+                    
+                    <h:outputText value="#{controladorPartida.getNumeroCartas('NORTH')}"/>
+                    <h:outputText value="#{controladorPartida.getNumeroCartas('EAST')}"/>
+                    <h:outputText value="#{controladorPartida.getNumeroCartas('SOUTH')}"/>
+                    <h:outputText value="#{controladorPartida.getNumeroCartas('WEST')}"/>
+                    
+                    
+                    <h:outputText value="#{ controladorPartida.isTurn('NORTH') }"/>
+                    <h:outputText value="#{ controladorPartida.isTurn('EAST') }"/>
+                    <h:outputText value="#{ controladorPartida.isTurn('SOUTH') }"/>
+                    <h:outputText value="#{ controladorPartida.isTurn('WEST') }"/>
+                    
+                    
+                    <h:outputText value="#{ controladorPartida.getNome('NORTH') }"/>
+                    <h:outputText value="#{ controladorPartida.getNome('EAST') }"/>
+                    <h:outputText value="#{ controladorPartida.getNome('SOUTH') }"/>
+                    <h:outputText value="#{ controladorPartida.getNome('WEST') }"/>
+                    
+                    
+                    <h:outputText value="#{ controladorPartida.getCarta('NORTH') }"/>
+                    <h:outputText value="#{ controladorPartida.getCarta('EAST') }"/>
+                    <h:outputText value="#{ controladorPartida.getCarta('SOUTH') }"/>
+                    <h:outputText value="#{ controladorPartida.getCarta('WEST') }"/>
+                    
+                    
+                </p:panelGrid>
+                
+                <p:panelGrid class="frequpdate" columns="#{controladorPartida.getNumeroCartas(controladorPartida.myPosicao)}" >
+                    
+                    <c:forEach items="#{controladorPartida.cartas}" var="carta">
+                        <p:commandButton action="#{controladorPartida.play(carta)}" value="#{carta.toString()}"/>
+                    </c:forEach>    
+                    
+                </p:panelGrid>
+                
+            </p:fieldset>
+            
+        </h:form>
+        
+        
+    </h:body>
+    
+        
+        
+</html>
+

@@ -1,0 +1,158 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.github.lucasgueiros.ifuwhist.mesa;
+
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+
+import com.github.lucasgueiros.ifuwhist.jogador.ContraladorAutenticacao;
+import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+
+/**
+ *
+ * @author lucas
+ */
+@ManagedBean (name="controladorJogar")
+@SessionScoped
+public class MesasSessionBean {
+    
+    @ManagedProperty (value = "#{contraladorAutenticacao}")
+    private ContraladorAutenticacao auth;
+    
+    @ManagedProperty (value = "#{constroladorMesas}")
+    private MesasApplicationBean mesas;
+    
+    /**
+     * O jogador atual
+     */
+    private Jogador myself;
+    /**
+     * O parceiro dele.
+     */
+    private Jogador parceiro;
+    /**
+     * Oponente direita
+     */
+    private Jogador direita;
+    /**
+     * oponente esquerda
+     */
+    private Jogador esquerda;
+    /**
+     * Jogador selecionado
+     */
+    private Jogador selected;
+    
+
+    public ContraladorAutenticacao getAuth() {
+        return auth;
+    }
+
+    public void setAuth(ContraladorAutenticacao auth) {
+        this.auth = auth;
+    }
+
+    public MesasApplicationBean getMesas() {
+        return mesas;
+    }
+
+    public void setMesas(MesasApplicationBean mesas) {
+        this.mesas = mesas;
+    }
+
+    public Jogador getMyself() {
+        return myself;
+    }
+
+    public void setMyself(Jogador myself) {
+        this.myself = myself;
+    }
+
+    public Jogador getParceiro() {
+        return parceiro;
+    }
+
+    public void setParceiro(Jogador parceiro) {
+        this.parceiro = parceiro;
+    }
+
+    public Jogador getDireita() {
+        return direita;
+    }
+
+    public void setDireita(Jogador direita) {
+        this.direita = direita;
+    }
+
+    public Jogador getEsquerda() {
+        return esquerda;
+    }
+
+    public void setEsquerda(Jogador esquerda) {
+        this.esquerda = esquerda;
+    }
+
+    public Jogador getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Jogador selected) {
+        this.selected = selected;
+    }
+    
+    public void start() {
+        if(auth.isAutenticado()) {
+            this.myself = auth.getJogador();
+            mesas.adicionar(this.myself);
+        }
+        
+    }
+    
+    public List<Jogador> getDisponiveis() {
+        List<Jogador> ps =  this.mesas.getDisponiveis();
+        ps.remove(this.myself);
+        return ps;
+    }
+    
+    public void selectEsquerda() {
+        this.esquerda = this.selected;
+        this.selected = null;
+    }
+    
+    public void selectDireita() {
+        this.direita = this.selected;
+        this.selected = null;
+    }
+    
+    public void selectParceiro() {
+        this.parceiro = this.selected;
+        this.selected = null;
+    }
+    
+    public Mesa getMesa() {
+    	this.myself = auth.getJogador();
+        return mesas.createMesa(myself, esquerda, parceiro, direita);
+    }
+    
+    public String playWith() {
+        this.myself = auth.getJogador();
+        Mesa table = mesas.createMesa(myself, esquerda, parceiro, direita);
+        // table.start();
+        /*
+        Partida partida = new Partida();
+        partida = new Partida();
+        partida.setMesa(table);
+        partida.setDealer(table.getProximoNowDealer());
+        partida.deal();
+        partida.start();*/
+        return null;//this.running.go(table);
+    }    
+    
+}
