@@ -20,7 +20,7 @@
         <p:menubar>
             <p:menuitem value="Home" action="index.xhtml"/>
             <p:menuitem value="Resultados" action="resultados.xhtml"/>
-            <p:menuitem value="Logar" action="#{propriedadesBean.paginas.getString('pagina.login')}" />
+            <p:menuitem value="Logar" action="#{propriedades.get('pagina.login')}" />
             <p:menuitem value="Mesa" action="ListaDisponiveis.xhtml" />
             <p:menuitem value="Jogar" action="#{controladorPartida.go(controladorMesas.getMesa(controladorAutenticacao.getJogador()))}" />
             <p:menuitem value="Ranking" action="ranking.xhtml"/>

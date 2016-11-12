@@ -6,8 +6,6 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
-import static com.github.lucasgueiros.ifuwhist.util.propriedades.Propriedades.PAGINAS;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +25,7 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
+import com.github.lucasgueiros.ifuwhist.util.propriedades.Propriedades;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
 
@@ -120,7 +119,7 @@ public class ControladorPartida implements /*PartidaListener,*/ Serializable{
     }
     
     public String go(Mesa mesa){//Partida partida) {
-    	if(mesa == null) return PAGINAS.getString("pagina.deErro");
+    	if(mesa == null) return Propriedades.getString("pagina.deErro");
     	
     	Partida partida = new Partida();
         partida.setMesa(mesa);
@@ -132,11 +131,11 @@ public class ControladorPartida implements /*PartidaListener,*/ Serializable{
         this.jogador = auth.getJogador();
         this.mesa = mesas.getMesa(jogador);
         if(this.mesa == null) {
-            return PAGINAS.getString("pagina.esperarPorMesa");//"espera.xhtml";
+            return Propriedades.getString("pagina.esperarPorMesa");//"espera.xhtml";
         } else {
             //rm = t.getRunning();
         	this.partida = partida;
-            return PAGINAS.getString("pagina.jogar");//"jogar.xhtml";
+            return Propriedades.getString("pagina.jogar");//"jogar.xhtml";
         }
     }
 

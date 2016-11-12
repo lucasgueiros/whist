@@ -6,8 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.jogador;
 
-import static com.github.lucasgueiros.ifuwhist.util.propriedades.Propriedades.PAGINAS;
-
+import com.github.lucasgueiros.ifuwhist.util.propriedades.Propriedades;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -78,9 +77,9 @@ public class ContraladorAutenticacao {
             throw new RuntimeException("jogador==null"); //$NON-NLS-1$
             //return "errorpage.xhtml"; // TODO coloque o erro aqiu
         } else if (!jogador.autenticar(senha)) {
-            return PAGINAS.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
+            return Propriedades.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
         } else {
-            return PAGINAS.getString("pagina.index"); //  //$NON-NLS-1$
+            return Propriedades.getString("pagina.index"); //  //$NON-NLS-1$
         }
     }
     
@@ -88,11 +87,11 @@ public class ContraladorAutenticacao {
         //try RepositoryFactory.getRepositorioJogador().adicionar(jogador);
         this.jogador = new Jogador(nome, login, senha);
         this.repositorioJogador.adicionar(jogador);        
-        return PAGINAS.getString("pagina.index");//autenticar(); //$NON-NLS-1$
+        return Propriedades.getString("pagina.index");//autenticar(); //$NON-NLS-1$
     }
     
     public String cadastro() {
-        return PAGINAS.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
+        return Propriedades.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
     }
     
     public String getUsuarioLabel() {
@@ -113,7 +112,7 @@ public class ContraladorAutenticacao {
         this.senha = null;
         this.jogador = null;
         // TODO
-        return PAGINAS.getString("pagina.index"); //$NON-NLS-1$
+        return Propriedades.getString("pagina.index"); //$NON-NLS-1$
     }
     
 }
