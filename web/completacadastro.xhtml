@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form id="oForm">
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <p:fieldset legend="Cadastro">
                 <p:panelGrid columns="2">
                     <h:outputText value="Usuário: "/>

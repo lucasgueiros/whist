@@ -10,7 +10,7 @@
     </h:head>
     <h:body id="obody">
         <h:form id="oform">
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Index</h1>
 			
             <c:if id="oif" test="#{contraladorAutenticacao.autenticado}">

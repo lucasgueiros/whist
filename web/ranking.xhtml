@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Ranking</h1>
             
             <p:dataTable value="#{controladorResultados.ranking}" var="jogador">

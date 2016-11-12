@@ -12,7 +12,7 @@
         
         <h:form id="oform">
             
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             
             <p:poll update="@(.update)" interval="2"/>
             

@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         <h:form id="formulario" >
-            <ui:include src="menu.xhtml"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Jogar</h1>
             
             <!--<p:remoteCommand autoRun="true" action="JDV{controladorPartida.go()}"/>-->
