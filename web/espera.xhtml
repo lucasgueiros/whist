@@ -12,14 +12,14 @@
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Jogar</h1>
             
-            <p>Espere um jogador lhe incluir numa mesa.</p>
+            <p><h:outputText value="#{propriedades.get('mensagem.esperandoMesa')}" /></p>
             
             <p:remoteCommand autoRun="true" action="#{controladorJogar.start()}" />
             
             <p:poll interval="2" listener="#{controladorJogar.start()}"/>
             
             <h:outputText value="#{controladorPartida.pronto}"/>
-            <p:commandButton value="Jogar!" action="jogar.xhtml"/>
+            <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar')}"/>
             
         </h:form>
     </h:body>
