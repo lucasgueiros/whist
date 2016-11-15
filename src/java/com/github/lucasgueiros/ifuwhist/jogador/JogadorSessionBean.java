@@ -6,7 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.jogador;
 
-import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesBean;
+import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -25,7 +25,7 @@ import java.util.List;
 
 @ManagedBean ( eager=true,name = "contraladorAutenticacao" )
 @SessionScoped
-public class JogadorBean implements Serializable {
+public class JogadorSessionBean implements Serializable {
 	
 	// Logger
 	private final Logger logger;
@@ -37,10 +37,10 @@ public class JogadorBean implements Serializable {
     
     private Repositorio<Jogador> repositorioJogador;
     
-    public JogadorBean() {
+    public JogadorSessionBean() {
 		//DaoManagerHiber.main(null);
     	repositorioJogador = new RepositorioJPA<Jogador>(Jogador.class);
-    	logger = LoggerFactory.getLogger(JogadorBean.class);
+    	logger = LoggerFactory.getLogger(JogadorSessionBean.class);
 	}
 
     public String getNome() {
@@ -82,9 +82,9 @@ public class JogadorBean implements Serializable {
             throw new RuntimeException("jogador==null"); //$NON-NLS-1$
             //return "errorpage.xhtml"; // TODO coloque o erro aqiu
         } else if (!jogador.autenticar(senha)) {
-            return PropriedadesBean.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
+            return PropriedadesApplicationBean.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
         } else {
-            return PropriedadesBean.getString("pagina.index"); //  //$NON-NLS-1$
+            return PropriedadesApplicationBean.getString("pagina.index"); //  //$NON-NLS-1$
         }
     }
     
@@ -92,11 +92,11 @@ public class JogadorBean implements Serializable {
         //try RepositoryFactory.getRepositorioJogador().adicionar(jogador);
         this.jogador = new Jogador(nome, login, senha);
         this.repositorioJogador.adicionar(jogador);        
-        return PropriedadesBean.getString("pagina.index");//autenticar(); //$NON-NLS-1$
+        return PropriedadesApplicationBean.getString("pagina.index");//autenticar(); //$NON-NLS-1$
     }
     
     public String cadastro() {
-        return PropriedadesBean.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
+        return PropriedadesApplicationBean.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
     }
     
     public String getUsuarioLabel() {
@@ -117,7 +117,7 @@ public class JogadorBean implements Serializable {
         this.senha = null;
         this.jogador = null;
         // TODO
-        return PropriedadesBean.getString("pagina.index"); //$NON-NLS-1$
+        return PropriedadesApplicationBean.getString("pagina.index"); //$NON-NLS-1$
     }
     
 }

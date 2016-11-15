@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.lucasgueiros.ifuwhist.jogador.JogadorBean;
+import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.FiltroRecuperarTodos;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
@@ -30,15 +30,15 @@ import java.io.Serializable;
  *
  * @author lucas
  */
-@ManagedBean (name="ControladorResultados")
+@ManagedBean (name="controladorResultados")
 @SessionScoped
-public class ResultadosBean  implements Serializable {
+public class ResultadosSessionBean  implements Serializable {
     
 	// Logger
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
     @ManagedProperty("#{controladorAutenticacao}")
-    private JogadorBean auth;
+    private JogadorSessionBean auth;
     
     public List<Resultado> getResultados() {
         //long id = auth.getJogador().getId();
@@ -49,7 +49,7 @@ public class ResultadosBean  implements Serializable {
         // TODO Tire isso daqui
     	
     	FacesContext faces = FacesContext.getCurrentInstance();
-        auth = (JogadorBean) faces.getApplication().evaluateExpressionGet(faces, "#{contraladorAutenticacao}", JogadorBean.class);
+        auth = (JogadorSessionBean) faces.getApplication().evaluateExpressionGet(faces, "#{contraladorAutenticacao}", JogadorSessionBean.class);
     	
         Jogador jogador = auth.getJogador();
         //List<Resultado> all = RepositoryFactory.getRepositorioPartidaTerminada().recuperar();
@@ -128,11 +128,11 @@ public class ResultadosBean  implements Serializable {
                 
     }
 
-    public JogadorBean getAuth() {
+    public JogadorSessionBean getAuth() {
         return auth;
     }
 
-    public void setAuth(JogadorBean auth) {
+    public void setAuth(JogadorSessionBean auth) {
         this.auth = auth;
     }
     

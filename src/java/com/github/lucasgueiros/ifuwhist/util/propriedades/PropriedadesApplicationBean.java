@@ -17,13 +17,13 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean (name="propriedades")
 @ApplicationScoped
-public class PropriedadesBean  implements Serializable {
+public class PropriedadesApplicationBean  implements Serializable {
 
     private static Properties properties;
     
     static {
         properties = new Properties();
-        InputStream inputStream = PropriedadesBean.class.getClassLoader().getResourceAsStream("/resources/strings.properties");
+        InputStream inputStream = PropriedadesApplicationBean.class.getClassLoader().getResourceAsStream("/resources/strings.properties");
         try {
             if (inputStream == null) {
                 throw new FileNotFoundException();
@@ -41,7 +41,7 @@ public class PropriedadesBean  implements Serializable {
     }
 
     public String get(String key) {
-        return PropriedadesBean.getString(key);
+        return PropriedadesApplicationBean.getString(key);
     }
     
 }
