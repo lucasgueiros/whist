@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
+import java.util.List;
 
 /**
  *
@@ -68,7 +69,10 @@ public class ContraladorAutenticacao {
     public String autenticar()  {
     	logger.error("OPAAAHHH");
         //jogador = RepositoryFactory.getRepositorioJogador().recuperarPorLogin(login);
-    	jogador = repositorioJogador.recuperar(new FiltroJogadorLogin(login)).get(0);
+        List<Jogador> consulta = (List<Jogador>) repositorioJogador.recuperar(new FiltroJogadorLogin(login));
+        if(consulta.size()>0) {
+            jogador = consulta.get(0);
+        }
     	//Filtro<Jogador> filtro = new FiltroJogadorLogin(login);
     	//List<Jogador> resultado = repositorioJogador.recuperar(filtro);
     	//jogador = resultado.get(0);
