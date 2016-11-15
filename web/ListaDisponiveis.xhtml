@@ -6,23 +6,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{propriedadesApplicationBean.get('pagina.geral.prefixo')} - 
-            #{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}</title>
+        <title>#{propriedades.get('pagina.geral.prefixo')} - 
+            #{propriedades.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}</title>
     </h:head>
     <h:body>
         
         <h:form id="oform">
             
-            <ui:include src="#{propriedadesApplicationBean.get('pagina.menu')}"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
+            
+            <p:remoteCommand autoRun="true" action="#{mesasSessionBean.setMyself(jogadorSessionBean.jogador)}" />
             
             <p:poll update="@(.update)" interval="2"/>
             
-            <p:fieldset legend="#{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}" >
+            <p:fieldset legend="#{propriedades.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}" >
                 
                 
                 
                 <p:dataTable class="update" id="jogadores" value="#{mesasSessionBean.disponiveis}" var="jogador"
-                             emptyMessage="#{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.mensagem.nenhum')}"
+                             emptyMessage="#{propriedades.get('pagina.jogar.listaJogadoresDisponiveis.mensagem.nenhum')}"
                             selection="#{mesasSessionBean.selected}" selectionMode="single" rowKey="#{jogador.id}"
                             >
                     

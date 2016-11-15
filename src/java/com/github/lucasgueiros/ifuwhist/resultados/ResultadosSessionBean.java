@@ -37,10 +37,8 @@ public class ResultadosSessionBean  implements Serializable {
 	// Logger
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-    @ManagedProperty("#{jogadorSessionBean}")
-    private JogadorSessionBean auth;
     
-    public List<Resultado> getResultados() {
+    public List<Resultado> getResultados(Jogador jogador) {
         //long id = auth.getJogador().getId();
         //return RepositoryFactory.getRepositorioPartidaTerminada().recuperarPorId(id);
         
@@ -48,11 +46,11 @@ public class ResultadosSessionBean  implements Serializable {
         // mas eu tenho mais o que fazer da vida e vai ser assim mesmo.
         // TODO Tire isso daqui
     	
-    	FacesContext faces = FacesContext.getCurrentInstance();
-        auth = (JogadorSessionBean) faces.getApplication().evaluateExpressionGet(faces, "#{contraladorAutenticacao}", JogadorSessionBean.class);
+    	//FacesContext faces = FacesContext.getCurrentInstance();
+        //auth = (JogadorSessionBean) faces.getApplication().evaluateExpressionGet(faces, "#{contraladorAutenticacao}", JogadorSessionBean.class);
     	
-        Jogador jogador = auth.getJogador();
-        //List<Resultado> all = RepositoryFactory.getRepositorioPartidaTerminada().recuperar();
+        //Jogador jogador = auth.getJogador();
+//List<Resultado> all = RepositoryFactory.getRepositorioPartidaTerminada().recuperar();
         List<Resultado> recuperados = new RepositorioJPA<Resultado>(Resultado.class).recuperar(new FiltroContemJogador(jogador));/*new FiltroRecuperarTodos<>());
         for (Iterator<Resultado> it = recuperados.iterator(); it.hasNext();) {
             Resultado match = it.next();
@@ -126,15 +124,7 @@ public class ResultadosSessionBean  implements Serializable {
                 + " union (select login, sum(pointsew) as pontos from partida join jogador on jogador.id = west_id  group by login,west_id)"
                 + " ) as consulta group by login order by pontuacao desc");*/
                 
-    }
-
-    public JogadorSessionBean getAuth() {
-        return auth;
-    }
-
-    public void setAuth(JogadorSessionBean auth) {
-        this.auth = auth;
-    }
+        }
     
     
     

@@ -108,14 +108,6 @@ public class MesasSessionBean  implements Serializable {
         this.selected = selected;
     }
     
-    public void start() {
-        if(auth.isAutenticado()) {
-            this.myself = auth.getJogador();
-            mesas.adicionar(this.myself);
-        }
-        
-    }
-    
     public List<Jogador> getDisponiveis() {
         List<Jogador> ps =  this.mesas.getDisponiveis();
         ps.remove(this.myself);
@@ -145,15 +137,7 @@ public class MesasSessionBean  implements Serializable {
     public String playWith() {
         this.myself = auth.getJogador();
         Mesa table = mesas.createMesa(myself, esquerda, parceiro, direita);
-        // table.start();
-        /*
-        Partida partida = new Partida();
-        partida = new Partida();
-        partida.setMesa(table);
-        partida.setDealer(table.getProximoNowDealer());
-        partida.deal();
-        partida.start();*/
-        return null;//this.running.go(table);
+        return null;
     }    
     
 }

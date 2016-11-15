@@ -5,22 +5,22 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>#{propriedadesApplicationBean.get('pagina.geral.prefixo')} - 
-            #{propriedadesApplicationBean.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.titulo')}</title>
+        <title>#{propriedades.get('pagina.geral.prefixo')} - 
+            #{propriedades.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.titulo')}</title>
     </h:head>
     <h:body>
         <h:form>
-            <ui:include src="#{propriedadesApplicationBean.get('pagina.menu')}"/>
+            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Jogar</h1>
             
-            <p><h:outputText value="#{propriedadesApplicationBean.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.mensagem')}" /></p>
+            <p><h:outputText value="#{propriedades.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.mensagem')}" /></p>
             
-            <p:remoteCommand autoRun="true" action="#{mesasSessionBean.start()}" />
+            <p:remoteCommand autoRun="true" action="#{mesasApplicationBean.adicionar(jogadorSessionBean.jogador)}" />
             
             <p:poll interval="2" listener="#{mesasSessionBean.start()}"/>
             
             <h:outputText value="#{partidaSessionBean.pronto}"/>
-            <p:commandButton value="Jogar!" action="#{propriedadesApplicationBean.get('pagina.jogar.jogando')}"/>
+            <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar.jogando')}"/>
             
         </h:form>
     </h:body>

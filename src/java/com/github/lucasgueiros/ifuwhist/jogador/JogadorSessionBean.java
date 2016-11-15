@@ -104,6 +104,7 @@ public class JogadorSessionBean implements Serializable {
     }
     
     public Jogador getJogador() {
+        if(!isAutenticado()) return null; // daí dá pra testar se está autenticado pelo retorno desse método.
         return jogador;
     }
     
