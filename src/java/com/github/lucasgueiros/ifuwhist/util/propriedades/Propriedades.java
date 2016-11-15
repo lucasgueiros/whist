@@ -3,6 +3,7 @@ package com.github.lucasgueiros.ifuwhist.util.propriedades;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Properties;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +17,7 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean
 @ApplicationScoped
-public class Propriedades {
+public class Propriedades  implements Serializable {
 
     private static Properties properties;
     

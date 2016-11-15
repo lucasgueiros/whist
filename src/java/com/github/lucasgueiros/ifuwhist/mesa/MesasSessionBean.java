@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.github.lucasgueiros.ifuwhist.jogador.ContraladorAutenticacao;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import java.io.Serializable;
 
 /**
  *
@@ -21,7 +22,7 @@ import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
  */
 @ManagedBean (name="controladorJogar")
 @SessionScoped
-public class MesasSessionBean {
+public class MesasSessionBean  implements Serializable {
     
     @ManagedProperty (value = "#{contraladorAutenticacao}")
     private ContraladorAutenticacao auth;

@@ -24,6 +24,7 @@ import com.github.lucasgueiros.ifuwhist.jogador.ContraladorAutenticacao;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.FiltroRecuperarTodos;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
+import java.io.Serializable;
 
 /**
  *
@@ -31,7 +32,7 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
  */
 @ManagedBean
 @SessionScoped
-public class ControladorResultados {
+public class ControladorResultados  implements Serializable {
     
 	// Logger
 	private Logger logger = LoggerFactory.getLogger(getClass());

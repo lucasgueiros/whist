@@ -17,6 +17,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import java.io.Serializable;
 
 /**
  *
@@ -24,7 +25,7 @@ import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
  */
 @ManagedBean (eager=true, name="controladorMesas") // TODO Tirar o name
 @ApplicationScoped
-public class MesasApplicationBean {
+public class MesasApplicationBean implements Serializable {
     
     /**
      * Jogadores sem mesa.

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ import java.util.List;
 
 @ManagedBean ( eager=true )
 @SessionScoped
-public class ContraladorAutenticacao {
+public class ContraladorAutenticacao implements Serializable {
 	
 	// Logger
 	private final Logger logger;
