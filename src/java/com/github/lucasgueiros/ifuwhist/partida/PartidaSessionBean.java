@@ -131,7 +131,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         this.jogador = auth.getJogador();
         this.mesa = mesas.getMesa(jogador);
         if(this.mesa == null) {
-            return PropriedadesApplicationBean.getString("pagina.esperarPorMesa");//"espera.xhtml";
+            return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");//"espera.xhtml";
         } else {
             //rm = t.getRunning();
         	this.partida = partida;

@@ -15,7 +15,7 @@ import javax.faces.bean.ManagedBean;
  * @author lucas
  *
  */
-@ManagedBean (name="propriedades")
+@ManagedBean
 @ApplicationScoped
 public class PropriedadesApplicationBean  implements Serializable {
 

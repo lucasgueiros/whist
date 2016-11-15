@@ -5,21 +5,22 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{propriedadesApplicationBean.get('pagina.geral.prefixo')} - 
+            #{propriedadesApplicationBean.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.titulo')}</title>
     </h:head>
     <h:body>
         <h:form>
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
+            <ui:include src="#{propriedadesApplicationBean.get('pagina.menu')}"/>
             <h1>Jogar</h1>
             
-            <p><h:outputText value="#{propriedades.get('mensagem.esperandoMesa')}" /></p>
+            <p><h:outputText value="#{propriedadesApplicationBean.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.mensagem')}" /></p>
             
             <p:remoteCommand autoRun="true" action="#{mesasSessionBean.start()}" />
             
             <p:poll interval="2" listener="#{mesasSessionBean.start()}"/>
             
             <h:outputText value="#{partidaSessionBean.pronto}"/>
-            <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar')}"/>
+            <p:commandButton value="Jogar!" action="#{propriedadesApplicationBean.get('pagina.jogar.jogando')}"/>
             
         </h:form>
     </h:body>

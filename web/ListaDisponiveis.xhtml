@@ -6,27 +6,28 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{propriedadesApplicationBean.get('pagina.geral.prefixo')} - 
+            #{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}</title>
     </h:head>
     <h:body>
         
         <h:form id="oform">
             
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
+            <ui:include src="#{propriedadesApplicationBean.get('pagina.menu')}"/>
             
             <p:poll update="@(.update)" interval="2"/>
             
-            <p:fieldset legend="Escolher jogadores!">
+            <p:fieldset legend="#{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.titulo')}" >
                 
                 
                 
                 <p:dataTable class="update" id="jogadores" value="#{mesasSessionBean.disponiveis}" var="jogador"
-                            emptyMessage="Nenhum jogador disponível."
+                             emptyMessage="#{propriedadesApplicationBean.get('pagina.jogar.listaJogadoresDisponiveis.mensagem.nenhum')}"
                             selection="#{mesasSessionBean.selected}" selectionMode="single" rowKey="#{jogador.id}"
                             >
                     
                     <f:facet name="header">
-                        <h:outputText value="Selecione Jogadores!"/>
+                        <h:outputText value="Jogadores Disponíveis"/>
                     </f:facet>
                     
                     <p:column headerText="ID">

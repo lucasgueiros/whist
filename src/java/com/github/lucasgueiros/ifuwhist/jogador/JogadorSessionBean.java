@@ -96,7 +96,7 @@ public class JogadorSessionBean implements Serializable {
     }
     
     public String cadastro() {
-        return PropriedadesApplicationBean.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
+        return PropriedadesApplicationBean.getString("pagina.login.paraCompletarOCadastro"); //$NON-NLS-1$
     }
     
     public String getUsuarioLabel() {

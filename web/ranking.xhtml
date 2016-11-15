@@ -5,12 +5,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>#{propriedadesApplicationBean.get('pagina.geral.prefixo')} - 
+            #{propriedadesApplicationBean.get('pagina.consulta.rankingDeJogadores.titulo')}</title>
     </h:head>
     <h:body>
         <h:form>
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
-            <h1>Ranking</h1>
+            <h1>#{propriedadesApplicationBean.get('pagina.consulta.rankingDeJogadores.titulo')}</h1>
             
             <p:dataTable value="#{resultadosSessionBean.ranking}" var="jogador">
                 <p:column headerText="usuario">

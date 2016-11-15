@@ -11,7 +11,7 @@
     <h:body>
         <p:menubar>
             <p:menuitem value="Home" action="#{propriedades.get('pagina.index')}"/>
-            <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.resultados')}"/>
+            <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.meusResultados')}"/>
             <p:menuitem value="Logar" action="#{propriedades.get('pagina.login')}" />
             <p:menuitem value="Mesa" action="#{propriedades.get('pagina.jogar.listaJogadoresDisponiveis')}" />
             <p:menuitem value="Jogar" action="#{partidaSessionBean.go(mesasApplicationBean.getMesa(controladorAutenticacao.getJogador()))}" />
