@@ -6,7 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.jogador;
 
-import com.github.lucasgueiros.ifuwhist.util.propriedades.Propriedades;
+import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -23,9 +23,9 @@ import java.util.List;
  * @author lucas
  */
 
-@ManagedBean ( eager=true )
+@ManagedBean ( eager=true,name = "contraladorAutenticacao" )
 @SessionScoped
-public class ContraladorAutenticacao implements Serializable {
+public class JogadorBean implements Serializable {
 	
 	// Logger
 	private final Logger logger;
@@ -37,10 +37,10 @@ public class ContraladorAutenticacao implements Serializable {
     
     private Repositorio<Jogador> repositorioJogador;
     
-    public ContraladorAutenticacao() {
+    public JogadorBean() {
 		//DaoManagerHiber.main(null);
     	repositorioJogador = new RepositorioJPA<Jogador>(Jogador.class);
-    	logger = LoggerFactory.getLogger(ContraladorAutenticacao.class);
+    	logger = LoggerFactory.getLogger(JogadorBean.class);
 	}
 
     public String getNome() {
@@ -82,9 +82,9 @@ public class ContraladorAutenticacao implements Serializable {
             throw new RuntimeException("jogador==null"); //$NON-NLS-1$
             //return "errorpage.xhtml"; // TODO coloque o erro aqiu
         } else if (!jogador.autenticar(senha)) {
-            return Propriedades.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
+            return PropriedadesBean.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
         } else {
-            return Propriedades.getString("pagina.index"); //  //$NON-NLS-1$
+            return PropriedadesBean.getString("pagina.index"); //  //$NON-NLS-1$
         }
     }
     
@@ -92,11 +92,11 @@ public class ContraladorAutenticacao implements Serializable {
         //try RepositoryFactory.getRepositorioJogador().adicionar(jogador);
         this.jogador = new Jogador(nome, login, senha);
         this.repositorioJogador.adicionar(jogador);        
-        return Propriedades.getString("pagina.index");//autenticar(); //$NON-NLS-1$
+        return PropriedadesBean.getString("pagina.index");//autenticar(); //$NON-NLS-1$
     }
     
     public String cadastro() {
-        return Propriedades.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
+        return PropriedadesBean.getString("pagina.paraCompletarOCadastro"); //$NON-NLS-1$
     }
     
     public String getUsuarioLabel() {
@@ -117,7 +117,7 @@ public class ContraladorAutenticacao implements Serializable {
         this.senha = null;
         this.jogador = null;
         // TODO
-        return Propriedades.getString("pagina.index"); //$NON-NLS-1$
+        return PropriedadesBean.getString("pagina.index"); //$NON-NLS-1$
     }
     
 }

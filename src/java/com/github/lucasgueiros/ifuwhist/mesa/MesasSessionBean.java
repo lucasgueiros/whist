@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import com.github.lucasgueiros.ifuwhist.jogador.ContraladorAutenticacao;
+import com.github.lucasgueiros.ifuwhist.jogador.JogadorBean;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.io.Serializable;
 
@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class MesasSessionBean  implements Serializable {
     
     @ManagedProperty (value = "#{contraladorAutenticacao}")
-    private ContraladorAutenticacao auth;
+    private JogadorBean auth;
     
     @ManagedProperty (value = "#{constroladorMesas}")
     private MesasApplicationBean mesas;
@@ -52,11 +52,11 @@ public class MesasSessionBean  implements Serializable {
     private Jogador selected;
     
 
-    public ContraladorAutenticacao getAuth() {
+    public JogadorBean getAuth() {
         return auth;
     }
 
-    public void setAuth(ContraladorAutenticacao auth) {
+    public void setAuth(JogadorBean auth) {
         this.auth = auth;
     }
 
