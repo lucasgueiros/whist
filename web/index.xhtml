@@ -13,8 +13,8 @@
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Index</h1>
 			
-            <c:if id="oif" test="#{contraladorAutenticacao.autenticado}">
-                <p:outputLabel id="oMensagemBoasVindas" value="Bem-vindo, #{contraladorAutenticacao.jogador.nome}"/>
+            <c:if id="oif" test="#{jogadorSessionBean.autenticado}">
+                <p:outputLabel id="oMensagemBoasVindas" value="Bem-vindo, #{jogadorSessionBean.jogador.nome}"/>
             </c:if>
 
         </h:form>

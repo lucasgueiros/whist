@@ -30,14 +30,14 @@ import java.io.Serializable;
  *
  * @author lucas
  */
-@ManagedBean (name="controladorResultados")
+@ManagedBean
 @SessionScoped
 public class ResultadosSessionBean  implements Serializable {
     
 	// Logger
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-    @ManagedProperty("#{controladorAutenticacao}")
+    @ManagedProperty("#{jogadorSessionBean}")
     private JogadorSessionBean auth;
     
     public List<Resultado> getResultados() {

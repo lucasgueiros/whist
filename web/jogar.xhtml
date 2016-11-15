@@ -13,7 +13,7 @@
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Jogar</h1>
             
-            <!--<p:remoteCommand autoRun="true" action="JDV{controladorPartida.go()}"/>-->
+            <!--<p:remoteCommand autoRun="true" action="JDV{partidaSessionBean.go()}"/>-->
             
             <!-- Será atualizado por ajax a cada 2 segundos! -->
             <p:poll update="@(.frequpdate)" interval="2" />
@@ -22,21 +22,21 @@
                 <p:panelGrid id="opanelgrid" columns="4">
                     
                     <h:outputText value="Status:"/>
-                    <h:outputText id="ostatu" value="#{controladorPartida.status}"/>
+                    <h:outputText id="ostatu" value="#{partidaSessionBean.status}"/>
                     <h:outputText value="Position:"/>
-                    <h:outputText value="#{controladorPartida.myPosicao}"/>
+                    <h:outputText value="#{partidaSessionBean.myPosicao}"/>
                     
                     
                     <h:outputText value="Trunfo e corrente:"/>
-                    <h:outputText value="#{controladorPartida.trumphNaipe}"/>
-                    <h:outputText value="#{controladorPartida.trumphCarta}"/>
-                    <h:outputText value="#{controladorPartida.partida == null}"/>
+                    <h:outputText value="#{partidaSessionBean.trumphNaipe}"/>
+                    <h:outputText value="#{partidaSessionBean.trumphCarta}"/>
+                    <h:outputText value="#{partidaSessionBean.partida == null}"/>
                     
                     
                     <h:outputText value="Placar (TOTAL,NS,EW):"/>
-                    <h:outputText value="#{controladorPartida.placarTotal}"/>
-                    <h:outputText value="#{controladorPartida.placarNS}"/>
-                    <h:outputText value="#{controladorPartida.placarEW}"/>
+                    <h:outputText value="#{partidaSessionBean.placarTotal}"/>
+                    <h:outputText value="#{partidaSessionBean.placarNS}"/>
+                    <h:outputText value="#{partidaSessionBean.placarEW}"/>
                     
                     
                     <h:outputText value="NORTE"/>
@@ -45,36 +45,36 @@
                     <h:outputText value="OESTE"/>
                     
                     
-                    <h:outputText value="#{controladorPartida.getNumeroCartas('NORTH')}"/>
-                    <h:outputText value="#{controladorPartida.getNumeroCartas('EAST')}"/>
-                    <h:outputText value="#{controladorPartida.getNumeroCartas('SOUTH')}"/>
-                    <h:outputText value="#{controladorPartida.getNumeroCartas('WEST')}"/>
+                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('NORTH')}"/>
+                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('EAST')}"/>
+                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('SOUTH')}"/>
+                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('WEST')}"/>
                     
                     
-                    <h:outputText value="#{ controladorPartida.isTurn('NORTH') }"/>
-                    <h:outputText value="#{ controladorPartida.isTurn('EAST') }"/>
-                    <h:outputText value="#{ controladorPartida.isTurn('SOUTH') }"/>
-                    <h:outputText value="#{ controladorPartida.isTurn('WEST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.isTurn('NORTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.isTurn('EAST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.isTurn('SOUTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.isTurn('WEST') }"/>
                     
                     
-                    <h:outputText value="#{ controladorPartida.getNome('NORTH') }"/>
-                    <h:outputText value="#{ controladorPartida.getNome('EAST') }"/>
-                    <h:outputText value="#{ controladorPartida.getNome('SOUTH') }"/>
-                    <h:outputText value="#{ controladorPartida.getNome('WEST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getNome('NORTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getNome('EAST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getNome('SOUTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getNome('WEST') }"/>
                     
                     
-                    <h:outputText value="#{ controladorPartida.getCarta('NORTH') }"/>
-                    <h:outputText value="#{ controladorPartida.getCarta('EAST') }"/>
-                    <h:outputText value="#{ controladorPartida.getCarta('SOUTH') }"/>
-                    <h:outputText value="#{ controladorPartida.getCarta('WEST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getCarta('NORTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getCarta('EAST') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getCarta('SOUTH') }"/>
+                    <h:outputText value="#{ partidaSessionBean.getCarta('WEST') }"/>
                     
                     
                 </p:panelGrid>
                 
-                <p:panelGrid class="frequpdate" columns="#{controladorPartida.getNumeroCartas(controladorPartida.myPosicao)}" >
+                <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas(partidaSessionBean.myPosicao)}" >
                     
-                    <c:forEach items="#{controladorPartida.cartas}" var="carta">
-                        <p:commandButton action="#{controladorPartida.play(carta)}" value="#{carta.toString()}"/>
+                    <c:forEach items="#{partidaSessionBean.cartas}" var="carta">
+                        <p:commandButton action="#{partidaSessionBean.play(carta)}" value="#{carta.toString()}"/>
                     </c:forEach>    
                     
                 </p:panelGrid>

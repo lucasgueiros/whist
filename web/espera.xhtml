@@ -14,11 +14,11 @@
             
             <p><h:outputText value="#{propriedades.get('mensagem.esperandoMesa')}" /></p>
             
-            <p:remoteCommand autoRun="true" action="#{controladorJogar.start()}" />
+            <p:remoteCommand autoRun="true" action="#{mesasSessionBean.start()}" />
             
-            <p:poll interval="2" listener="#{controladorJogar.start()}"/>
+            <p:poll interval="2" listener="#{mesasSessionBean.start()}"/>
             
-            <h:outputText value="#{controladorPartida.pronto}"/>
+            <h:outputText value="#{partidaSessionBean.pronto}"/>
             <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar')}"/>
             
         </h:form>

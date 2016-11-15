@@ -34,7 +34,7 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
  * @author lucas
  */
 @SessionScoped
-@ManagedBean (name="ControladorPartida")
+@ManagedBean (name="controladorPartida")
 public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     
 	/**

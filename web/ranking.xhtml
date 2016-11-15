@@ -12,7 +12,7 @@
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>Ranking</h1>
             
-            <p:dataTable value="#{controladorResultados.ranking}" var="jogador">
+            <p:dataTable value="#{resultadosSessionBean.ranking}" var="jogador">
                 <p:column headerText="usuario">
                     <h:outputText value="#{jogador.login}"/>
                 </p:column>

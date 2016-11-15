@@ -20,9 +20,9 @@
                 
                 
                 
-                <p:dataTable class="update" id="jogadores" value="#{controladorJogar.disponiveis}" var="jogador"
+                <p:dataTable class="update" id="jogadores" value="#{mesasSessionBean.disponiveis}" var="jogador"
                             emptyMessage="Nenhum jogador disponível."
-                            selection="#{controladorJogar.selected}" selectionMode="single" rowKey="#{jogador.id}"
+                            selection="#{mesasSessionBean.selected}" selectionMode="single" rowKey="#{jogador.id}"
                             >
                     
                     <f:facet name="header">
@@ -42,10 +42,10 @@
                     </p:column>
                     
                     <f:facet id="ofooter" name="footer">
-                        <p:commandButton id="selcionarParceiroButton" value="Parceiro" action="#{controladorJogar.selectParceiro()}"/>
-                        <p:commandButton id="selcionarEsquerdaButton" value="Esquerda" action="#{controladorJogar.selectEsquerda()}"/>
-                        <p:commandButton id="selcionarDireitaButton" value="Direita" action="#{controladorJogar.selectDireita()}"/>
-                        <p:commandButton id="selcionarIniciarButton" value="Iniciar" action="#{controladorPartida.go(controladorJogar.mesa)}"/>
+                        <p:commandButton id="selcionarParceiroButton" value="Parceiro" action="#{mesasSessionBean.selectParceiro()}"/>
+                        <p:commandButton id="selcionarEsquerdaButton" value="Esquerda" action="#{mesasSessionBean.selectEsquerda()}"/>
+                        <p:commandButton id="selcionarDireitaButton" value="Direita" action="#{mesasSessionBean.selectDireita()}"/>
+                        <p:commandButton id="selcionarIniciarButton" value="Iniciar" action="#{partidaSessionBean.go(mesasSessionBean.mesa)}"/>
                     </f:facet>
                     
                 </p:dataTable>
@@ -54,11 +54,11 @@
                     
                     
                     <h:outputText value="Direita: " /> 
-                    <h:outputText class="update" value="#{controladorJogar.direita.login}"/>
+                    <h:outputText class="update" value="#{mesasSessionBean.direita.login}"/>
                     <h:outputText value="Esquerda: " /> 
-                    <h:outputText class="update" value="#{controladorJogar.esquerda.login}"/>
+                    <h:outputText class="update" value="#{mesasSessionBean.esquerda.login}"/>
                     <h:outputText value="Parceiro: " /> 
-                    <h:outputText class="update" value="#{controladorJogar.parceiro.login}"/>
+                    <h:outputText class="update" value="#{mesasSessionBean.parceiro.login}"/>
                     
                 </p:panelGrid>
                 

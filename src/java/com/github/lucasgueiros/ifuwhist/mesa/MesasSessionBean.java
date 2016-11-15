@@ -20,14 +20,14 @@ import java.io.Serializable;
  *
  * @author lucas
  */
-@ManagedBean (name="controladorJogar")
+@ManagedBean
 @SessionScoped
 public class MesasSessionBean  implements Serializable {
     
-    @ManagedProperty (value = "#{contraladorAutenticacao}")
+    @ManagedProperty (value = "#{jogadorSessionBean}")
     private JogadorSessionBean auth;
     
-    @ManagedProperty (value = "#{constroladorMesas}")
+    @ManagedProperty (value = "#{mesasApplicationBean}")
     private MesasApplicationBean mesas;
     
     /**

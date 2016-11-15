@@ -14,9 +14,9 @@
             <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.resultados')}"/>
             <p:menuitem value="Logar" action="#{propriedades.get('pagina.login')}" />
             <p:menuitem value="Mesa" action="#{propriedades.get('pagina.jogar.listaJogadoresDisponiveis')}" />
-            <p:menuitem value="Jogar" action="#{controladorPartida.go(controladorMesas.getMesa(controladorAutenticacao.getJogador()))}" />
+            <p:menuitem value="Jogar" action="#{partidaSessionBean.go(mesasApplicationBean.getMesa(controladorAutenticacao.getJogador()))}" />
             <p:menuitem value="Ranking" action="#{propriedades.get('pagina.consulta.rankingDeJogadores')}"/>
-            <p:menuitem value="Sair" action="#{contraladorAutenticacao.sair()}"/>
+            <p:menuitem value="Sair" action="#{jogadorSessionBean.sair()}"/>
         </p:menubar>
         <p:separator/>
         

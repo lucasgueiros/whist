@@ -23,7 +23,7 @@ import java.io.Serializable;
  *
  * @author lucas
  */
-@ManagedBean (eager=true, name="controladorMesas") // TODO Tirar o name
+@ManagedBean (eager=true) // TODO Tirar o name
 @ApplicationScoped
 public class MesasApplicationBean implements Serializable {
     

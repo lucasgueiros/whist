@@ -23,7 +23,7 @@ import java.util.List;
  * @author lucas
  */
 
-@ManagedBean ( eager=true,name = "contraladorAutenticacao" )
+@ManagedBean ( eager=true)
 @SessionScoped
 public class JogadorSessionBean implements Serializable {
 	
