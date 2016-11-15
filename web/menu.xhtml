@@ -9,21 +9,13 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <!--
-        <p:
-        <a href="index.xhtml">index</a>
-        <a href="resultados.xhtml">resultados</a>
-        <a href="login.xhtml">login</a>
-        <a href="jogar.xhtml">jogar</a>
-        <a href="ranking.xhtml">ranking</a>
-        <p:separator/>-->
         <p:menubar>
-            <p:menuitem value="Home" action="index.xhtml"/>
-            <p:menuitem value="Resultados" action="resultados.xhtml"/>
+            <p:menuitem value="Home" action="#{propriedades.get('pagina.index')}"/>
+            <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.resultados')}"/>
             <p:menuitem value="Logar" action="#{propriedades.get('pagina.login')}" />
-            <p:menuitem value="Mesa" action="ListaDisponiveis.xhtml" />
+            <p:menuitem value="Mesa" action="#{propriedades.get('pagina.jogar.listaJogadoresDisponiveis')}" />
             <p:menuitem value="Jogar" action="#{controladorPartida.go(controladorMesas.getMesa(controladorAutenticacao.getJogador()))}" />
-            <p:menuitem value="Ranking" action="ranking.xhtml"/>
+            <p:menuitem value="Ranking" action="#{propriedades.get('pagina.consulta.rankingDeJogadores')}"/>
             <p:menuitem value="Sair" action="#{contraladorAutenticacao.sair()}"/>
         </p:menubar>
         <p:separator/>
