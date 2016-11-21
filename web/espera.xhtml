@@ -19,7 +19,7 @@
             
             <p:poll interval="2" listener="#{mesasSessionBean.start()}"/>
             
-            <h:outputText value="#{partidaSessionBean.pronto}"/>
+            <h:outputText value="#{partidaSessionBean.isPronto(mesasApplicationBean.getMesa(jogadorSessionBean.jogador))}"/>
             <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar.jogando')}"/>
             
         </h:form>

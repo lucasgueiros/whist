@@ -6,6 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.jogador;
 
+import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,6 +18,8 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -30,6 +33,7 @@ public class JogadorSessionBean implements Serializable {
 	// Logger
 	private final Logger logger;
 	
+    private FacesContext facesContext = FacesContext.getCurrentInstance();
     private String login;
     private String senha;
     private Jogador jogador;
@@ -68,7 +72,7 @@ public class JogadorSessionBean implements Serializable {
     }
     
     public String autenticar()  {
-    	logger.error("OPAAAHHH");
+    	//logger.error("OPAAAHHH");
         //jogador = RepositoryFactory.getRepositorioJogador().recuperarPorLogin(login);
         List<Jogador> consulta = (List<Jogador>) repositorioJogador.recuperar(new FiltroJogadorLogin(login));
         if(consulta.size()>0) {
@@ -82,7 +86,9 @@ public class JogadorSessionBean implements Serializable {
             throw new RuntimeException("jogador==null"); //$NON-NLS-1$
             //return "errorpage.xhtml"; // TODO coloque o erro aqiu
         } else if (!jogador.autenticar(senha)) {
-            return PropriedadesApplicationBean.getString("pagina.deErro"); // TODO coloque o erro aqiu //$NON-NLS-1$
+            facesContext.addMessage(null, new FacesMessage("Falha de autenticacao.","JogadorSessionBean::autenticar"));
+            SaidaParaArquivo.file.println("JogadorSessionBean::autenticar");
+            return PropriedadesApplicationBean.getString("pagina.deErro");
         } else {
             return PropriedadesApplicationBean.getString("pagina.index"); //  //$NON-NLS-1$
         }

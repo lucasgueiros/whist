@@ -8,8 +8,6 @@ package com.github.lucasgueiros.ifuwhist.partida;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,9 +23,12 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
+import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -44,14 +45,15 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
 	private Mesa mesa;
     private Partida partida;
     private Jogador jogador;
+    private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
     //private boolean pronto;
     
     // others beans
     //@ManagedProperty ("#{ctrl_autenticacao}")
-    FacesContext faces = FacesContext.getCurrentInstance();
-    private JogadorSessionBean auth = (JogadorSessionBean) faces.getApplication().evaluateExpressionGet(faces, "#{contraladorAutenticacao}", JogadorSessionBean.class);
+    private FacesContext facesContext = FacesContext.getCurrentInstance();
+    private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
     //@ManagedProperty ("#{ctrl_mesas}")
-    private MesasApplicationBean mesas = (MesasApplicationBean) faces.getApplication().evaluateExpressionGet(faces, "#{constroladorMesas}", MesasApplicationBean.class);
+    private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
     
     // Repositório
     private Repositorio<Resultado> repositorioResultado;
@@ -119,7 +121,13 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public String go(Mesa mesa){//Partida partida) {
-    	if(mesa == null) return PropriedadesApplicationBean.getString("pagina.deErro");
+    	if(mesa == null) {
+            //logger.error("mesa==null on if on PartidaSessionBean::go");
+            //SaidaParaArquivo.file.println("mesa==null on if on PartidaSessionBean::go");
+            //return PropriedadesApplicationBean.getString("pagina.deErro");
+            return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");
+        }
+            
     	
     	Partida partida = new Partida();
         partida.setMesa(mesa);
@@ -159,6 +167,11 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         this.mesa = mesas.getMesa(jogador);
         return mesa != null;
     }
+    
+    public boolean isPronto(Mesa mesa) {
+        this.mesa = mesa;
+        return this.mesa != null;
+    }
 
     public List<Carta> getCartas() {
         return partida.getHand(this.mesa.getPosicao(this.jogador));
@@ -169,9 +182,11 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
             try {
                 this.partida.play(c);
             } catch (CartaNaoEstaNaMaoException ex) {  // isso só acontece se não for a vez da pessoa.
-                Logger.getLogger(PartidaSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("CartaNaoEstaNaMaoException");
+                SaidaParaArquivo.file.println("CartaNaoEstaNaMaoException");
             } catch (CartaInvalidaException ex) { // isso acontece normalmente
-                Logger.getLogger(PartidaSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("CartaInvalidaException");
+                SaidaParaArquivo.file.println("CartaInvalidaException");
             }
             
             if(partida.getPartidaTerminada() != null ) {
