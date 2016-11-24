@@ -23,7 +23,7 @@
             <property name="javax.persistence.jdbc.user" 
                       value="postgres" />
             <property name="javax.persistence.jdbc.password" 
-                      value="postgres"/>
+                      value="ifpe"/>
 
             <!--  propriedades do hibernate -->
             <property name="hibernate.dialect" 
