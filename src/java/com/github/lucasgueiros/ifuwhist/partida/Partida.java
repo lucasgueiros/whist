@@ -24,7 +24,6 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Simbolo;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
-import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
 
 /**
  *
@@ -34,9 +33,11 @@ import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
  */
 public class Partida {
     
+    private List<ListenerPartida> listeners = new LinkedList<>();
+    
     // General
     /** * O resultado do jogo */
-    private Resultado resultado = null;
+    //private Resultado resultado = null;
     /** * Momento do início do jogo. */
     private Date inicial;
     
@@ -48,6 +49,10 @@ public class Partida {
     private int tricksForNS;
     /** * a trick atual */
     private int trickNumber = 0; // 
+    /**
+     * A partida já acabou?
+     */
+    private boolean acabou = false;
     
     // For tricks
     /** * De quem é a vez? */
@@ -64,6 +69,8 @@ public class Partida {
     private final Map<Posicao,List<Carta>> hands; // 
     /** * o dealer da rodada*/
     private Posicao dealer;
+    private int pointsEW = 0;
+    private int pointsNS = 0;
     
     /**
      * Contrutor padrão. Cria as estruturas de dados.
@@ -87,8 +94,8 @@ public class Partida {
     public void start () {
         
         this.inicial = new Date();
-        this.resultado = null;
-        
+        //this.resultado = null;
+        this.acabou = false;
         
         this.first = dealer.next();
         this.turn = this.first;
@@ -284,28 +291,36 @@ public class Partida {
             //turn = null;
             
             // tire o book do vencedor e todos os pontos do perdedor
-            int pointsNS = 0, pointsEW = 0;
+            pointsNS = 0; pointsEW = 0;
             if(tricksForNS > 6) {
                 pointsNS = tricksForNS - 6;
             } else {
                 pointsEW = 13 - tricksForNS - 6;
             }
-            this.resultado = new Resultado(inicial, new Date(), pointsNS, pointsEW);
-            this.mesa.setLastPartida(resultado);
+            this.acabou = true;
+            //this.resultado = new Resultado(inicial, new Date(), pointsNS, pointsEW);
+            //this.mesa.setLastPartida(resultado);
+            //if(!this.mesa.temJogadoresAutomaticos()){
+            //    this.resultado.setNorth((Usuario)this.mesa.getJogador(Posicao.NORTH));
+            //    this.resultado.setEast((Usuario)this.mesa.getJogador(Posicao.EAST));
+            //    this.resultado.setSouth((Usuario)this.mesa.getJogador(Posicao.SOUTH));
+            //    this.resultado.setWest((Usuario)this.mesa.getJogador(Posicao.WEST));
+            //}
+            
             //this.mesa.updateLastPartida();
         }
         
     }
     
-    /**
+    /*
      * Retorna o resultado do j.ogo. É colocado o valor null quando o jogo inicia e só deixa de ser null quando ele acaba.
      * @return o objeto Partida com os dados da partida.
      */
-    public Resultado getPartidaTerminada() {
-        return resultado;
-    }
+    //public Resultado getPartidaTerminada() {
+    //    return resultado;
+    //}
     
-    /**
+    /*
      * Retorna as cartas na mão de um jogador de um naipe. Ainda não foi implementado.
      * @param p a posição do jogador
      * @param s o naipe que se deseja.
@@ -475,8 +490,33 @@ public class Partida {
     public void setDealer(Posicao dealer) {
         this.dealer = dealer;
     }
+
+    public boolean isAcabou() {
+        return acabou;
+    }
+
+    public int getPointsEW() {
+        return pointsEW;
+    }
+
+    public int getPointsNS() {
+        return pointsNS;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public boolean addListener(ListenerPartida e) {
+        return listeners.add(e);
+    }
     
+    public void acabou() {
+        EventoPartida evento = new EventoPartida(this);
+        for(ListenerPartida listener : this.listeners) {
+            listener.partidaAcabou(evento);
+        }
+    }
     
-        
 }
 

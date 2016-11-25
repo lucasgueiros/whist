@@ -6,6 +6,8 @@
 
 package com.github.lucasgueiros.ifuwhist.resultados;
 
+import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
+import com.github.lucasgueiros.ifuwhist.partida.Partida;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -50,7 +52,15 @@ public class Resultado {
 
     public Resultado() {
     }
-
+    
+    public Resultado(Partida partida) {
+        this(partida.getInicial(),new Date(),partida.getPointsNS(),partida.getPointsEW());
+        this.north = partida.getMesa().getJogador(Posicao.NORTH);
+        this.east = partida.getMesa().getJogador(Posicao.EAST);
+        this.south = partida.getMesa().getJogador(Posicao.SOUTH);
+        this.west = partida.getMesa().getJogador(Posicao.WEST);
+    }
+    
     public Resultado(Date start, Date end, int pointsNS, int pointsEW) {
         this.start = start;
         this.end = end;
