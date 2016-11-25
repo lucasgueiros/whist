@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 
 /**
  *

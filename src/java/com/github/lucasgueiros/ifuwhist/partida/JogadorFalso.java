@@ -3,7 +3,7 @@ package com.github.lucasgueiros.ifuwhist.partida;
 import java.util.List;
 import java.util.Map;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;

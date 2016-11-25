@@ -1,6 +1,6 @@
 package com.github.lucasgueiros.ifuwhist.resultados;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 
 public class FiltroContemJogador implements Filtro<Resultado>{

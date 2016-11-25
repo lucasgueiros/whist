@@ -9,7 +9,7 @@ package com.github.lucasgueiros.ifuwhist.mesa;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
 
 /**

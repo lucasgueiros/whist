@@ -20,8 +20,8 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.lucasgueiros.ifuwhist.jogador.UsuarioSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.UsuarioSessionBean;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.FiltroRecuperarTodos;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
 import java.io.Serializable;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.github.lucasgueiros.ifuwhist.jogador;
+package com.github.lucasgueiros.ifuwhist.usuario;
 
 import java.util.Date;
 

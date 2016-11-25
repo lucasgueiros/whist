@@ -1,4 +1,4 @@
-package com.github.lucasgueiros.ifuwhist.jogador;
+package com.github.lucasgueiros.ifuwhist.usuario;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 

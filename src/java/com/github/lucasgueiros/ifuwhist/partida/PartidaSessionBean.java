@@ -13,8 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.github.lucasgueiros.ifuwhist.jogador.UsuarioSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.UsuarioSessionBean;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import com.github.lucasgueiros.ifuwhist.mesa.MesasApplicationBean;
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;

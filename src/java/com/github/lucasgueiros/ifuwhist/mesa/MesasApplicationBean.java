@@ -16,7 +16,7 @@ import java.util.Set;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 import java.io.Serializable;
 
 /**
