@@ -3,7 +3,7 @@ package com.github.lucasgueiros.ifuwhist.partida;
 import java.util.List;
 import java.util.Map;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
@@ -12,7 +12,7 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
  *
  * @author lucas
  */
-public class JogadorFalso extends Jogador/* implements RunningMatchListener */{
+public class JogadorFalso extends Usuario/* implements RunningMatchListener *//* implements RunningMatchListener */{
 
     private static int fakeNumber = 0;
     

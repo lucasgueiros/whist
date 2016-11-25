@@ -9,7 +9,7 @@ package com.github.lucasgueiros.ifuwhist.mesa;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
 
 /**
@@ -21,11 +21,11 @@ public class Mesa {
     
     private long id;
     
-    private Map<Posicao,Jogador> players = new HashMap<>();
+    private Map<Posicao,Usuario> players = new HashMap<>();
     private Posicao nowDealer = Posicao.WEST;
     private Resultado lastPartida;
     
-    public Mesa(Jogador north, Jogador south, Jogador east, Jogador west ) {
+    public Mesa(Usuario north, Usuario south, Usuario east, Usuario west ) {
         if(north==null) {
             throw new NullPointerException("north==null");
         }else if(south==null) {
@@ -41,7 +41,7 @@ public class Mesa {
         this.players.put(Posicao.WEST, west);
     }
     
-    public Posicao addJogador(Jogador p) {
+    public Posicao addJogador(Usuario p) {
         Posicao r = null;
         for(Posicao po : Posicao.values()) {
             if(players.get(po).isFake()) {
@@ -69,7 +69,7 @@ public class Mesa {
         return !hasnot;
     }
  
-    public Posicao getPosicao(Jogador p) {
+    public Posicao getPosicao(Usuario p) {
         for(Posicao po : Posicao.values()) {
             if(players.get(po).equals(p))
                 return po;
@@ -100,7 +100,7 @@ public class Mesa {
         running.start();
     }*/
 
-    public Jogador getJogador(Posicao p) {
+    public Usuario getJogador(Posicao p) {
         return this.players.get(p);
     }
 

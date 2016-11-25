@@ -7,7 +7,7 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
  * @author lucas
  *
  */
-class FiltroJogadorId implements Filtro<Jogador>{
+class FiltroJogadorId implements Filtro<Usuario>{
 
 	private final long id;
 	
@@ -16,7 +16,7 @@ class FiltroJogadorId implements Filtro<Jogador>{
 	}
 	
 	@Override
-	public boolean filtrar(Jogador t) {
+	public boolean filtrar(Usuario t) {
 		return t!=null && t.getId() == id;
 	}
 

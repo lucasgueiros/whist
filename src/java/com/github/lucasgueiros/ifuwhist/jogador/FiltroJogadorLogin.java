@@ -2,7 +2,7 @@ package com.github.lucasgueiros.ifuwhist.jogador;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 
-class FiltroJogadorLogin implements Filtro<Jogador>{
+class FiltroJogadorLogin implements Filtro<Usuario>{
 	
 	private String login = null;
 
@@ -11,7 +11,7 @@ class FiltroJogadorLogin implements Filtro<Jogador>{
 	}
 	
 	@Override
-	public boolean filtrar(Jogador t) {
+	public boolean filtrar(Usuario t) {
 		return t!=null && t.getLogin().equals(login);
 	}
 	

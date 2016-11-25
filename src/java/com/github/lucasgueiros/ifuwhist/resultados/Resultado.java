@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 
 /**
  *
@@ -26,13 +26,13 @@ import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 public class Resultado {
     
     @ManyToOne
-    private Jogador north;
+    private Usuario north;
     @ManyToOne
-    private Jogador south;
+    private Usuario south;
     @ManyToOne
-    private Jogador east;
+    private Usuario east;
     @ManyToOne
-    private Jogador west;
+    private Usuario west;
     
     @Id
     @GeneratedValue
@@ -58,35 +58,35 @@ public class Resultado {
         this.pointsEW = pointsEW;
     }
 
-    public Jogador getNorth() {
+    public Usuario getNorth() {
         return north;
     }
 
-    public void setNorth(Jogador north) {
+    public void setNorth(Usuario north) {
         this.north = north;
     }
 
-    public Jogador getSouth() {
+    public Usuario getSouth() {
         return south;
     }
 
-    public void setSouth(Jogador south) {
+    public void setSouth(Usuario south) {
         this.south = south;
     }
 
-    public Jogador getEast() {
+    public Usuario getEast() {
         return east;
     }
 
-    public void setEast(Jogador east) {
+    public void setEast(Usuario east) {
         this.east = east;
     }
 
-    public Jogador getWest() {
+    public Usuario getWest() {
         return west;
     }
 
-    public void setWest(Jogador west) {
+    public void setWest(Usuario west) {
         this.west = west;
     }
 
@@ -141,7 +141,7 @@ public class Resultado {
         this.pointsEW = t.getPointsEW();
     }
 
-    public boolean containsJogador(Jogador p) {
+    public boolean containsJogador(Usuario p) {
         return p != null  && (this.north.equals(p) || this.south.equals(p) || this.east.equals(p) || this.west.equals(p)) ;
     }
     

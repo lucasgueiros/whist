@@ -36,14 +36,14 @@ public class JogadorSessionBean implements Serializable {
     private FacesContext facesContext = FacesContext.getCurrentInstance();
     private String login;
     private String senha;
-    private Jogador jogador;
+    private Usuario jogador;
     private String nome;
     
-    private Repositorio<Jogador> repositorioJogador;
+    private Repositorio<Usuario> repositorioJogador;
     
     public JogadorSessionBean() {
 		//DaoManagerHiber.main(null);
-    	repositorioJogador = new RepositorioJPA<Jogador>(Jogador.class);
+    	repositorioJogador = new RepositorioJPA<Usuario>(Usuario.class);
     	logger = LoggerFactory.getLogger(JogadorSessionBean.class);
 	}
 
@@ -74,7 +74,7 @@ public class JogadorSessionBean implements Serializable {
     public String autenticar()  {
     	//logger.error("OPAAAHHH");
         //jogador = RepositoryFactory.getRepositorioJogador().recuperarPorLogin(login);
-        List<Jogador> consulta = (List<Jogador>) repositorioJogador.recuperar(new FiltroJogadorLogin(login));
+        List<Usuario> consulta = (List<Usuario>) repositorioJogador.recuperar(new FiltroJogadorLogin(login));
         if(consulta.size()>0) {
             jogador = consulta.get(0);
         }
@@ -96,7 +96,7 @@ public class JogadorSessionBean implements Serializable {
     
     public String finalizarCadastrar() {
         //try RepositoryFactory.getRepositorioJogador().adicionar(jogador);
-        this.jogador = new Jogador(nome, login, senha);
+        this.jogador = new Usuario(nome, login, senha);
         this.repositorioJogador.adicionar(jogador);        
         return PropriedadesApplicationBean.getString("pagina.index");//autenticar(); //$NON-NLS-1$
     }
@@ -109,7 +109,7 @@ public class JogadorSessionBean implements Serializable {
         return "Login: " + nome; //$NON-NLS-1$
     }
     
-    public Jogador getJogador() {
+    public Usuario getJogador() {
         if(!isAutenticado()) return null; // daí dá pra testar se está autenticado pelo retorno desse método.
         return jogador;
     }

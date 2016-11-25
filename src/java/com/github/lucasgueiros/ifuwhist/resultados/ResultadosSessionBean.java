@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.FiltroRecuperarTodos;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
 import java.io.Serializable;
@@ -38,7 +38,7 @@ public class ResultadosSessionBean  implements Serializable {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
     
-    public List<Resultado> getResultados(Jogador jogador) {
+    public List<Resultado> getResultados(Usuario jogador) {
         //long id = auth.getJogador().getId();
         //return RepositoryFactory.getRepositorioPartidaTerminada().recuperarPorId(id);
         
@@ -75,7 +75,7 @@ public class ResultadosSessionBean  implements Serializable {
     }
     
     // TODO Altere essa forma de processamento. Não deveria ficar no JavaBean
-	public Collection<Jogador> getRanking() {
+	public Collection<Usuario> getRanking() {
 		logger.debug("Iniciando getRanking!");
 		// Estratégia: recupere todos os jogadores
 		// jogador por jogador, calcule programaticamente a pontuacao dele e der SET
@@ -92,7 +92,7 @@ public class ResultadosSessionBean  implements Serializable {
 		// É melhor pegar os jogadores que vieram junto com os resultados:
 		// O único problema é que jogadores que não jogaram nada não vão aparecer.
 		// Esse problema de duplicatas está na issue #5
-		Set<Jogador> jogadores = new HashSet<>();
+		Set<Usuario> jogadores = new HashSet<>();
 		
 		// Tirando jogadores dos resultados
 		for(Resultado resultado : resultados) {
@@ -103,7 +103,7 @@ public class ResultadosSessionBean  implements Serializable {
 		}
 		
 		logger.debug("recuperando os jogadores do BD. " + jogadores.size() + " jogadores recuperados.");
-		for(Jogador jogador : jogadores){
+		for(Usuario jogador : jogadores){
 			jogador.setPontuacao(0);
 		}
 		

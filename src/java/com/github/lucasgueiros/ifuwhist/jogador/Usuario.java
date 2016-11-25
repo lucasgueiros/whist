@@ -24,8 +24,7 @@ import javax.persistence.Transient;
  * @author lucas
  */
 @Entity
-@Table( name="jogador" )
-public class Jogador {
+public class Usuario {
     
     @Column(name="id")
     @Id
@@ -44,11 +43,11 @@ public class Jogador {
     
     // TODO tire esse deprecated que é muito chato
     //@Deprecated
-    Jogador() {
+    Usuario() {
     }
 
     
-    public Jogador(String nome, String login, String senha) {
+    public Usuario(String nome, String login, String senha) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -95,7 +94,7 @@ public class Jogador {
         this.inicio = inicio;
     } 
 
-    public void alterar(Jogador t) {
+    public void alterar(Usuario t) {
         if(t==null) return;
         this.setInicio(t.getInicio());
         this.setLogin(t.getLogin());
@@ -126,7 +125,7 @@ public class Jogador {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Jogador other = (Jogador) obj;
+        final Usuario other = (Usuario) obj;
         if (this.id != other.id) {
             return false;
         }

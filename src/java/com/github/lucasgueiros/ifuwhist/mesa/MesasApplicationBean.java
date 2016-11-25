@@ -16,7 +16,7 @@ import java.util.Set;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import java.io.Serializable;
 
 /**
@@ -30,19 +30,19 @@ public class MesasApplicationBean implements Serializable {
     /**
      * Jogadores sem mesa.
      */
-    private Set<Jogador> disponiveis = new HashSet<>();
-    private Map<Jogador,Mesa> mesas = new HashMap<>();
+    private Set<Usuario> disponiveis = new HashSet<>();
+    private Map<Usuario,Mesa> mesas = new HashMap<>();
     
-    public List<Jogador> getDisponiveis  () {
-        List<Jogador> disps = new LinkedList<>();
+    public List<Usuario> getDisponiveis  () {
+        List<Usuario> disps = new LinkedList<>();
         
-        for (Jogador player : disponiveis) {
+        for (Usuario player : disponiveis) {
             disps.add(player);
         }
         return disps;
     }
     
-    public Mesa createMesa(Jogador north, Jogador east, Jogador south, Jogador west) {
+    public Mesa createMesa(Usuario north, Usuario east, Usuario south, Usuario west) {
         Mesa t = new Mesa(north,south,east,west);
         mesas.put(west, t);
         mesas.put(north, t);
@@ -51,11 +51,11 @@ public class MesasApplicationBean implements Serializable {
         return t;
     }
 
-    public void adicionar(Jogador p) {
+    public void adicionar(Usuario p) {
         disponiveis.add(p);
     }
 
-    public Mesa getMesa(Jogador p) {
+    public Mesa getMesa(Usuario p) {
         return this.mesas.get(p);
     }
     

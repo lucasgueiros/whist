@@ -14,7 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import com.github.lucasgueiros.ifuwhist.mesa.MesasApplicationBean;
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
@@ -44,7 +44,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
 	private static final long serialVersionUID = 1L;
 	private Mesa mesa;
     private Partida partida;
-    private Jogador jogador;
+    private Usuario jogador;
     private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
     //private boolean pronto;
     
@@ -112,7 +112,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public String getNome(String position) {
-        Jogador pl = mesa.getJogador(Posicao.valueOf(position));
+        Usuario pl = mesa.getJogador(Posicao.valueOf(position));
         return pl.getNome();
     }
     

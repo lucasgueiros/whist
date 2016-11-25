@@ -13,7 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import java.io.Serializable;
 
 /**
@@ -33,23 +33,23 @@ public class MesasSessionBean  implements Serializable {
     /**
      * O jogador atual
      */
-    private Jogador myself;
+    private Usuario myself;
     /**
      * O parceiro dele.
      */
-    private Jogador parceiro;
+    private Usuario parceiro;
     /**
      * Oponente direita
      */
-    private Jogador direita;
+    private Usuario direita;
     /**
      * oponente esquerda
      */
-    private Jogador esquerda;
+    private Usuario esquerda;
     /**
      * Jogador selecionado
      */
-    private Jogador selected;
+    private Usuario selected;
     
 
     public JogadorSessionBean getAuth() {
@@ -68,48 +68,48 @@ public class MesasSessionBean  implements Serializable {
         this.mesas = mesas;
     }
 
-    public Jogador getMyself() {
+    public Usuario getMyself() {
         return myself;
     }
 
-    public void setMyself(Jogador myself) {
+    public void setMyself(Usuario myself) {
         this.myself = myself;
     }
 
-    public Jogador getParceiro() {
+    public Usuario getParceiro() {
         return parceiro;
     }
 
-    public void setParceiro(Jogador parceiro) {
+    public void setParceiro(Usuario parceiro) {
         this.parceiro = parceiro;
     }
 
-    public Jogador getDireita() {
+    public Usuario getDireita() {
         return direita;
     }
 
-    public void setDireita(Jogador direita) {
+    public void setDireita(Usuario direita) {
         this.direita = direita;
     }
 
-    public Jogador getEsquerda() {
+    public Usuario getEsquerda() {
         return esquerda;
     }
 
-    public void setEsquerda(Jogador esquerda) {
+    public void setEsquerda(Usuario esquerda) {
         this.esquerda = esquerda;
     }
 
-    public Jogador getSelected() {
+    public Usuario getSelected() {
         return selected;
     }
 
-    public void setSelected(Jogador selected) {
+    public void setSelected(Usuario selected) {
         this.selected = selected;
     }
     
-    public List<Jogador> getDisponiveis() {
-        List<Jogador> ps =  this.mesas.getDisponiveis();
+    public List<Usuario> getDisponiveis() {
+        List<Usuario> ps =  this.mesas.getDisponiveis();
         ps.remove(this.myself);
         return ps;
     }
