@@ -24,6 +24,8 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Simbolo;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -33,7 +35,7 @@ import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoExcept
  */
 public class Partida {
     
-    private List<ListenerPartida> listeners = new LinkedList<>();
+    private Set<ListenerPartida> listeners = new HashSet<>();
     
     // General
     /** * O resultado do jogo */
