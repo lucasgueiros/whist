@@ -74,7 +74,7 @@ public class JogadorSessionBean implements Serializable {
     public String autenticar()  {
     	//logger.error("OPAAAHHH");
         //jogador = RepositoryFactory.getRepositorioJogador().recuperarPorLogin(login);
-        List<Usuario> consulta = (List<Usuario>) repositorioJogador.recuperar(new FiltroJogadorLogin(login));
+        List<Usuario> consulta = (List<Usuario>) repositorioJogador.recuperar(new FiltroUsuarioLogin(login));
         if(consulta.size()>0) {
             jogador = consulta.get(0);
         }

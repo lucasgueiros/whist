@@ -7,11 +7,11 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
  * @author lucas
  *
  */
-class FiltroJogadorId implements Filtro<Usuario>{
+class FiltroUsuarioId implements Filtro<Usuario>{
 
 	private final long id;
 	
-	public FiltroJogadorId(long id) {
+	public FiltroUsuarioId(long id) {
 		this.id = id;
 	}
 	

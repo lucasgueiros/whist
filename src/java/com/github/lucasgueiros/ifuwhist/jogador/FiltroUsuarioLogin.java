@@ -2,11 +2,11 @@ package com.github.lucasgueiros.ifuwhist.jogador;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 
-class FiltroJogadorLogin implements Filtro<Usuario>{
+class FiltroUsuarioLogin implements Filtro<Usuario>{
 	
 	private String login = null;
 
-	public FiltroJogadorLogin(String login) {
+	public FiltroUsuarioLogin(String login) {
 		this.login = login;
 	}
 	
