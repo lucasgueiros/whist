@@ -15,9 +15,9 @@
             
             <p><h:outputText value="#{propriedades.get('pagina.jogar.esperarParaSerIncluidoNumaMesa.mensagem')}" /></p>
             
-            <p:remoteCommand autoRun="true" action="#{mesasApplicationBean.adicionar(jogadorSessionBean.jogador)}" />
+            <p:remoteCommand autoRun="true" action="#{mesasApplicationBean.adicionar(usuarioSessionBean.jogador)}" />
             
-            <h:outputText value="#{partidaSessionBean.isPronto(mesasApplicationBean.getMesa(jogadorSessionBean.jogador))}"/>
+            <h:outputText value="#{partidaSessionBean.isPronto(mesasApplicationBean.getMesa(usuarioSessionBean.jogador))}"/>
             <p:commandButton value="Jogar!" action="#{propriedades.get('pagina.jogar.jogando')}"/>
             
         </h:form>

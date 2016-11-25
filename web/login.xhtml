@@ -15,13 +15,13 @@
             <p:fieldset legend="Login ou Cadastro">
                 <p:panelGrid columns="2">
                     <h:outputText value="Usuário: "/>
-                    <p:inputText id="oLoginField" value="#{jogadorSessionBean.login}"/>
+                    <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
                     
                     <h:outputText value="Senha: "/>
-                    <p:inputText id="oSenhaField" type="password" value="#{jogadorSessionBean.senha}"/>
+                    <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
                     
-                    <p:commandButton id="oLoginButton" value="Login" action="#{jogadorSessionBean.autenticar()}"/>
-                    <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{jogadorSessionBean.cadastro()}"/>
+                    <p:commandButton id="oLoginButton" value="Login" action="#{usuarioSessionBean.autenticar()}"/>
+                    <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{usuarioSessionBean.cadastro()}"/>
                 </p:panelGrid>
             </p:fieldset>
         </h:form>

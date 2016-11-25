@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean ( eager=true)
 @SessionScoped
-public class JogadorSessionBean implements Serializable {
+public class UsuarioSessionBean implements Serializable {
 	
 	// Logger
 	private final Logger logger;
@@ -41,10 +41,10 @@ public class JogadorSessionBean implements Serializable {
     
     private Repositorio<Usuario> repositorioJogador;
     
-    public JogadorSessionBean() {
+    public UsuarioSessionBean() {
 		//DaoManagerHiber.main(null);
     	repositorioJogador = new RepositorioJPA<Usuario>(Usuario.class);
-    	logger = LoggerFactory.getLogger(JogadorSessionBean.class);
+    	logger = LoggerFactory.getLogger(UsuarioSessionBean.class);
 	}
 
     public String getNome() {

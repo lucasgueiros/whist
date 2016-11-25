@@ -15,7 +15,7 @@
             
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             
-            <p:remoteCommand autoRun="true" action="#{mesasSessionBean.setMyself(jogadorSessionBean.jogador)}" />
+            <p:remoteCommand autoRun="true" action="#{mesasSessionBean.setMyself(usuarioSessionBean.jogador)}" />
             
             <p:poll update="@(.update)" interval="2"/>
             

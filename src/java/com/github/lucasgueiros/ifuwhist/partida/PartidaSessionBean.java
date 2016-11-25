@@ -13,7 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
+import com.github.lucasgueiros.ifuwhist.jogador.UsuarioSessionBean;
 import com.github.lucasgueiros.ifuwhist.jogador.Usuario;
 import com.github.lucasgueiros.ifuwhist.mesa.MesasApplicationBean;
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
@@ -51,7 +51,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     // others beans
     //@ManagedProperty ("#{ctrl_autenticacao}")
     private FacesContext facesContext = FacesContext.getCurrentInstance();
-    private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
+    private UsuarioSessionBean auth = (UsuarioSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", UsuarioSessionBean.class);
     //@ManagedProperty ("#{ctrl_mesas}")
     private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
     
@@ -147,11 +147,11 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         }
     }
 
-    public JogadorSessionBean getAuth() {
+    public UsuarioSessionBean getAuth() {
         return auth;
     }
 
-    public void setAuth(JogadorSessionBean auth) {
+    public void setAuth(UsuarioSessionBean auth) {
         this.auth = auth;
     }
 
