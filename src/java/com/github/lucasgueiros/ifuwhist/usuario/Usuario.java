@@ -6,6 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.usuario;
 
+import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.persistence.Transient;
  * @author lucas
  */
 @Entity
-public class Usuario {
+public class Usuario implements Jogador {
     
     @Column(name="id")
     @Id
@@ -70,6 +71,7 @@ public class Usuario {
         this.nome = nome;
     }
 
+    @Override
     public String getLogin() {
         return login;
     }
