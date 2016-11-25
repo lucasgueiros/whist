@@ -11,7 +11,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <!-- entidade mapeada -->
-        <class>com.github.lucasgueiros.ifuwhist.jogador.Jogador</class>
+        <class>com.github.lucasgueiros.ifuwhist.usuario.Usuario</class>
         <class>com.github.lucasgueiros.ifuwhist.resultados.Resultado</class>
 
         <properties>
