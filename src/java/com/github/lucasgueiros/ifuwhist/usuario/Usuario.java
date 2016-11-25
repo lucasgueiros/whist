@@ -143,6 +143,11 @@ public class Usuario implements Jogador {
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
 	}
+
+    @Override
+    public boolean isUsuario() {
+        return true;
+    }
  
     
     

@@ -16,4 +16,10 @@ public interface Jogador {
      * @return 
      */
     public String getLogin();
+    /**
+     * Diz se o jogador é um usuario.
+     * 
+     * @return 
+     */
+    public boolean isUsuario();
 }

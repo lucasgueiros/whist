@@ -21,7 +21,7 @@ public class Mesa {
     
     private long id;
     
-    private Map<Posicao,Usuario> players = new HashMap<>();
+    private Map<Posicao,Jogador> players = new HashMap<>();
     private Posicao nowDealer = Posicao.WEST;
     private boolean temJogadoresFalsos;
     
@@ -100,7 +100,7 @@ public class Mesa {
         running.start();
     }*/
 
-    public Usuario getJogador(Posicao p) {
+    public Jogador getJogador(Posicao p) {
         return this.players.get(p);
     }
 
