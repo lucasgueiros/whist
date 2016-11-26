@@ -76,7 +76,9 @@
                 <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas(partidaSessionBean.myPosicao)}" >
                     
                     <c:forEach items="#{partidaSessionBean.cartas}" var="carta">
-                        <p:commandButton action="#{partidaSessionBean.play(carta)}" value="#{carta.toString()}"/>
+                        <p:commandLink action="#{partidaSessionBean.play(carta)}">
+                            <h:graphicImage value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" height="100px"/>
+                        </p:commandLink>
                     </c:forEach>    
                     
                 </p:panelGrid>
