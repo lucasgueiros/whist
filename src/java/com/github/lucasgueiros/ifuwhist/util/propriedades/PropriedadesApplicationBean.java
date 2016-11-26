@@ -65,4 +65,8 @@ public class PropriedadesApplicationBean  implements Serializable {
         return PropriedadesApplicationBean.getString(key);
     }
     
+    public String getCarta(Carta carta) {
+        return PropriedadesApplicationBean.getImagem(carta);
+    }
+    
 }
