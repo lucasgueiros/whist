@@ -527,7 +527,13 @@ public class Partida {
         EventoPartida evento = new EventoPartida(this);
         evento.setVez(turn);
         for(ListenerPartida listener : this.listeners) {
-            listener.alguemJogou(evento);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    listener.alguemJogou(evento);
+                }
+            }).start();
+            
         }
     }
     

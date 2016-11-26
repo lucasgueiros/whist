@@ -105,9 +105,10 @@ public class JogadorFalso implements Jogador, ListenerPartida/* implements Runni
     }
 
     @Override
-    public void alguemJogou(EventoPartida evento) {
+    public synchronized void alguemJogou(EventoPartida evento) {
         if (evento.getVez() == minhaPosicao) {
             try {
+                wait(1000);
                 Map<Posicao, Carta> trick = evento.getPartida().getTrick();
                 Posicao inicial = evento.getPartida().getFirst();
                 Naipe trunfo = evento.getPartida().getTrumph().getNaipe();
@@ -115,6 +116,8 @@ public class JogadorFalso implements Jogador, ListenerPartida/* implements Runni
                 Carta carta = yourTurn(trick, inicial, trunfo, hand);
                 evento.getPartida().play(carta);
             } catch (CartaNaoEstaNaMaoException | CartaInvalidaException ex) {
+                Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
                 Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
