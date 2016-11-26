@@ -1,5 +1,6 @@
 package com.github.lucasgueiros.ifuwhist.util.propriedades;
 
+import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,26 @@ public class PropriedadesApplicationBean  implements Serializable {
 
     public static String getString(String key) {
         return properties.getProperty(key);
+    }
+
+    public static String getImagem(Carta carta) {
+        String url = "cartas/";
+        switch(carta.getSimbolo()) {
+            case A: url += "ace"; break;
+            case K: url += "king"; break;
+            case Q: url += "queen"; break;
+            case J: url += "jack"; break;            
+            default: url+=carta.getSimbolo().toString();
+        }
+        url += "_of_";
+        switch(carta.getNaipe()) {
+            case CLUBS: url += "clubs"; break;
+            case DIAMONDS: url += "diamonds"; break;
+            case HEARTS: url += "hearts"; break;
+            case SPADES: url += "spades"; break;
+        }
+        url += ".svg";
+        return url;
     }
 
     public String get(String key) {
