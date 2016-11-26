@@ -65,10 +65,10 @@
                     <h:outputText value="#{ partidaSessionBean.getNome('WEST') }"/>
                     
                     
-                    <h:outputText value="#{ partidaSessionBean.getCarta('NORTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getCarta('EAST') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getCarta('SOUTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getCarta('WEST') }"/>
+                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('NORTH') }" value="#{ partidaSessionBean.getCartaImagem('NORTH') }" height="100px"/>
+                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('EAST') }" value="#{ partidaSessionBean.getCartaImagem('EAST') }" height="100px"/>
+                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('SOUTH') }" value="#{ partidaSessionBean.getCartaImagem('SOUTH') }" height="100px"/>
+                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('WEST') }" value="#{ partidaSessionBean.getCartaImagem('WEST') }" height="100px"/>
                     
                     
                 </p:panelGrid>
