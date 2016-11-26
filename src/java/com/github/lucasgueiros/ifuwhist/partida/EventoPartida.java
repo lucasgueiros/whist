@@ -5,12 +5,15 @@
  */
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
+
 /**
  *
  * @author ogi
  */
 public class EventoPartida {
     private Partida partida;
+    private Posicao vez;
 
     public Partida getPartida() {
         return partida;
@@ -23,6 +26,13 @@ public class EventoPartida {
     public EventoPartida(Partida partida) {
         this.partida = partida;
     }
-    
+
+    public void setVez(Posicao turn) {
+        this.vez=turn;
+    }
+
+    public Posicao getVez() {
+        return vez;
+    }
     
 }

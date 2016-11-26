@@ -103,6 +103,7 @@ public class Partida {
         this.turn = this.first;
         //this.trickNumber++;
         this.mesa.turnChanged();
+        this.mudancaDeVez();
     }
     
     /**
@@ -227,11 +228,13 @@ public class Partida {
         this.trick.put(turn, card);
         // mova a vez para o próximo jogador
         this.turn = this.turn.next();
+        
 
         // se for a última carta, verifique o vencedor e inicie a próxima vaza
         if (this.turn == this.first) {
             trickEnded();
         }
+        mudancaDeVez();
         // avise a table que alguém jogou
         this.mesa.turnChanged();
     }
@@ -513,10 +516,18 @@ public class Partida {
         return listeners.add(e);
     }
     
-    public void acabou() {
+    private void acabou() {
         EventoPartida evento = new EventoPartida(this);
         for(ListenerPartida listener : this.listeners) {
             listener.partidaAcabou(evento);
+        }
+    }
+    
+    private void mudancaDeVez(){
+        EventoPartida evento = new EventoPartida(this);
+        evento.setVez(turn);
+        for(ListenerPartida listener : this.listeners) {
+            listener.alguemJogou(evento);
         }
     }
     

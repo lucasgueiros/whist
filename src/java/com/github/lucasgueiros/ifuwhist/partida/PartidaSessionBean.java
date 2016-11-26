@@ -6,13 +6,13 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import com.github.lucasgueiros.ifuwhist.jogador.JogadorFalso;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
@@ -45,7 +45,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     
     // others beans
     //@ManagedProperty ("#{ctrl_autenticacao}")
-    private FacesContext facesContext = FacesContext.getCurrentInstance();
+    //private FacesContext facesContext = FacesContext.getCurrentInstance();
     //private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
     //@ManagedProperty ("#{ctrl_mesas}")
     //private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
@@ -114,6 +114,24 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         return partida.getPlayedCarta(Posicao.valueOf(position));
     }
     
+    public String goSozinho(Jogador north) {
+        this.jogador = north;
+        JogadorFalso south=new JogadorFalso(Posicao.SOUTH);
+        JogadorFalso west=new JogadorFalso(Posicao.WEST);
+        JogadorFalso east=new JogadorFalso(Posicao.EAST);
+        mesa = new Mesa(north,south, east, west);
+        partida = new Partida();
+        partida.addListener(west);
+        partida.addListener(east);
+        partida.addListener(south);
+        partida.setMesa(mesa);
+        partida.setDealer(mesa.getProximoNowDealer());
+        partida.deal();
+        partida.start();
+        
+        return PropriedadesApplicationBean.getString("pagina.jogar");
+    }
+    
     public String go(Jogador jogador, Mesa mesa){//Partida partida) {
     	if(mesa == null) {
             //logger.error("mesa==null on if on PartidaSessionBean::go");
@@ -123,7 +141,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         }
             
     	
-    	Partida partida = new Partida();
+    	partida = new Partida();
         partida.setMesa(mesa);
         partida.setDealer(mesa.getProximoNowDealer());
         partida.deal();
@@ -133,13 +151,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         this.jogador = jogador;
         //this.mesa = mesas.getMesa(jogador);
         this.mesa = mesa;
-        if(this.mesa == null) {
-            return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");//"espera.xhtml";
-        } else {
-            //rm = t.getRunning();
-        	this.partida = partida;
-            return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
-        }
+        return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
     }
 
     /*public MesasApplicationBean getMesas() {
@@ -161,7 +173,8 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
 
     public List<Carta> getCartas() {
-        return partida.getHand(this.mesa.getPosicao(this.jogador));
+        Posicao posicao = this.mesa.getPosicao(this.jogador);
+        return partida.getHand(posicao);
     }
     
     public /*String*/ void play(Carta c) {
@@ -179,6 +192,14 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         }
         //return "#";
         
+    }
+
+    public Partida getPartida() {
+        return partida;
+    }
+
+    public void setPartida(Partida partida) {
+        this.partida = partida;
     }
     
 }

@@ -10,8 +10,6 @@ import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
-
 /**
  *
  * @author lucas
@@ -24,8 +22,8 @@ public class Mesa {
     private Map<Posicao,Jogador> players = new HashMap<>();
     private Posicao nowDealer = Posicao.WEST;
     private boolean temJogadoresFalsos;
-    
-    public Mesa(Usuario north, Usuario south, Usuario east, Usuario west ) {
+   
+    public Mesa(Jogador north, Jogador south, Jogador east, Jogador west ) {
         if(north==null) {
             throw new NullPointerException("north==null");
         }else if(south==null) {

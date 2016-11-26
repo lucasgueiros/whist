@@ -11,4 +11,6 @@ package com.github.lucasgueiros.ifuwhist.partida;
  */
 public interface ListenerPartida {
     public void partidaAcabou(EventoPartida informacoesAdicionais);
+
+    public void alguemJogou(EventoPartida evento);
 }

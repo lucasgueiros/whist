@@ -37,6 +37,11 @@ public class ResultadoApplicationScoped implements ListenerPartida {
             this.repositorioResultado.adicionar(resultado);
         }
     }
+
+    @Override
+    public void alguemJogou(EventoPartida evento) {
+        //  nada
+    }
     
     
     
