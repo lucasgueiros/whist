@@ -460,9 +460,7 @@ public class Partida {
     public Map<Posicao,Carta> getTrick() {
         Map<Posicao,Carta> toReturn = new EnumMap<Posicao,Carta>(Posicao.class);
         for (Map.Entry<Posicao, Carta> entry : trick.entrySet()) {
-                //Posicao position = entry.getKey();
-                Carta card = entry.getValue();
-                toReturn.put(turn, card);
+                toReturn.put(entry.getKey(), entry.getValue());
             }
         return toReturn;
     }
@@ -525,7 +523,7 @@ public class Partida {
     
     private void mudancaDeVez(){
         EventoPartida evento = new EventoPartida(this);
-        evento.setVez(turn);
+        evento.setVez(this.acabou ? null : turn);
         for(ListenerPartida listener : this.listeners) {
             new Thread(new Runnable() {
                 @Override
