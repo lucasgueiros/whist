@@ -6,27 +6,22 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import com.github.lucasgueiros.ifuwhist.jogador.JogadorFalso;
+import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
-import com.github.lucasgueiros.ifuwhist.jogador.JogadorSessionBean;
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
-import com.github.lucasgueiros.ifuwhist.mesa.MesasApplicationBean;
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
-import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
 import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
-import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
-import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,16 +45,15 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     
     // others beans
     //@ManagedProperty ("#{ctrl_autenticacao}")
-    private FacesContext facesContext = FacesContext.getCurrentInstance();
-    private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
+    //private FacesContext facesContext = FacesContext.getCurrentInstance();
+    //private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
     //@ManagedProperty ("#{ctrl_mesas}")
-    private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
+    //private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
     
     // Repositório
-    private Repositorio<Resultado> repositorioResultado;
     
     public PartidaSessionBean() {
-    	repositorioResultado = new RepositorioJPA<>(Resultado.class);
+    	
     }
     
     // Todas as informações do jogo
@@ -113,14 +107,32 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     
     public String getNome(String position) {
         Jogador pl = mesa.getJogador(Posicao.valueOf(position));
-        return pl.getNome();
+        return pl.getLogin();
     }
     
     public Carta getCarta(String position) {
         return partida.getPlayedCarta(Posicao.valueOf(position));
     }
     
-    public String go(Mesa mesa){//Partida partida) {
+    public String goSozinho(Jogador north) {
+        this.jogador = north;
+        JogadorFalso south=new JogadorFalso(Posicao.SOUTH);
+        JogadorFalso west=new JogadorFalso(Posicao.WEST);
+        JogadorFalso east=new JogadorFalso(Posicao.EAST);
+        mesa = new Mesa(north,south, east, west);
+        partida = new Partida();
+        partida.addListener(west);
+        partida.addListener(east);
+        partida.addListener(south);
+        partida.setMesa(mesa);
+        partida.setDealer(mesa.getProximoNowDealer());
+        partida.deal();
+        partida.start();
+        
+        return PropriedadesApplicationBean.getString("pagina.jogar");
+    }
+    
+    public String go(Jogador jogador, Mesa mesa){//Partida partida) {
     	if(mesa == null) {
             //logger.error("mesa==null on if on PartidaSessionBean::go");
             //SaidaParaArquivo.file.println("mesa==null on if on PartidaSessionBean::go");
@@ -129,42 +141,29 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         }
             
     	
-    	Partida partida = new Partida();
+    	partida = new Partida();
         partida.setMesa(mesa);
         partida.setDealer(mesa.getProximoNowDealer());
         partida.deal();
         partida.start();
         
         //ctrl_fila.findMesa(ctrl_autenticacao.player) , ctrl_autenticacao.player
-        this.jogador = auth.getJogador();
-        this.mesa = mesas.getMesa(jogador);
-        if(this.mesa == null) {
-            return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");//"espera.xhtml";
-        } else {
-            //rm = t.getRunning();
-        	this.partida = partida;
-            return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
-        }
+        this.jogador = jogador;
+        //this.mesa = mesas.getMesa(jogador);
+        this.mesa = mesa;
+        return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
     }
 
-    public JogadorSessionBean getAuth() {
-        return auth;
-    }
-
-    public void setAuth(JogadorSessionBean auth) {
-        this.auth = auth;
-    }
-
-    public MesasApplicationBean getMesas() {
+    /*public MesasApplicationBean getMesas() {
         return mesas;
     }
 
     public void setMesas(MesasApplicationBean mesas) {
         this.mesas = mesas;
-    }
+    }*/
 
     public boolean isPronto() {
-        this.mesa = mesas.getMesa(jogador);
+        //this.mesa = mesas.getMesa(jogador);
         return mesa != null;
     }
     
@@ -174,7 +173,8 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
 
     public List<Carta> getCartas() {
-        return partida.getHand(this.mesa.getPosicao(this.jogador));
+        Posicao posicao = this.mesa.getPosicao(this.jogador);
+        return partida.getHand(posicao);
     }
     
     public /*String*/ void play(Carta c) {
@@ -189,20 +189,17 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
                 SaidaParaArquivo.file.println("CartaInvalidaException");
             }
             
-            if(partida.getPartidaTerminada() != null ) {
-                //try {
-                    //RepositoryFactory.getRepositorioPartidaTerminada().adicionar(rm.getPartidaTerminada());
-                this.repositorioResultado.adicionar(partida.getPartidaTerminada());
-                //} catch (IdNaoDisponivelException ex) {
-                //    Logger.getLogger(ControladorPartida.class.getName()).log(Level.SEVERE, null, ex);
-                //}
-            }
         }
         //return "#";
         
     }
-    
-    public Resultado getPartida () {
-        return partida.getPartidaTerminada();
+
+    public Partida getPartida() {
+        return partida;
     }
+
+    public void setPartida(Partida partida) {
+        this.partida = partida;
+    }
+    
 }

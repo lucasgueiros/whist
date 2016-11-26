@@ -1,4 +1,4 @@
-package com.github.lucasgueiros.ifuwhist.jogador;
+package com.github.lucasgueiros.ifuwhist.usuario;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 
@@ -7,16 +7,16 @@ import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
  * @author lucas
  *
  */
-class FiltroJogadorId implements Filtro<Jogador>{
+class FiltroUsuarioId implements Filtro<Usuario>{
 
 	private final long id;
 	
-	public FiltroJogadorId(long id) {
+	public FiltroUsuarioId(long id) {
 		this.id = id;
 	}
 	
 	@Override
-	public boolean filtrar(Jogador t) {
+	public boolean filtrar(Usuario t) {
 		return t!=null && t.getId() == id;
 	}
 

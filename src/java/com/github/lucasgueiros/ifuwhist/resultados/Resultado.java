@@ -6,6 +6,9 @@
 
 package com.github.lucasgueiros.ifuwhist.resultados;
 
+import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
+import com.github.lucasgueiros.ifuwhist.partida.Partida;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
+import com.github.lucasgueiros.ifuwhist.usuario.Usuario;
 
 /**
  *
@@ -26,13 +29,13 @@ import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 public class Resultado {
     
     @ManyToOne
-    private Jogador north;
+    private Usuario north;
     @ManyToOne
-    private Jogador south;
+    private Usuario south;
     @ManyToOne
-    private Jogador east;
+    private Usuario east;
     @ManyToOne
-    private Jogador west;
+    private Usuario west;
     
     @Id
     @GeneratedValue
@@ -50,7 +53,19 @@ public class Resultado {
 
     public Resultado() {
     }
-
+    
+    public Resultado(Partida partida) {
+        this(partida.getInicial(),new Date(),partida.getPointsNS(),partida.getPointsEW());
+        if(partida.getMesa().getJogador(Posicao.NORTH).isUsuario())
+            this.north = (Usuario) partida.getMesa().getJogador(Posicao.NORTH);
+        if(partida.getMesa().getJogador(Posicao.EAST).isUsuario())
+            this.east = (Usuario) partida.getMesa().getJogador(Posicao.EAST);
+        if(partida.getMesa().getJogador(Posicao.SOUTH).isUsuario())
+            this.south = (Usuario) partida.getMesa().getJogador(Posicao.SOUTH);
+        if(partida.getMesa().getJogador(Posicao.WEST).isUsuario())
+            this.west = (Usuario) partida.getMesa().getJogador(Posicao.WEST);
+    }
+    
     public Resultado(Date start, Date end, int pointsNS, int pointsEW) {
         this.start = start;
         this.end = end;
@@ -58,35 +73,35 @@ public class Resultado {
         this.pointsEW = pointsEW;
     }
 
-    public Jogador getNorth() {
+    public Usuario getNorth() {
         return north;
     }
 
-    public void setNorth(Jogador north) {
+    public void setNorth(Usuario north) {
         this.north = north;
     }
 
-    public Jogador getSouth() {
+    public Usuario getSouth() {
         return south;
     }
 
-    public void setSouth(Jogador south) {
+    public void setSouth(Usuario south) {
         this.south = south;
     }
 
-    public Jogador getEast() {
+    public Usuario getEast() {
         return east;
     }
 
-    public void setEast(Jogador east) {
+    public void setEast(Usuario east) {
         this.east = east;
     }
 
-    public Jogador getWest() {
+    public Usuario getWest() {
         return west;
     }
 
-    public void setWest(Jogador west) {
+    public void setWest(Usuario west) {
         this.west = west;
     }
 
@@ -141,8 +156,27 @@ public class Resultado {
         this.pointsEW = t.getPointsEW();
     }
 
-    public boolean containsJogador(Jogador p) {
+    public boolean containsJogador(Usuario p) {
         return p != null  && (this.north.equals(p) || this.south.equals(p) || this.east.equals(p) || this.west.equals(p)) ;
+    }
+
+    public void setJogador(Posicao p, Usuario usuario) {
+        switch(p) {
+            case NORTH: north = usuario; break;
+            case EAST: east = usuario; break;
+            case SOUTH: south = usuario; break;
+            case WEST: west = usuario; break;
+        }
+    }
+
+    public Jogador getJogador(Posicao p) {
+        switch(p) {
+            case NORTH: return north;
+            case EAST: return east;
+            case SOUTH: return south;
+            case WEST: return west;
+        }
+        return null;
     }
     
     

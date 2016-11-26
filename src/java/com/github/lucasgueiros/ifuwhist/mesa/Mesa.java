@@ -6,11 +6,9 @@
 
 package com.github.lucasgueiros.ifuwhist.mesa;
 
+import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
-import com.github.lucasgueiros.ifuwhist.resultados.Resultado;
 
 /**
  *
@@ -23,8 +21,8 @@ public class Mesa {
     
     private Map<Posicao,Jogador> players = new HashMap<>();
     private Posicao nowDealer = Posicao.WEST;
-    private Resultado lastPartida;
-    
+    private boolean temJogadoresFalsos;
+   
     public Mesa(Jogador north, Jogador south, Jogador east, Jogador west ) {
         if(north==null) {
             throw new NullPointerException("north==null");
@@ -41,17 +39,17 @@ public class Mesa {
         this.players.put(Posicao.WEST, west);
     }
     
-    public Posicao addJogador(Jogador p) {
-        Posicao r = null;
-        for(Posicao po : Posicao.values()) {
-            if(players.get(po).isFake()) {
-                players.replace(po, p);
-                r = po;
-                break;
-            }
-        }
-        return r;
-    }
+    //public Posicao addJogador(Usuario p) {
+    //    Posicao r = null;
+    //    for(Posicao po : Posicao.values()) {
+    //        if(players.get(po).isFake()) {
+    //            players.replace(po, p);
+    //            r = po;
+    //            break;
+    //        }
+    //    }
+    //    return r;
+    //}
     
     public void setId(long id) {
         this.id = id;
@@ -61,13 +59,13 @@ public class Mesa {
         return id;
     }
 
-    public boolean hasPlace() {
-        boolean hasnot = true;
-        for(Posicao po : Posicao.values()) {
-            if(this.players.get(po).isFake()) hasnot = false;
-        }
-        return !hasnot;
-    }
+    //public boolean hasPlace() {
+    //    boolean hasnot = true;
+    //    for(Posicao po : Posicao.values()) {
+    //        if(this.players.get(po).isFake()) hasnot = false;
+    //    }
+    //    return !hasnot;
+    //}
  
     public Posicao getPosicao(Jogador p) {
         for(Posicao po : Posicao.values()) {
@@ -114,20 +112,6 @@ public class Mesa {
         }*/
     }
     
-    public Resultado getLastPartida() {
-        return this.lastPartida;
-    }
-
-    public void setLastPartida(Resultado resultado) {
-    	this.lastPartida = resultado;
-    	if(this.lastPartida !=null){
-    		this.lastPartida.setEast(this.getJogador(Posicao.EAST));
-    		this.lastPartida.setNorth(this.getJogador(Posicao.NORTH));
-    		this.lastPartida.setSouth(this.getJogador(Posicao.SOUTH));
-    		this.lastPartida.setWest(this.getJogador(Posicao.WEST));
-    	}
-    }
-    
     /*@Deprecated
     public void updateLastPartida() {
         this.lastPartida = this.running.getPartidaTerminada();
@@ -136,6 +120,10 @@ public class Mesa {
         this.lastPartida.setSouth(this.getJogador(Posicao.SOUTH));
         this.lastPartida.setWest(this.getJogador(Posicao.WEST));
     }*/
+
+    public boolean temJogadoresFalsos() {
+        return temJogadoresFalsos;
+    }
     
     
 }

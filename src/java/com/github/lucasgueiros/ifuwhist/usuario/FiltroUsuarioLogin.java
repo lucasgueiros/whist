@@ -1,17 +1,17 @@
-package com.github.lucasgueiros.ifuwhist.jogador;
+package com.github.lucasgueiros.ifuwhist.usuario;
 
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Filtro;
 
-class FiltroJogadorLogin implements Filtro<Jogador>{
+class FiltroUsuarioLogin implements Filtro<Usuario>{
 	
 	private String login = null;
 
-	public FiltroJogadorLogin(String login) {
+	public FiltroUsuarioLogin(String login) {
 		this.login = login;
 	}
 	
 	@Override
-	public boolean filtrar(Jogador t) {
+	public boolean filtrar(Usuario t) {
 		return t!=null && t.getLogin().equals(login);
 	}
 	
