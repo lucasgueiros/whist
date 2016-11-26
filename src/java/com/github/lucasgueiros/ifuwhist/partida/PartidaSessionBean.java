@@ -75,6 +75,10 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         return partida.getTrumph().getNaipe().toString();
     }
     
+    public String getTrumphNaipeValue() {
+        return PropriedadesApplicationBean.getString("imagens.naipes."+getTrumphNaipe());
+    }
+    
     public String getTrumphCarta() {
         return partida.getTrumph().getSimbolo().toString();
     }
