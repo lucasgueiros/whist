@@ -9,88 +9,76 @@
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.jogar.titulo')}
         </title>
+        <style>
+            .ui-panelgrid td, .ui-panelgrid tr, .ui-panel td, .ui-panel tr
+            {
+                border-style: none !important
+            }
+            img.cartaVertical {
+                width: 50px;
+            }
+            img.cartaHorizontal {
+                height: 50px;
+            }
+        </style>
     </h:head>
     <h:body>
         <h:form id="formulario" >
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
-            <h1>Jogar</h1>
-            
-            <!--<p:remoteCommand autoRun="true" action="JDV{partidaSessionBean.go()}"/>-->
-            
             <!-- Será atualizado por ajax a cada 2 segundos! -->
             <p:poll update="@(.frequpdate)" interval="2" />
-            
+            <p:panel>
+                <h:outputText value="Naipe de trunfo: "/>
+                <h:graphicImage value="#{partidaSessionBean.trumphNaipeValue}" alt="#{partidaSessionBean.trumphNaipe}" height="50px"/>
+            </p:panel>
             <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field">
-                <p:panelGrid id="opanelgrid" columns="4">
-                    
-                    <h:outputText value="Status:"/>
-                    <h:outputText id="ostatu" value="#{partidaSessionBean.status}"/>
-                    <h:outputText value="Position:"/>
-                    <h:outputText value="#{partidaSessionBean.myPosicao}"/>
-                    
-                    
-                    <h:outputText value="Trunfo e corrente:"/>
-                    <h:graphicImage value="#{partidaSessionBean.trumphNaipeValue}" alt="#{partidaSessionBean.trumphNaipe}" height="50px"/>
-                    <h:outputText value="#{partidaSessionBean.trumphCarta}"/>
-                    <h:outputText value="#{partidaSessionBean.partida == null}"/>
-                    
-                    
-                    <h:outputText value="Placar (TOTAL,NS,EW):"/>
-                    <h:outputText value="#{partidaSessionBean.placarTotal}"/>
-                    <h:outputText value="#{partidaSessionBean.placarNS}"/>
-                    <h:outputText value="#{partidaSessionBean.placarEW}"/>
-                    
-                    
-                    <h:outputText value="NORTE"/>
-                    <h:outputText value="LESTE"/>
-                    <h:outputText value="SUL"/>
-                    <h:outputText value="OESTE"/>
-                    
-                    
-                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('NORTH')}"/>
-                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('EAST')}"/>
-                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('SOUTH')}"/>
-                    <h:outputText value="#{partidaSessionBean.getNumeroCartas('WEST')}"/>
-                    
-                    
-                    <h:outputText value="#{ partidaSessionBean.isTurn('NORTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.isTurn('EAST') }"/>
-                    <h:outputText value="#{ partidaSessionBean.isTurn('SOUTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.isTurn('WEST') }"/>
-                    
-                    
-                    <h:outputText value="#{ partidaSessionBean.getNome('NORTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getNome('EAST') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getNome('SOUTH') }"/>
-                    <h:outputText value="#{ partidaSessionBean.getNome('WEST') }"/>
-                    
-                    
-                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('NORTH') }" value="#{ partidaSessionBean.getCartaImagem('NORTH') }" height="100px"/>
-                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('EAST') }" value="#{ partidaSessionBean.getCartaImagem('EAST') }" height="100px"/>
-                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('SOUTH') }" value="#{ partidaSessionBean.getCartaImagem('SOUTH') }" height="100px"/>
-                    <h:graphicImage alt="#{ partidaSessionBean.getCarta('WEST') }" value="#{ partidaSessionBean.getCartaImagem('WEST') }" height="100px"/>
-                    
-                    
+                <p:panelGrid columns="1" id="opanelgrid">
+                    <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas('SOUTH')}">
+                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('SOUTH'))}" var="carta">
+                            <h:graphicImage value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
+                        </c:forEach>
+                    </p:panelGrid>
+                    <p:panelGrid columns="3">
+                        <p:panelGrid class="frequpdate" columns="1">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal"/>
+                            </c:forEach>
+                        </p:panelGrid>
+                        <h:panelGroup style="align-self: center">
+                            <table>
+                                <tr>
+                                    <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('SOUTH') }" value="#{ partidaSessionBean.getCartaImagem('SOUTH') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                                </tr>
+                                <tr>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('EAST') }" value="#{ partidaSessionBean.getCartaImagem('EAST') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('WEST') }" value="#{ partidaSessionBean.getCartaImagem('WEST') }" class="cartaVertical"/></td>
+                                </tr>
+                                <tr>
+                                    <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('NORTH') }" value="#{ partidaSessionBean.getCartaImagem('NORTH') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                                </tr>
+                            </table>
+                        </h:panelGroup>
+                        <p:panelGrid class="frequpdate" columns="1">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal"/>
+                            </c:forEach>
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas(partidaSessionBean.myPosicao)}" >
+                        <c:forEach items="#{partidaSessionBean.cartas}" var="carta">
+                            <p:commandLink action="#{partidaSessionBean.play(carta)}">
+                                <h:graphicImage value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" class="cartaVertical"/>
+                            </p:commandLink>
+                        </c:forEach>    
+                    </p:panelGrid>
                 </p:panelGrid>
-                
-                <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas(partidaSessionBean.myPosicao)}" >
-                    
-                    <c:forEach items="#{partidaSessionBean.cartas}" var="carta">
-                        <p:commandLink action="#{partidaSessionBean.play(carta)}">
-                            <h:graphicImage value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" height="100px"/>
-                        </p:commandLink>
-                    </c:forEach>    
-                    
-                </p:panelGrid>
-                
             </p:fieldset>
-            
-        </h:form>
-        
-        
+        </h:form>        
     </h:body>
-    
-        
-        
 </html>
 
