@@ -9,6 +9,7 @@ package com.github.lucasgueiros.ifuwhist.resultados;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.Partida;
+import com.github.lucasgueiros.ifuwhist.partida.PartidaInterface;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -54,8 +55,10 @@ public class Resultado {
     public Resultado() {
     }
     
-    public Resultado(Partida partida) {
-        this(partida.getInicial(),new Date(),partida.getPointsNS(),partida.getPointsEW());
+    public Resultado(PartidaInterface partida) {
+        this(partida.getDataDeInicio(),
+                new Date(),partida.getPontosParaNS(),
+                partida.getPontosParaEW());
         if(partida.getMesa().getJogador(Posicao.NORTH).isUsuario())
             this.north = (Usuario) partida.getMesa().getJogador(Posicao.NORTH);
         if(partida.getMesa().getJogador(Posicao.EAST).isUsuario())

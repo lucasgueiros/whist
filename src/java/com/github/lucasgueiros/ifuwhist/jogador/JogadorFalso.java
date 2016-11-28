@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.EventoPartida;
 import com.github.lucasgueiros.ifuwhist.partida.ListenerPartida;
+import com.github.lucasgueiros.ifuwhist.partida.NaoEstaNaVezException;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
@@ -109,17 +110,21 @@ public class JogadorFalso implements Jogador, ListenerPartida/* implements Runni
         if (evento.getVez() == minhaPosicao) {
             try {
                 wait(1000);
-                Map<Posicao, Carta> trick = evento.getPartida().getTrick();
-                Posicao inicial = evento.getPartida().getFirst();
-                Naipe trunfo = evento.getPartida().getTrumph().getNaipe();
-                List<Carta> hand = evento.getPartida().getHand(minhaPosicao);
+                Map<Posicao, Carta> trick = evento.getPartida().getVaza();
+                Posicao inicial = evento.getPartida().getPrimeiroDaVaza();
+                Naipe trunfo = evento.getPartida().getNaipeDeTrunfo();
+                List<Carta> hand = evento.getPartida().getMao(minhaPosicao);
                 Carta carta = yourTurn(trick, inicial, trunfo, hand);
-                evento.getPartida().play(carta);
-            } catch (CartaNaoEstaNaMaoException | CartaInvalidaException ex) {
+                evento.getPartida().jogar(minhaPosicao, carta);
+            } catch (NaoEstaNaVezException ex) {
+                Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CartaNaoEstaNaMaoException ex) {
+                Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CartaInvalidaException ex) {
                 Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(JogadorFalso.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } 
         }
     }
 }

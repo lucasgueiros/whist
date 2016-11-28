@@ -12,18 +12,18 @@ import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
  * @author ogi
  */
 public class EventoPartida {
-    private Partida partida;
+    private PartidaInterface partida;
     private Posicao vez;
 
-    public Partida getPartida() {
+    public PartidaInterface getPartida() {
         return partida;
     }
 
-    public void setPartida(Partida partida) {
+    public void setPartida(PartidaInterface partida) {
         this.partida = partida;
     }
 
-    public EventoPartida(Partida partida) {
+    public EventoPartida(PartidaInterface partida) {
         this.partida = partida;
     }
 

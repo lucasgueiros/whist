@@ -22,6 +22,7 @@ import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Mesa mesa;
-    private Partida partida;
+    private PartidaInterface partida;
     private Jogador jogador;
     private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
     //private boolean pronto;
@@ -72,37 +73,33 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public String getTrumphNaipe() {
-        return partida.getTrumph().getNaipe().toString();
-    }
-    
-    public String getTrumphCarta() {
-        return partida.getTrumph().getSimbolo().toString();
+        return partida.getNaipeDeTrunfo().toString();//partida.getTrumph().getNaipe().toString();
     }
     
     public String getCurrentNaipe() {
-        Naipe s = partida.getCurrentNaipe();
+        Naipe s = partida.getNaipeCorrente();//partida.getCurrentNaipe();
         if(s!=null) return s.toString();
         else return "NONE";
     }
     
     public int getPlacarTotal() {
-        return partida.getNowTrickNumber();
+        return partida.getNumeroDaVaza();//partida.getNowTrickNumber();
     }
     
     public int getPlacarNS() {
-        return partida.getTricksForNS();
+        return partida.getVazasParaNS();//partida.getTricksForNS();
     }
     
     public int getPlacarEW() {
-        return partida.getTricksForEW();
+        return partida.getVazasParaEW();//partida.getTricksForEW();
     }
     
     public int getNumeroCartas(String position) {
-        return partida.getNumberOfCartas(Posicao.valueOf(position));
+        return partida.getNumeroDeCartas(Posicao.valueOf(position));//partida.getNumberOfCartas(Posicao.valueOf(position));
     }
     
     public boolean isTurn(String position) {
-        return partida.getTurn().equals(Posicao.valueOf(position));
+        return partida.estaNaVezDe(Posicao.valueOf(position));//partida.getTurn().equals(Posicao.valueOf(position));
     }
     
     public String getNome(String position) {
@@ -111,7 +108,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public Carta getCarta(String position) {
-        return partida.getPlayedCarta(Posicao.valueOf(position));
+        return partida.getCartaDaVazaAtual(Posicao.valueOf(position));//partida.getPlayedCarta(Posicao.valueOf(position));
     }
     
     public String goSozinho(Jogador north) {
@@ -120,14 +117,15 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         JogadorFalso west=new JogadorFalso(Posicao.WEST);
         JogadorFalso east=new JogadorFalso(Posicao.EAST);
         mesa = new Mesa(north,south, east, west);
-        partida = new Partida();
+        partida = new Partida(mesa,mesa.getProximoNowDealer());
         partida.addListener(west);
         partida.addListener(east);
         partida.addListener(south);
-        partida.setMesa(mesa);
-        partida.setDealer(mesa.getProximoNowDealer());
-        partida.deal();
-        partida.start();
+        //partida.setMesa(mesa);
+        //partida.setDealer(mesa.getProximoNowDealer());
+        partida.iniciar();
+        //partida.deal();
+        //partida.start();
         
         return PropriedadesApplicationBean.getString("pagina.jogar");
     }
@@ -141,11 +139,12 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         }
             
     	
-    	partida = new Partida();
-        partida.setMesa(mesa);
-        partida.setDealer(mesa.getProximoNowDealer());
-        partida.deal();
-        partida.start();
+    	partida = new Partida(mesa,mesa.getProximoNowDealer());
+        //partida.setMesa(mesa);
+        //partida.setDealer(mesa.getProximoNowDealer());
+        partida.iniciar();
+        //partida.deal();
+        //partida.start();
         
         //ctrl_fila.findMesa(ctrl_autenticacao.player) , ctrl_autenticacao.player
         this.jogador = jogador;
@@ -174,27 +173,30 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
 
     public List<Carta> getCartas() {
         Posicao posicao = this.mesa.getPosicao(this.jogador);
-        return partida.getHand(posicao);
+        return partida.getMao(posicao);
     }
     
     public /*String*/ void play(Carta c) {
-        if(this.partida.getTurn().equals(this.mesa.getPosicao(this.jogador))) {
+        //if(this.partida.getTurn().equals(this.mesa.getPosicao(this.jogador))) {
             try {
-                this.partida.play(c);
+                partida.jogar(this.mesa.getPosicao(this.jogador),c);//this.partida.play(c);
             } catch (CartaNaoEstaNaMaoException ex) {  // isso só acontece se não for a vez da pessoa.
                 logger.error("CartaNaoEstaNaMaoException");
                 SaidaParaArquivo.file.println("CartaNaoEstaNaMaoException");
             } catch (CartaInvalidaException ex) { // isso acontece normalmente
                 logger.error("CartaInvalidaException");
                 SaidaParaArquivo.file.println("CartaInvalidaException");
+            } catch (NaoEstaNaVezException ex) {
+                logger.error("NaoEstaNaVezException");
+                SaidaParaArquivo.file.println("NaoEstaNaVezException");
             }
             
-        }
+        //}
         //return "#";
         
     }
 
-    public Partida getPartida() {
+    public PartidaInterface getPartida() {
         return partida;
     }
 
