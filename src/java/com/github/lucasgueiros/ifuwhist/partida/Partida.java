@@ -53,15 +53,10 @@ public class Partida implements PartidaInterface {
      */
     private boolean acabou = false;
     
-    // For tricks
-    /** * De quem é a vez? */
-    private Posicao vez;
-    /** * Saidor da trick */
-    private Posicao primeiroDaVaza;
-    /** * as cartas dessa trick */
-    private final Map<Posicao,Carta> vaza;
     
-    // Deal
+    private Vaza [] vazas;
+    private Bolsa bolsa;
+    
     /** * carta de trunfo! */
     private Naipe trunfo; // 
     /** * as mãos dos jogadores */
@@ -76,7 +71,7 @@ public class Partida implements PartidaInterface {
      */
     public Partida() {
         this.maos = new EnumMap<>(Posicao.class);
-        this.vaza = new EnumMap<>(Posicao.class);
+        this.vazas = new Vaza[13];
         maos.put(Posicao.NORTH, new LinkedList<>());
         maos.put(Posicao.EAST, new LinkedList<>());
         maos.put(Posicao.WEST, new LinkedList<>());
@@ -85,46 +80,56 @@ public class Partida implements PartidaInterface {
 
     public Partida(Mesa mesa, Posicao proximoNowDealer) {
         this();
-        setMesa(mesa);
-        setDealer(proximoNowDealer);
+        this.mesa = mesa;
+        this.dador = proximoNowDealer;
     }
     
     @Override
     public void jogar(Posicao posicao, Carta card) throws CartaNaoEstaNaMaoException, CartaInvalidaException, NaoEstaNaVezException  { // card to be played!
+        // Pegue a vaza atual
+        Vaza vaza = vazas[numeroDaVaza-1];        
         // deve ser sua vez
-        if(!vez.equals(posicao)) {
+        if(!vaza.getVez().equals(posicao)) {
             throw new NaoEstaNaVezException();
         }
         // você deve ter a carta na mão
-        if (!maos.get(vez).contains(card)) {
+        if (!maos.get(posicao).contains(card)) {
             throw new CartaNaoEstaNaMaoException();
         }
         
         // a carta deve ser do naipe corrente
-        if (vaza.get(primeiroDaVaza) != null && card.getNaipe() != vaza.get(primeiroDaVaza).getNaipe()) {
+        Naipe corrente = vaza.getCorrente();
+        if(corrente !=null && ! card.getNaipe().equals(corrente)) {
             // caso não seja você não pode ter do naipe correte
-            for (Carta c : maos.get(vez)) {
-                if (c.getNaipe() == vaza.get(primeiroDaVaza).getNaipe()) {
+            for (Carta c : maos.get(vaza.getVez())) {
+                if (c.getNaipe().equals(corrente)) {
                     throw new CartaInvalidaException(); // erro
                 }
             }
         }
+        
         // remova a carta da sua mão
-        maos.get(vez).remove(card);
+        maos.get(posicao).remove(card);
         
-        // coloque a carta na trick
-        this.vaza.put(vez, card);
-        // mova a vez para o próximo jogador
-        this.vez = this.vez.next();
+        vaza.jogar(card);
         
-
-        // se for a última carta, verifique o vencedor e inicie a próxima vaza
-        if (this.vez == this.primeiroDaVaza) {
-            trickEnded();
+        if(vaza.isAcabou() && numeroDaVaza != 13) {
+            Posicao ganhador = vaza.getGanhador();
+            // o saidor da próxima vaza é o vencedor da última
+            Vaza proximaVaza = new Vaza(ganhador, trunfo);
+            
+            if (ganhador == Posicao.SOUTH || ganhador == Posicao.NORTH) {
+                vazasParaNS++;
+            }
+            vazas[numeroDaVaza] = proximaVaza;
+            numeroDaVaza++;
+        } else if (vaza.isAcabou()) {
+            // se tiver acabado o jogo!
+            this.acabou = true;
+            this.acabou();
         }
+        
         mudancaDeVez();
-        // avise a table que alguém jogou
-        this.mesa.turnChanged();
     }
     
     @Override
@@ -134,7 +139,7 @@ public class Partida implements PartidaInterface {
 
     @Override
     public Naipe getNaipeCorrente() {
-        return vaza.get(primeiroDaVaza).getNaipe();
+        return this.vazas[numeroDaVaza-1].getCorrente();
     }
 
     @Override
@@ -159,12 +164,12 @@ public class Partida implements PartidaInterface {
 
     @Override
     public boolean estaNaVezDe(Posicao posicao) {
-        return vez.equals(posicao);
+        return this.vazas[numeroDaVaza-1].getVez().equals(posicao);
     }
 
     @Override
     public Carta getCartaDaVazaAtual(Posicao posicao) {
-        return this.vaza.get(posicao);
+        return this.vazas[numeroDaVaza-1].getCartas().get(posicao);
     }
 
     @Override
@@ -181,7 +186,7 @@ public class Partida implements PartidaInterface {
         for(Posicao po : Posicao.values()) {
             maos.get(po).clear();
         }
-        Bolsa bolsa = new EmbaralhadorSimples().embaralhar(dador);
+        bolsa = new EmbaralhadorSimples().embaralhar(dador);
         for (Posicao posicao : Posicao.values()) {
             maos.get(posicao).addAll(bolsa.getMao(posicao));
         }
@@ -191,8 +196,8 @@ public class Partida implements PartidaInterface {
         //this.resultado = null;
         this.acabou = false;
         
-        this.primeiroDaVaza = dador.next();
-        this.vez = this.primeiroDaVaza;
+        numeroDaVaza = 1;
+        vazas[0] = new Vaza(dador.next(), trunfo);
         //this.trickNumber++;
         this.mesa.turnChanged();
         this.mudancaDeVez();
@@ -225,170 +230,14 @@ public class Partida implements PartidaInterface {
     
     @Override
     public Posicao getPrimeiroDaVaza() {
-        return primeiroDaVaza;
+        return vazas[numeroDaVaza-1].getPrimeiro();
     }
     
     @Override
     public Map<Posicao,Carta> getVaza() {
-        Map<Posicao,Carta> toReturn = new EnumMap<Posicao,Carta>(Posicao.class);
-        for (Map.Entry<Posicao, Carta> entry : vaza.entrySet()) {
-                toReturn.put(entry.getKey(), entry.getValue());
-            }
-        return toReturn;
+        return this.vazas[numeroDaVaza-1].getCartas();
     }
     
-    /**
-     * Subrotina de play(Carta) acionada caso a carta jogada seja a última da
-     * trick.
-     */
-    private void trickEnded() {
-        Naipe trumphNaipe = trunfo;
-        Naipe currentNaipe = vaza.get(primeiroDaVaza).getNaipe();
-        Posicao winner = primeiroDaVaza;
-        for (Posicao p : Posicao.values()) {
-            Carta now = vaza.get(p);
-            Carta won = vaza.get(winner);
-            
-            if (won.getNaipe().equals(trumphNaipe) 
-                    && now.getNaipe().equals(trumphNaipe)
-                    && now.getSimbolo().compareTo(won.getSimbolo()) < 0) {
-                winner = p;
-            // caso o vencedor tenha usando corrente
-            // e eu tenha tentado corrente também
-            // e a minha carta seja maior que a deçe
-            } else if (won.getNaipe().equals(currentNaipe)
-                    && now.getNaipe().equals(currentNaipe)
-                    && now.getSimbolo().compareTo(won.getSimbolo()) < 0) {
-                winner = p;
-            // caso o vencedor tenha usando corrente
-            // e eu tenha trunfo!
-            } else if ( ! currentNaipe.equals(trumphNaipe)
-                    && won.getNaipe().equals(currentNaipe)
-                    && now.getNaipe().equals(trumphNaipe)) {
-                winner = p;
-            }
-        }
-
-        
-        //  o saidor da próxima vaza é o vencedor da última
-        primeiroDaVaza = winner;
-        //  e será a vez do primeiro jogador
-        vez = primeiroDaVaza;
-        // tire as cartas do trick
-        vaza.clear();
-        // de update
-        // aumente os pontos de quem venceu
-        if (winner == Posicao.SOUTH || winner == Posicao.NORTH) {
-            vazasParaNS++;
-        } // não precisa de ELSE porque os pontos de WEST e EAST são calculados a partir de trickNumber e tricksForNS
-        
-        // aumente a contagem de tricks
-        numeroDaVaza++;
-        
-        // se tiver acabado o jogo!
-        if (numeroDaVaza == 13) {
-            // Esse código gerava erros para outras partes do sistema que tentavam acessar essas informações 
-            // depois que a partida havia acabado. Não existe, por enquanto motivos para esse 
-            // bloqueio. Entretanto, isso pode ser desejável futuramente.
-            //first = null;
-            //turn = null;
-            
-            // tire o book do vencedor e todos os pontos do perdedor
-            pontosParaEW = 0; pontosParaNS = 0;
-            if(vazasParaNS > 6) {
-                pontosParaEW = vazasParaNS - 6;
-            } else {
-                pontosParaNS = 13 - vazasParaNS - 6;
-            }
-            this.acabou = true;
-            //this.resultado = new Resultado(inicial, new Date(), pointsNS, pointsEW);
-            //this.mesa.setLastPartida(resultado);
-            //if(!this.mesa.temJogadoresAutomaticos()){
-            //    this.resultado.setNorth((Usuario)this.mesa.getJogador(Posicao.NORTH));
-            //    this.resultado.setEast((Usuario)this.mesa.getJogador(Posicao.EAST));
-            //    this.resultado.setSouth((Usuario)this.mesa.getJogador(Posicao.SOUTH));
-            //    this.resultado.setWest((Usuario)this.mesa.getJogador(Posicao.WEST));
-            //}
-            
-            //this.mesa.updateLastPartida();
-        }
-        
-    }
-    
-    
-    private Naipe getCurrentNaipe() {
-        try {
-            return vaza.get(this.primeiroDaVaza).getNaipe();
-        } catch(NullPointerException e) {
-            return null;
-        }
-    }
-
-    private int getNowTrickNumber() {
-        if(getTrickNumber() != 13) return getTrickNumber() + 1;
-        else return 13;
-    }
-    
-    private int getTricksForNS() {
-        return vazasParaNS;
-    }
-
-    
-    private int getTrickNumber() {
-        return numeroDaVaza;
-    }
-
-    private int getTricksForEW() {
-        return this.numeroDaVaza - this.vazasParaNS;
-    }
-
-    private int getNumberOfCartas(Posicao p) {
-        if(p==null) return -1;
-        List<Carta> hand = this.maos.get(p);
-        return hand.size();
-    }
-
-    
-    private Carta getPlayedCarta(Posicao p) {
-        return this.vaza.get(p);
-    }
-
-    /**
-     * Define a mesa na qual o jogo está sendo jogado.
-     * @param aThis 
-     */
-    private final void setMesa(Mesa aThis) {
-        this.mesa = aThis;
-    }
- 
-    private List<Carta> getHand(Posicao position) {
-        List<Carta> toReturn  = new LinkedList<>();
-        for (Carta card : this.maos.get(position)) {
-            toReturn.add(card);
-        }
-        return toReturn;
-    }
-
-    /**
-     * Retorna o dealer da partida atual
-     * @return posição do dealer
-     */
-    private Posicao getDealer() {
-        return dador;
-    }
-
-    /**
-     * Define a posição do dealer da partida atual
-     * @param dealer a posição solicitada
-     */
-    private final void setDealer(Posicao dealer) {
-        this.dador = dealer;
-    }
-
-    private boolean isAcabou() {
-        return acabou;
-    }
-
     private void acabou() {
         EventoPartida evento = new EventoPartida(this);
         for(ListenerPartida listener : this.listeners) {
@@ -398,7 +247,7 @@ public class Partida implements PartidaInterface {
     
     private void mudancaDeVez(){
         EventoPartida evento = new EventoPartida(this);
-        evento.setVez(this.acabou ? null : vez);
+        evento.setVez(this.acabou ? null : this.vazas[numeroDaVaza-1].getVez());
         for(ListenerPartida listener : this.listeners) {
             new Thread(new Runnable() {
                 @Override
