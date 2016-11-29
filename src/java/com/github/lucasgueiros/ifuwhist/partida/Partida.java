@@ -7,20 +7,18 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
+import com.github.lucasgueiros.ifuwhist.partida.bolsa.Bolsa;
+import com.github.lucasgueiros.ifuwhist.partida.bolsa.EmbaralhadorSimples;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.ComparaCartas;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Simbolo;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import java.util.HashSet;
@@ -65,7 +63,7 @@ public class Partida implements PartidaInterface {
     
     // Deal
     /** * carta de trunfo! */
-    private Carta trunfo; // 
+    private Naipe trunfo; // 
     /** * as mãos dos jogadores */
     private final Map<Posicao,List<Carta>> maos; // 
     /** * o dealer da rodada*/
@@ -131,7 +129,7 @@ public class Partida implements PartidaInterface {
     
     @Override
     public Naipe getNaipeDeTrunfo() {
-       return trunfo.getNaipe();
+       return trunfo;
     }
 
     @Override
@@ -180,8 +178,24 @@ public class Partida implements PartidaInterface {
 
     @Override
     public void iniciar() {
-        this.deal();
-        this.start();
+        for(Posicao po : Posicao.values()) {
+            maos.get(po).clear();
+        }
+        Bolsa bolsa = new EmbaralhadorSimples().embaralhar(dador);
+        for (Posicao posicao : Posicao.values()) {
+            maos.get(posicao).addAll(bolsa.getMao(posicao));
+        }
+        this.trunfo = bolsa.getTrunfo();
+        
+        this.dataDeInicio = new Date();
+        //this.resultado = null;
+        this.acabou = false;
+        
+        this.primeiroDaVaza = dador.next();
+        this.vez = this.primeiroDaVaza;
+        //this.trickNumber++;
+        this.mesa.turnChanged();
+        this.mudancaDeVez();
     }
 
     @Override
@@ -222,116 +236,13 @@ public class Partida implements PartidaInterface {
             }
         return toReturn;
     }
- 
-    private void start () {
-        
-        this.dataDeInicio = new Date();
-        //this.resultado = null;
-        this.acabou = false;
-        
-        this.primeiroDaVaza = dador.next();
-        this.vez = this.primeiroDaVaza;
-        //this.trickNumber++;
-        this.mesa.turnChanged();
-        this.mudancaDeVez();
-    }
     
-    private void deal() {
-        dealV2((long) Math.random());
-    }
-    
-    /**
-     * Distribui as cartas. Emabaralha a partir de um random seed. E joga nas mãos.
-     * Depois, ordena as cartas em cada mão
-     * 
-     * @param seed A "semente" de randomicidade a ser usada
-     * 
-     */
-    private void dealV2(long seed){
-        // limpe as mãos kkkkk
-        for(Posicao po : Posicao.values()) {
-            maos.get(po).clear();
-        }
-        
-        // agora crie um baralho 
-        LinkedList<Carta> set = new LinkedList<>();
-        for (Naipe su: Naipe.values()) {
-            for (Simbolo sy : Simbolo.values()) {
-                set.add(new Carta(su, sy));
-            }
-        }
-        
-        Random r = new Random(seed);
-        // embaralhe
-        Collections.shuffle(set, r);
-        
-        // distribua
-        // até 13
-        for (int i = 0; i < 13; i++) {
-            for(Posicao p: Posicao.values())  {
-                maos.get(p).add(set.poll());
-            }
-        }
-        
-        // ordene em cada mão
-        for(Posicao p: Posicao.values())  {
-        	maos.get(p).sort(new ComparaCartas());
-        	
-        }
-        trunfo = maos.get(dador).get(  (int) (12 * r.nextDouble()) ); //ultima carta do dealer
-    }
-    
-    /**
-     * Distribui as cartas sorteando um valor entre 0 e 3 e, para cada um, coloca no jogador respectivo (0=Norte,1=Leste,etc.)
-     * Tem uma tendência a deixar WEST com todos os Clubs.
-     * Já deixa as cartas organizadas na mão.
-     */
-    private void dealV1() {
-        for(Posicao po : Posicao.values()) {
-            maos.get(po).clear();
-        }
-        
-        for(Naipe su : Naipe.values()) {
-            for(Simbolo sy : Simbolo.values()) {
-                int random =  (int) ( Math.random() * 3 ) ; // um número entre 0 e 3
-                loop:do {
-                    switch(random) {
-                        case 0: // NORTH
-                            if(maos.get(Posicao.NORTH).size() < 13) {
-                                maos.get(Posicao.NORTH).add(new Carta(sy,su));
-                                break;
-                            }
-                        case 1: // EAST
-                            if(maos.get(Posicao.EAST).size() < 13) {
-                                maos.get(Posicao.EAST).add(new Carta(sy,su));
-                                break;
-                            }
-                        case 2:// SOUTHn
-                            if(maos.get(Posicao.SOUTH).size() < 13) {
-                                maos.get(Posicao.SOUTH).add(new Carta(sy,su));
-                                break;
-                            }
-                        case 3:// WEST
-                            if(maos.get(Posicao.WEST).size() < 13) {
-                                maos.get(Posicao.WEST).add(new Carta(sy,su));
-                                break;
-                            } else {
-                                continue loop; // volte para tentar dar a carta para os outros
-                            }
-                    }
-                } while (false);
-            }
-        }
-    }
-    
-    
-
     /**
      * Subrotina de play(Carta) acionada caso a carta jogada seja a última da
      * trick.
      */
     private void trickEnded() {
-        Naipe trumphNaipe = trunfo.getNaipe();
+        Naipe trumphNaipe = trunfo;
         Naipe currentNaipe = vaza.get(primeiroDaVaza).getNaipe();
         Posicao winner = primeiroDaVaza;
         for (Posicao p : Posicao.values()) {
