@@ -41,7 +41,7 @@ public class Vaza {
         this.vaza.put(vez, carta);
         // mova a vez para o próximo jogador
         this.vez = this.vez.next();
-        // se for a última carta, verifique o vencedor e inicie a próxima vaza
+        // se for a última carta, verifique o vencedor e termine a vaza
         if (vez.equals(primeiro)) {
             Naipe corrente = vaza.get(primeiro).getNaipe();
             ganhador = primeiro;
@@ -68,6 +68,8 @@ public class Vaza {
                     ganhador = p;
                 }
             }
+            acabou = true;
+            vez=null;
         }
     }
 

@@ -74,6 +74,7 @@ public interface PartidaInterface {
 
     /**
      * Retorna a carta jogada na vaza atual pelo jogador na posição p.
+     * @param posicao
      * @param p a posição do jogador
      * @return a carta que ele jogou.s
      */
@@ -157,4 +158,8 @@ public interface PartidaInterface {
      */
     public Posicao getPrimeiroDaVaza();
 
+    /**
+     * De quem e a vez
+     */
+    public Posicao getVez() ;
 }

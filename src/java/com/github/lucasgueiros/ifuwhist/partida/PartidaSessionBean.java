@@ -107,8 +107,10 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         return pl.getLogin();
     }
     
-    public Carta getCarta(String position) {
-        return partida.getCartaDaVazaAtual(Posicao.valueOf(position));//partida.getPlayedCarta(Posicao.valueOf(position));
+    public String getCarta(String position) {
+        Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
+        if(carta==null) return "";
+        return carta.toString();//partida.getPlayedCarta(Posicao.valueOf(position));
     }
     
     public String goSozinho(Jogador north) {

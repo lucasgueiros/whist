@@ -13,7 +13,6 @@ import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
  */
 public class EventoPartida {
     private PartidaInterface partida;
-    private Posicao vez;
 
     public PartidaInterface getPartida() {
         return partida;
@@ -27,12 +26,8 @@ public class EventoPartida {
         this.partida = partida;
     }
 
-    public void setVez(Posicao turn) {
-        this.vez=turn;
-    }
-
     public Posicao getVez() {
-        return vez;
+        return partida.getVez();
     }
     
 }

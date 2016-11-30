@@ -102,25 +102,6 @@ public class Mesa {
         return this.players.get(p);
     }
 
-    public void turnChanged() {
-        /*Jogador p = this.players.get(running.getTurn());
-        if(p.isFake()) {
-            FakeJogador fp = (FakeJogador) p;
-            // atualize o fake player com as jogadas!
-            Card c = fp.yourTurn(running.getTrick(),running.getFirst(),running.getTrumph().getSuit(),running.getHand(running.getTurn()));
-    //        running.play(c);
-        }*/
-    }
-    
-    /*@Deprecated
-    public void updateLastPartida() {
-        this.lastPartida = this.running.getPartidaTerminada();
-        this.lastPartida.setEast(this.getJogador(Posicao.EAST));
-        this.lastPartida.setNorth(this.getJogador(Posicao.NORTH));
-        this.lastPartida.setSouth(this.getJogador(Posicao.SOUTH));
-        this.lastPartida.setWest(this.getJogador(Posicao.WEST));
-    }*/
-
     public boolean temJogadoresFalsos() {
         return temJogadoresFalsos;
     }

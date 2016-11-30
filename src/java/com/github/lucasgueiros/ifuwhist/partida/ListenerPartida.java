@@ -10,7 +10,7 @@ package com.github.lucasgueiros.ifuwhist.partida;
  * @author ogi
  */
 public interface ListenerPartida {
-    public void partidaAcabou(EventoPartida informacoesAdicionais);
+    public void partidaAcabou(EventoPartida evento);
 
     public void alguemJogou(EventoPartida evento);
 }

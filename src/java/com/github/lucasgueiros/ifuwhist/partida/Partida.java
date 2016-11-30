@@ -21,8 +21,6 @@ import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -31,8 +29,6 @@ import java.util.Set;
  * @author lucas
  */
 public class Partida implements PartidaInterface {
-    
-    private Set<ListenerPartida> listeners = new HashSet<>();
     
     // General
     /** * O resultado do jogo */
@@ -63,8 +59,8 @@ public class Partida implements PartidaInterface {
     private final Map<Posicao,List<Carta>> maos; // 
     /** * o dealer da rodada*/
     private Posicao dador;
-    private int pontosParaNS = 0;
-    private int pontosParaEW = 0;
+    
+    private RepetidorDeEventoPartida repetidor;
     
     /**
      * Contrutor padrão. Cria as estruturas de dados.
@@ -82,12 +78,13 @@ public class Partida implements PartidaInterface {
         this();
         this.mesa = mesa;
         this.dador = proximoNowDealer;
+        this.repetidor = new RepetidorDeEventoPartida(this);
     }
     
     @Override
     public void jogar(Posicao posicao, Carta card) throws CartaNaoEstaNaMaoException, CartaInvalidaException, NaoEstaNaVezException  { // card to be played!
         // Pegue a vaza atual
-        Vaza vaza = vazas[numeroDaVaza-1];        
+        Vaza vaza = vazas[numeroDaVaza];        
         // deve ser sua vez
         if(!vaza.getVez().equals(posicao)) {
             throw new NaoEstaNaVezException();
@@ -113,23 +110,24 @@ public class Partida implements PartidaInterface {
         
         vaza.jogar(card);
         
-        if(vaza.isAcabou() && numeroDaVaza != 13) {
+        if(vaza.isAcabou()) {
+
             Posicao ganhador = vaza.getGanhador();
-            // o saidor da próxima vaza é o vencedor da última
-            Vaza proximaVaza = new Vaza(ganhador, trunfo);
-            
             if (ganhador == Posicao.SOUTH || ganhador == Posicao.NORTH) {
                 vazasParaNS++;
             }
-            vazas[numeroDaVaza] = proximaVaza;
-            numeroDaVaza++;
-        } else if (vaza.isAcabou()) {
-            // se tiver acabado o jogo!
-            this.acabou = true;
-            this.acabou();
-        }
-        
-        mudancaDeVez();
+            if(this.getNumeroDaVaza()==13){
+                // se tiver acabado o jogo!
+                this.acabou = true;
+                //mudancaDeVez();
+                repetidor.acabou();
+            } else {
+                // o saidor da próxima vaza é o vencedor da última
+                Vaza proximaVaza = new Vaza(ganhador, trunfo);
+                vazas[++numeroDaVaza] = proximaVaza;
+            }
+        } 
+        repetidor.mudancaDeVez();
     }
     
     @Override
@@ -139,12 +137,12 @@ public class Partida implements PartidaInterface {
 
     @Override
     public Naipe getNaipeCorrente() {
-        return this.vazas[numeroDaVaza-1].getCorrente();
+        return this.vazas[numeroDaVaza].getCorrente();
     }
 
     @Override
     public int getNumeroDaVaza() {
-        return numeroDaVaza;
+        return numeroDaVaza + 1;
     }
 
     @Override
@@ -154,7 +152,7 @@ public class Partida implements PartidaInterface {
 
     @Override
     public int getVazasParaEW() {
-        return this.numeroDaVaza - this.vazasParaNS;
+        return this.getNumeroDaVaza() - this.vazasParaNS - 1 ;
     }
 
     @Override
@@ -164,12 +162,12 @@ public class Partida implements PartidaInterface {
 
     @Override
     public boolean estaNaVezDe(Posicao posicao) {
-        return this.vazas[numeroDaVaza-1].getVez().equals(posicao);
+        return this.vazas[numeroDaVaza].getVez().equals(posicao);
     }
 
     @Override
     public Carta getCartaDaVazaAtual(Posicao posicao) {
-        return this.vazas[numeroDaVaza-1].getCartas().get(posicao);
+        return this.vazas[numeroDaVaza].getCartas().get(posicao);
     }
 
     @Override
@@ -196,11 +194,9 @@ public class Partida implements PartidaInterface {
         //this.resultado = null;
         this.acabou = false;
         
-        numeroDaVaza = 1;
+        numeroDaVaza = 0;
         vazas[0] = new Vaza(dador.next(), trunfo);
-        //this.trickNumber++;
-        this.mesa.turnChanged();
-        this.mudancaDeVez();
+        repetidor.mudancaDeVez();
     }
 
     @Override
@@ -220,7 +216,7 @@ public class Partida implements PartidaInterface {
 
     @Override
     public void addListener(ListenerPartida e) {
-        listeners.add(e);
+        repetidor.adicionar(e);
     }
     
     @Override
@@ -230,33 +226,17 @@ public class Partida implements PartidaInterface {
     
     @Override
     public Posicao getPrimeiroDaVaza() {
-        return vazas[numeroDaVaza-1].getPrimeiro();
+        return vazas[numeroDaVaza].getPrimeiro();
     }
     
     @Override
     public Map<Posicao,Carta> getVaza() {
-        return this.vazas[numeroDaVaza-1].getCartas();
+        return this.vazas[numeroDaVaza].getCartas();
     }
-    
-    private void acabou() {
-        EventoPartida evento = new EventoPartida(this);
-        for(ListenerPartida listener : this.listeners) {
-            listener.partidaAcabou(evento);
-        }
-    }
-    
-    private void mudancaDeVez(){
-        EventoPartida evento = new EventoPartida(this);
-        evento.setVez(this.acabou ? null : this.vazas[numeroDaVaza-1].getVez());
-        for(ListenerPartida listener : this.listeners) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    listener.alguemJogou(evento);
-                }
-            }).start();
-            
-        }
+
+    @Override
+    public Posicao getVez() {
+        return vazas[numeroDaVaza].getVez();
     }
     
 }
