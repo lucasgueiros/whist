@@ -19,10 +19,6 @@ public class EventoPartida {
         return partida;
     }
 
-    public void setPartida(PartidaInterface partida) {
-        this.partida = partida;
-    }
-
     public EventoPartida(PartidaInterface partida) {
         this.partida = partida;
     }

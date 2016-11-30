@@ -14,6 +14,10 @@ import java.util.List;
 
 /**
  *
+ * Define uma bolsa, i.e., um jogo que pode ser jogado várias vezes.
+ * Ela define o naipe de trunfo, as cartas de cada jogador e o dealer,
+ * o que consequentemente nos diz quem jogará a primeira carta.
+ * 
  * @author lucas
  */
 public class Bolsa {

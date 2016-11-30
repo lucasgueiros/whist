@@ -89,6 +89,10 @@ public class Vaza {
     public boolean isAcabou() {
         return acabou;
     }
+    
+    public boolean acabou() {
+        return this.isAcabou();
+    }
 
     public Posicao getVez() {
         return vez;

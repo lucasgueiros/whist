@@ -11,7 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * Responsável por enviar aos listerners os eventos gerados por uma partida.
+ * 
  * @author lucas
  */
 public class RepetidorDeEventoPartida  {

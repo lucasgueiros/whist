@@ -23,7 +23,6 @@ import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.ifuwhist.util.propriedades.PropriedadesApplicationBean;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,30 +42,11 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     private PartidaInterface partida;
     private Jogador jogador;
     private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
-    //private boolean pronto;
-    
-    // others beans
-    //@ManagedProperty ("#{ctrl_autenticacao}")
-    //private FacesContext facesContext = FacesContext.getCurrentInstance();
-    //private JogadorSessionBean auth = (JogadorSessionBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{contraladorAutenticacao}", JogadorSessionBean.class);
-    //@ManagedProperty ("#{ctrl_mesas}")
-    //private MesasApplicationBean mesas = (MesasApplicationBean) facesContext.getApplication().evaluateExpressionGet(facesContext, "#{constroladorMesas}", MesasApplicationBean.class);
-    
-    // Repositório
     
     public PartidaSessionBean() {
     	
     }
     
-    // Todas as informações do jogo
-    // podem ser tiradas da Partida
-    // Poucas podem ser feitas (jogar kkk)
-    
-    public int getStatus() {
-        int status = 01;
-        // TODO fazer direito
-        return status;
-    }
     
     public String getMyPosicao() {
         Posicao p = mesa.getPosicao(this.jogador);
@@ -78,29 +58,29 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public String getCurrentNaipe() {
-        Naipe s = partida.getNaipeCorrente();//partida.getCurrentNaipe();
+        Naipe s = partida.getNaipeCorrente();
         if(s!=null) return s.toString();
         else return "NONE";
     }
     
     public int getPlacarTotal() {
-        return partida.getNumeroDaVaza();//partida.getNowTrickNumber();
+        return partida.getNumeroDaVaza();
     }
     
     public int getPlacarNS() {
-        return partida.getVazasParaNS();//partida.getTricksForNS();
+        return partida.getVazasParaNS();
     }
     
     public int getPlacarEW() {
-        return partida.getVazasParaEW();//partida.getTricksForEW();
+        return partida.getVazasParaEW();
     }
     
     public int getNumeroCartas(String position) {
-        return partida.getNumeroDeCartas(Posicao.valueOf(position));//partida.getNumberOfCartas(Posicao.valueOf(position));
+        return partida.getNumeroDeCartas(Posicao.valueOf(position));
     }
     
     public boolean isTurn(String position) {
-        return partida.estaNaVezDe(Posicao.valueOf(position));//partida.getTurn().equals(Posicao.valueOf(position));
+        return partida.estaNaVezDe(Posicao.valueOf(position));
     }
     
     public String getNome(String position) {
@@ -111,7 +91,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     public String getCarta(String position) {
         Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
         if(carta==null) return "";
-        return carta.toString();//partida.getPlayedCarta(Posicao.valueOf(position));
+        return carta.toString();
     }
     
     public String goSozinho(Jogador north) {
@@ -124,48 +104,24 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         partida.addListener(west);
         partida.addListener(east);
         partida.addListener(south);
-        //partida.setMesa(mesa);
-        //partida.setDealer(mesa.getProximoNowDealer());
         partida.iniciar();
-        //partida.deal();
-        //partida.start();
-        
         return PropriedadesApplicationBean.getString("pagina.jogar");
     }
     
     public String go(Jogador jogador, Mesa mesa){//Partida partida) {
     	if(mesa == null) {
-            //logger.error("mesa==null on if on PartidaSessionBean::go");
-            //SaidaParaArquivo.file.println("mesa==null on if on PartidaSessionBean::go");
-            //return PropriedadesApplicationBean.getString("pagina.deErro");
             return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");
         }
             
     	
     	partida = new Partida(mesa,mesa.getProximoNowDealer());
-        //partida.setMesa(mesa);
-        //partida.setDealer(mesa.getProximoNowDealer());
         partida.iniciar();
-        //partida.deal();
-        //partida.start();
-        
-        //ctrl_fila.findMesa(ctrl_autenticacao.player) , ctrl_autenticacao.player
         this.jogador = jogador;
-        //this.mesa = mesas.getMesa(jogador);
         this.mesa = mesa;
         return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
     }
 
-    /*public MesasApplicationBean getMesas() {
-        return mesas;
-    }
-
-    public void setMesas(MesasApplicationBean mesas) {
-        this.mesas = mesas;
-    }*/
-
     public boolean isPronto() {
-        //this.mesa = mesas.getMesa(jogador);
         return mesa != null;
     }
     
@@ -179,10 +135,9 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         return partida.getMao(posicao);
     }
     
-    public /*String*/ void play(Carta c) {
-        //if(this.partida.getTurn().equals(this.mesa.getPosicao(this.jogador))) {
+    public void play(Carta c) {
             try {
-                partida.jogar(this.mesa.getPosicao(this.jogador),c);//this.partida.play(c);
+                partida.jogar(this.mesa.getPosicao(this.jogador),c);
             } catch (CartaNaoEstaNaMaoException ex) {  // isso só acontece se não for a vez da pessoa.
                 logger.error("CartaNaoEstaNaMaoException");
                 SaidaParaArquivo.file.println("CartaNaoEstaNaMaoException");
@@ -193,10 +148,6 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
                 logger.error("NaoEstaNaVezException");
                 SaidaParaArquivo.file.println("NaoEstaNaVezException");
             }
-            
-        //}
-        //return "#";
-        
     }
 
     public PartidaInterface getPartida() {

@@ -13,5 +13,12 @@ import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
  * @author lucas
  */
 public interface Embaralhador {
+    /**
+     * 
+     * Gera um nova bolsa aleatoriamente, apenas define-se o "imaginável" dealer.
+     * 
+     * @param posicao dealer
+     * @return 
+     */
     public Bolsa embaralhar(Posicao posicao);
 }

@@ -62,7 +62,7 @@ public interface PartidaInterface {
 
     /**
      * Retorna o número de cartas na mão de um jogador
-     * @param p é o jogador
+     * @param posicao é o jogador
      * @return um int que diz a quantidade de cartas na mão dele.
      */
     public int getNumeroDeCartas(Posicao posicao);
@@ -95,7 +95,7 @@ public interface PartidaInterface {
     
     /**
      * Retorna a mão de um jogador.
-     * @param position a posição do jogador
+     * @param posicao a posição do jogador
      * @return uma List de Carta com as cartas na mão do jogador perdido.
      */
     public List<Carta> getMao(Posicao posicao);
@@ -162,6 +162,7 @@ public interface PartidaInterface {
 
     /**
      * De quem e a vez
+     * @return a posicao do jogador que tem a vez.
      */
-    public Posicao getVez() ;
+    public Posicao getVez();
 }

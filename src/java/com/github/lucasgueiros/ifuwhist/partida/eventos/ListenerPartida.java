@@ -10,7 +10,14 @@ package com.github.lucasgueiros.ifuwhist.partida.eventos;
  * @author ogi
  */
 public interface ListenerPartida {
+    /**
+     * Será chamado quando uma partida tiver acabado
+     * @param evento 
+     */
     public void partidaAcabou(EventoPartida evento);
-
+    /**
+     * É chamado após cada jogada, seja qual for o jogador
+     * @param evento 
+     */
     public void alguemJogou(EventoPartida evento);
 }

@@ -104,6 +104,7 @@ public class Partida implements PartidaInterface {
         if(corrente !=null && ! card.getNaipe().equals(corrente)) {
             // caso não seja você não pode ter do naipe correte
             for (Carta c : maos.get(vaza.getVez())) {
+                // se existe uma carta do naipe corrente, temos problemas
                 if (c.getNaipe().equals(corrente)) {
                     throw new CartaInvalidaException(); // erro
                 }
@@ -113,27 +114,30 @@ public class Partida implements PartidaInterface {
         // remova a carta da sua mão
         maos.get(posicao).remove(card);
         
+        // jogue na vaza
         vaza.jogar(card);
         
-        if(vaza.isAcabou()) {
+        if(vaza.acabou()) { // se a vaza acabou
 
             Posicao ganhador = vaza.getGanhador();
             if (ganhador == Posicao.SOUTH || ganhador == Posicao.NORTH) {
-                vazasParaNS++;
+                vazasParaNS++; // pontua para NS
             } else {
-                vazasParaEW++;
+                vazasParaEW++; // pontua para EW
             }
             if(this.getNumeroDaVaza()==13){
                 // se tiver acabado o jogo!
                 this.acabou = true;
-                //mudancaDeVez();
+                // envie a mensagem dizendo que acabou o jogo
                 repetidor.acabou();
-            } else {
+            } else { // se não acabou
                 // o saidor da próxima vaza é o vencedor da última
                 Vaza proximaVaza = new Vaza(ganhador, trunfo);
+                // passe para a proxima vaza e adicione-a ao array.
                 vazas[++numeroDaVaza] = proximaVaza;
             }
         } 
+        // avise ao mundo que mudou de vez
         repetidor.mudancaDeVez();
     }
     
@@ -188,21 +192,27 @@ public class Partida implements PartidaInterface {
 
     @Override
     public void iniciar() {
+        // limpe as mão, talvez seja desnecessário?
         for(Posicao po : Posicao.values()) {
             maos.get(po).clear();
         }
+        // embaralhe e crie a bolsa
         bolsa = new EmbaralhadorSimples().embaralhar(dador);
+        // distribua as cartas
         for (Posicao posicao : Posicao.values()) {
             maos.get(posicao).addAll(bolsa.getMao(posicao));
         }
+        // veja o naipe de trunfo
         this.trunfo = bolsa.getTrunfo();
-        
+        // marque a data de início
         this.dataDeInicio = new Date();
-        //this.resultado = null;
+        // ainda não acabou
         this.acabou = false;
-        
+        // em qual vaza está - 1
         numeroDaVaza = 0;
+        // crie a primeira vaza
         vazas[0] = new Vaza(dador.next(), trunfo);
+        // avise que "mudou de vez" (de vez de ninguém -> vez de alguém)
         repetidor.mudancaDeVez();
     }
 
