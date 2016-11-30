@@ -1,4 +1,4 @@
-package com.github.lucasgueiros.ifuwhist.partida.cartas;
+package com.github.lucasgueiros.ifuwhist.partida.vaza;
 
 import java.util.Comparator;
 

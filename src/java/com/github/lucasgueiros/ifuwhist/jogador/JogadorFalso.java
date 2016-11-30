@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
-import com.github.lucasgueiros.ifuwhist.partida.EventoPartida;
-import com.github.lucasgueiros.ifuwhist.partida.ListenerPartida;
-import com.github.lucasgueiros.ifuwhist.partida.NaoEstaNaVezException;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.EventoPartida;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.ListenerPartida;
+import com.github.lucasgueiros.ifuwhist.partida.excecoes.NaoEstaNaVezException;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import java.util.logging.Level;

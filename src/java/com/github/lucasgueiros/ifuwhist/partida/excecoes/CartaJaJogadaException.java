@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.ifuwhist.partida;
+package com.github.lucasgueiros.ifuwhist.partida.excecoes;
+
+import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 
 /**
  *
  * @author lucas
  */
-public class NaoEstaNaVezException extends Exception {
+public class CartaJaJogadaException extends CartaInvalidaException {
     
 }

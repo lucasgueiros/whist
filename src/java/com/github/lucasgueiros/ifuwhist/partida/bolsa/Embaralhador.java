@@ -6,7 +6,7 @@
 package com.github.lucasgueiros.ifuwhist.partida.bolsa;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 
 /**
  *

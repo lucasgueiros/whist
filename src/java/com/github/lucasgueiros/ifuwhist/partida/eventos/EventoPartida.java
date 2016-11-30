@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.ifuwhist.partida;
+package com.github.lucasgueiros.ifuwhist.partida.eventos;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
+import com.github.lucasgueiros.ifuwhist.partida.PartidaInterface;
 
 /**
  *

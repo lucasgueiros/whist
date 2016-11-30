@@ -7,6 +7,10 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Vaza;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.ListenerPartida;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.RepetidorDeEventoPartida;
+import com.github.lucasgueiros.ifuwhist.partida.excecoes.NaoEstaNaVezException;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.LinkedList;
@@ -17,8 +21,8 @@ import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.bolsa.Bolsa;
 import com.github.lucasgueiros.ifuwhist.partida.bolsa.EmbaralhadorSimples;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 

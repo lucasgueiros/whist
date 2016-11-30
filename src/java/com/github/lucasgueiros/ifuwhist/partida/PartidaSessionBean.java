@@ -6,6 +6,7 @@
 
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import com.github.lucasgueiros.ifuwhist.partida.excecoes.NaoEstaNaVezException;
 import com.github.lucasgueiros.ifuwhist.jogador.JogadorFalso;
 import com.github.lucasgueiros.ifuwhist.jogador.Jogador;
 import java.io.Serializable;
@@ -16,8 +17,8 @@ import javax.faces.bean.SessionScoped;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Mesa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.ifuwhist.util.SaidaParaArquivo;

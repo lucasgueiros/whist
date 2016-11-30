@@ -6,8 +6,8 @@
 package com.github.lucasgueiros.ifuwhist.resultados;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
-import com.github.lucasgueiros.ifuwhist.partida.EventoPartida;
-import com.github.lucasgueiros.ifuwhist.partida.ListenerPartida;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.EventoPartida;
+import com.github.lucasgueiros.ifuwhist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.ifuwhist.partida.Partida;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.Repositorio;
 import com.github.lucasgueiros.ifuwhist.util.repositorio.RepositorioJPA;

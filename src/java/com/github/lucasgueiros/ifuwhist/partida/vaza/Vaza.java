@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.ifuwhist.partida;
+package com.github.lucasgueiros.ifuwhist.partida.vaza;
 
+import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaJaJogadaException;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Carta;
-import com.github.lucasgueiros.ifuwhist.partida.cartas.Naipe;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
+import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import java.util.EnumMap;
 import java.util.Map;
 

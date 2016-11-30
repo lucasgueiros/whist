@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.ifuwhist.partida;
+package com.github.lucasgueiros.ifuwhist.partida.eventos;
 
+import com.github.lucasgueiros.ifuwhist.partida.Partida;
+import com.github.lucasgueiros.ifuwhist.partida.PartidaInterface;
 import java.util.HashSet;
 import java.util.Set;
 
