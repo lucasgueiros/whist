@@ -42,6 +42,7 @@ public class Partida implements PartidaInterface {
     // For score
     /** * quantas tricks NS já ganhou */
     private int vazasParaNS;
+    private int vazasParaEW;
     /** * a trick atual */
     private int numeroDaVaza = 0; // 
     /**
@@ -115,6 +116,8 @@ public class Partida implements PartidaInterface {
             Posicao ganhador = vaza.getGanhador();
             if (ganhador == Posicao.SOUTH || ganhador == Posicao.NORTH) {
                 vazasParaNS++;
+            } else {
+                vazasParaEW++;
             }
             if(this.getNumeroDaVaza()==13){
                 // se tiver acabado o jogo!
@@ -152,7 +155,7 @@ public class Partida implements PartidaInterface {
 
     @Override
     public int getVazasParaEW() {
-        return this.getNumeroDaVaza() - this.vazasParaNS - 1 ;
+        return this.vazasParaEW;
     }
 
     @Override
