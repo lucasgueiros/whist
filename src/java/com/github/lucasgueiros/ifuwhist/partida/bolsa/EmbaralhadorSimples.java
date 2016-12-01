@@ -34,7 +34,7 @@ public class EmbaralhadorSimples implements Embaralhador {
         LinkedList<Carta> set = new LinkedList<>();
         for (Naipe su: Naipe.values()) {
             for (Simbolo sy : Simbolo.values()) {
-                set.add(new Carta(su, sy));
+                set.add(Carta.getCarta(su,sy));
             }
         }
         

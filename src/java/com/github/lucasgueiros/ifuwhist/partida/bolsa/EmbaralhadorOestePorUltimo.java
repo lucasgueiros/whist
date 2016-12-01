@@ -34,22 +34,22 @@ public class EmbaralhadorOestePorUltimo implements Embaralhador {
                     switch(random) {
                         case 0: // NORTH
                             if(maoDealer.size() < 13) {
-                                maoDealer.add(new Carta(sy,su));
+                                maoDealer.add(Carta.getCarta(su,sy));
                                 break;
                             }
                         case 1: // EAST
                             if(maoEsquerda.size() < 13) {
-                                maoEsquerda.add(new Carta(sy,su));
+                                maoEsquerda.add(Carta.getCarta(su,sy));
                                 break;
                             }
                         case 2:// SOUTHn
                             if(maoDireita.size() < 13) {
-                                maoDireita.add(new Carta(sy,su));
+                                maoDireita.add(Carta.getCarta(su,sy));
                                 break;
                             }
                         case 3:// WEST
                             if(maoParceiro.size() < 13) {
-                                maoParceiro.add(new Carta(sy,su));
+                                maoParceiro.add(Carta.getCarta(su,sy));
                                 break;
                             } else {
                                 continue loop; // volte para tentar dar a carta para os outros
