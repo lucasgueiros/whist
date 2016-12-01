@@ -5,12 +5,20 @@
  */
 package com.github.lucasgueiros.ifuwhist.partida;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
  *
- * @author ogi
+ * @author lucas
  */
-public interface ListenerPartida {
-    public void partidaAcabou(EventoPartida informacoesAdicionais);
+public class PartidaTest {
+    
+    public PartidaTest() {
+    }
 
-    public void alguemJogou(EventoPartida evento);
+    @Test
+    public void testTudo() {
+    }
+    
 }
