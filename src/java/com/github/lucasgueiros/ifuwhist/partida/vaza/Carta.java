@@ -6,20 +6,34 @@
 
 package com.github.lucasgueiros.ifuwhist.partida.vaza;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
  * @author lucas
  */
+@XmlJavaTypeAdapter (Carta.StringAdpater.class)
+public class Carta implements Serializable {
+    
+    private static final long serialVersionUID = 2L;
 
-public class Carta {
     /*
      * This card defines the trumph suit for each deal
     **/
+    //@XmlAttribute
     private Naipe suit; // o naipe
+    //@XmlAttribute
     private Simbolo symbol; // simbolo, A, K, Q, J, 10 ... 2
  
+    public Carta(){
+        
+    }
+    
     public Carta(Naipe suit, Simbolo symbol) {
         this.suit = suit;
         this.symbol = symbol;
@@ -68,7 +82,92 @@ public class Carta {
         }
         return true;
     }
-    
-    
+
+    //@XmlElement
+    public void setSuit(Naipe suit) {
+        this.suit = suit;
+    }
+
+    //@XmlElement
+    public void setSymbol(Simbolo symbol) {
+        this.symbol = symbol;
+    }
+
+    public static class StringAdpater extends XmlAdapter<String,Carta>{
+
+        @Override
+        public String marshal(Carta carta) throws Exception {
+            return carta.toString();
+        }
+
+        @Override
+        public Carta unmarshal(String string) throws Exception {
+            char naipeChar = string.charAt(0);
+            Naipe naipe;
+            switch(naipeChar) {
+                case 'S':
+                    naipe=Naipe.SPADES;
+                    break;
+                case 'H':
+                    naipe=Naipe.HEARTS;
+                    break;
+                case 'D':
+                    naipe=Naipe.DIAMONDS;
+                    break;
+                case 'C':
+                    naipe=Naipe.CLUBS;
+                    break;
+                default:
+                    naipe=Naipe.SPADES;
+                    break;
+            }
+            String simboloString = string.substring(1);
+            Simbolo simbolo;
+            switch(simboloString) {
+                case "A":
+                    simbolo = Simbolo.A;
+                    break;
+                case "K":
+                    simbolo = Simbolo.A;
+                    break;
+                case "Q":
+                    simbolo = Simbolo.A;
+                    break;
+                case "J":
+                    simbolo = Simbolo.A;
+                    break;
+                case "10":
+                    simbolo = Simbolo.A;
+                    break;
+                case "9":
+                    simbolo = Simbolo.A;
+                    break;
+                case "8":
+                    simbolo = Simbolo.A;
+                    break;
+                case "7":
+                    simbolo = Simbolo.A;
+                    break;
+                case "6":
+                    simbolo = Simbolo.A;
+                    break;
+                case "5":
+                    simbolo = Simbolo.A;
+                    break;
+                case "4":
+                    simbolo = Simbolo.A;
+                    break;
+                case "3":
+                    simbolo = Simbolo.A;
+                    break;
+                case "2":
+                    simbolo = Simbolo.A;
+                    break;
+                default:
+                    simbolo = Simbolo.A;
+            }
+            return new Carta(naipe, simbolo);
+        }
+    }
     
 }
