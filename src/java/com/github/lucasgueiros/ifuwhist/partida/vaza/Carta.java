@@ -79,14 +79,6 @@ public class Carta implements Serializable {
         return true;
     }
 
-    public void setSuit(Naipe suit) {
-        this.suit = suit;
-    }
-
-    public void setSymbol(Simbolo symbol) {
-        this.symbol = symbol;
-    }
-
     public static class StringAdpater extends XmlAdapter<String,Carta>{
 
         @Override
