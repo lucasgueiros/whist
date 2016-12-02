@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -99,8 +98,7 @@ public class Bolsa implements Serializable {
         return norte;
     }
 
-    @XmlElementWrapper
-    @XmlElement (name="carta")
+    @XmlElement (name="NORTH")
     public void setNorte(Collection<Carta> norte) {
         this.norte = norte;
     }
@@ -109,8 +107,7 @@ public class Bolsa implements Serializable {
         return sul;
     }
 
-    @XmlElementWrapper
-    @XmlElement (name="carta")
+    @XmlElement (name="SOUTH")
     public void setSul(Collection<Carta> sul) {
         this.sul = sul;
     }
@@ -119,8 +116,7 @@ public class Bolsa implements Serializable {
         return leste;
     }
 
-    @XmlElementWrapper
-    @XmlElement (name="carta")
+    @XmlElement (name="EAST")
     public void setLeste(Collection<Carta> leste) {
         this.leste = leste;
     }
@@ -129,8 +125,7 @@ public class Bolsa implements Serializable {
         return oeste;
     }
 
-    @XmlElementWrapper
-    @XmlElement (name="carta")
+    @XmlElement (name="WEST")
     public void setOeste(Collection<Carta> oeste) {
         this.oeste = oeste;
     }

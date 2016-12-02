@@ -25,6 +25,7 @@ import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.ifuwhist.partida.excecoes.CartaNaoEstaNaMaoException;
+import com.github.lucasgueiros.ifuwhist.webservice.aletoriedade.GeradorAleatorioJavaRandom;
 
 /**
  *
@@ -197,7 +198,7 @@ public class Partida implements PartidaInterface {
             maos.get(po).clear();
         }
         // embaralhe e crie a bolsa
-        bolsa = new EmbaralhadorSimples().embaralhar(dador);
+        bolsa = new EmbaralhadorSimples().embaralhar(dador, new GeradorAleatorioJavaRandom());
         // distribua as cartas
         for (Posicao posicao : Posicao.values()) {
             maos.get(posicao).addAll(bolsa.getMao(posicao));

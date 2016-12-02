@@ -8,6 +8,7 @@ package com.github.lucasgueiros.ifuwhist.partida.bolsa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
+import com.github.lucasgueiros.ifuwhist.webservice.aletoriedade.GeradorAleatorio;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class EmbaralhadorV3 implements Embaralhador {
 
     @Override
-    public Bolsa embaralhar(Posicao posicao) {
+    public Bolsa embaralhar(Posicao posicao, GeradorAleatorio geradorAleatorio) {
         List<Carta> norte = new LinkedList<>();
         List<Carta> leste = new LinkedList<>();
         List<Carta> sul = new LinkedList<>();

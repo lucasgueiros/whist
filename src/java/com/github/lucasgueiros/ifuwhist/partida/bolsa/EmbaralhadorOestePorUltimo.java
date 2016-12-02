@@ -10,6 +10,7 @@ import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.ComparaCartas;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Simbolo;
+import com.github.lucasgueiros.ifuwhist.webservice.aletoriedade.GeradorAleatorio;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +22,7 @@ import java.util.Random;
 public class EmbaralhadorOestePorUltimo implements Embaralhador {
 
     @Override
-    public Bolsa embaralhar(Posicao dealer) {
+    public Bolsa embaralhar(Posicao dealer, GeradorAleatorio gerador) {
         List<Carta> maoDealer = new LinkedList<>();
         List<Carta> maoEsquerda = new LinkedList<>();
         List<Carta> maoDireita = new LinkedList<>();
@@ -29,7 +30,7 @@ public class EmbaralhadorOestePorUltimo implements Embaralhador {
         
         for(Naipe su : Naipe.values()) {
             for(Simbolo sy : Simbolo.values()) {
-                int random =  (int) ( Math.random() * 3 ) ; // um número entre 0 e 3
+                int random =  gerador.get(1,0,3)[0] ; // um número entre 0 e 3
                 loop:do {
                     switch(random) {
                         case 0: // NORTH
