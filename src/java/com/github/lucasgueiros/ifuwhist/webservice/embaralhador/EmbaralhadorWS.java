@@ -11,6 +11,7 @@ import com.github.lucasgueiros.ifuwhist.partida.bolsa.EmbaralhadorSimples;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -23,7 +24,7 @@ public class EmbaralhadorWS {
     @GET
     @Path("/simples")
     @Produces(MediaType.APPLICATION_XML)
-    public Bolsa getBolsa() {
-        return new EmbaralhadorSimples().embaralhar(Posicao.NORTH);
+    public Bolsa getBolsa(@QueryParam("dealer") Posicao dealer) {
+        return new EmbaralhadorSimples().embaralhar(dealer);
     }
 }

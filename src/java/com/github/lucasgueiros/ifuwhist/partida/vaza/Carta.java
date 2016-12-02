@@ -8,8 +8,6 @@ package com.github.lucasgueiros.ifuwhist.partida.vaza;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -25,9 +23,7 @@ public class Carta implements Serializable {
     /*
      * This card defines the trumph suit for each deal
     **/
-    //@XmlAttribute
     private Naipe suit; // o naipe
-    //@XmlAttribute
     private Simbolo symbol; // simbolo, A, K, Q, J, 10 ... 2
  
     public Carta(){
@@ -83,12 +79,10 @@ public class Carta implements Serializable {
         return true;
     }
 
-    //@XmlElement
     public void setSuit(Naipe suit) {
         this.suit = suit;
     }
 
-    //@XmlElement
     public void setSymbol(Simbolo symbol) {
         this.symbol = symbol;
     }
