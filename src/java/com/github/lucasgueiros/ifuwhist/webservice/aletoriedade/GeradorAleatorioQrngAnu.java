@@ -44,18 +44,24 @@ public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
             // getting JSON data
             System.out.println(service.accept(MediaType.APPLICATION_XML).get(String.class));/*/
             
-            String urlTxt = "https://172.28.2.2:3128/API/jsonI.php?length="+qtd+"&type=uint8";
+            //String urlTxt = "https://172.28.2.2:3128/API/jsonI.php?length="+qtd+"&type=uint8";
+            String urlTxt = "https://qrng.anu.edu.au/API/jsonI.php?length="+qtd+"&type=uint8";
             System.out.println(urlTxt);
             URL url = new URL(urlTxt);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            
-            connection.setRequestMethod("GET");
+            //connection.setRequestProperty("Accept-Charset", charset);
+            connection.setRequestMethod("POST");
             int responseCode = connection.getResponseCode();
-            connection.disconnect();
-            //InputStream is = url.openStream();
-            //Scanner scanner = new Scanner(is);
-            //System.out.println(scanner.nextLine());
+            
+            InputStream is = connection.getInputStream();
+            is.read();
+            Scanner scanner = new Scanner(is);
+            //System.out.println(connection.getContent());
+            System.out.println(scanner.nextLine());
             System.out.println(responseCode);
+            connection.disconnect();
+            
+            
         } catch (MalformedURLException ex) {
             Logger.getLogger(GeradorAleatorioQrngAnu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
