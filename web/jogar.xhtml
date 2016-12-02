@@ -20,6 +20,9 @@
             img.cartaHorizontal {
                 height: 50px;
             }
+            .cartaMenos25 {
+                left: -25px;
+            }
         </style>
     </h:head>
     <h:body>
@@ -33,17 +36,18 @@
             </p:panel>
             <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field">
                 <p:panelGrid columns="1" id="opanelgrid">
-                    <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas('SOUTH')}">
-                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('SOUTH'))}" var="carta">
-                            <h:graphicImage value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
+                    <p:panel class="frequpdate"  >
+                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('SOUTH'))}" var="carta" varStatus="status">
+                            <h:graphicImage style="position: relative; left: #{status.index * -25}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
                         </c:forEach>
-                    </p:panelGrid>
+                    </p:panel>
                     <p:panelGrid columns="3">
-                        <p:panelGrid class="frequpdate" columns="1">
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta">
-                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal"/>
+                        <p:panel>
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta" varStatus="status">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
+                                <br/>
                             </c:forEach>
-                        </p:panelGrid>
+                        </p:panel>
                         <h:panelGroup style="align-self: center">
                             <table>
                                 <tr>
@@ -63,19 +67,20 @@
                                 </tr>
                             </table>
                         </h:panelGroup>
-                        <p:panelGrid class="frequpdate" columns="1">
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta">
-                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal"/>
+                        <p:panel>
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta" varStatus="status">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
+                                <br/>
                             </c:forEach>
-                        </p:panelGrid>
+                        </p:panel>
                     </p:panelGrid>
-                    <p:panelGrid class="frequpdate" columns="#{partidaSessionBean.getNumeroCartas(partidaSessionBean.myPosicao)}" >
-                        <c:forEach items="#{partidaSessionBean.cartas}" var="carta">
-                            <p:commandLink action="#{partidaSessionBean.play(carta)}">
-                                <h:graphicImage value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" class="cartaVertical"/>
+                    <p:panel class="frequpdate">
+                        <c:forEach items="#{partidaSessionBean.cartas}" var="carta" varStatus="lstatus">
+                            <p:commandLink  style="position: relative; left: #{status.index * -50}px; z-index: #{status.index}" action="#{partidaSessionBean.play(carta)}">
+                                <h:graphicImage  value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" class="cartaVertical"/>
                             </p:commandLink>
                         </c:forEach>    
-                    </p:panelGrid>
+                    </p:panel>
                 </p:panelGrid>
             </p:fieldset>
         </h:form>        
