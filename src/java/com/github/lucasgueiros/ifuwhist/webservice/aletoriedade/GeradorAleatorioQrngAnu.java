@@ -25,28 +25,19 @@ import java.util.logging.Logger;
 
         
         
-        /**
-         *
-         * @author ogi
-         */
+/**
+ *
+ * @author ogi
+ */
 
 public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
 
     @Override
     public int[] get(int qtd) {
-        int[] array = {2, 2};
+        int[] array = new int [qtd];
 
         try {
-            /*ClientConfig config = new DefaultClientConfig();
-            Client client = Client.create(config);
-            WebResource service = client.resource(UriBuilder.fromUri("https://qrng.anu.edu.au/").build());
-            service=service.path("API/").path("jsonI.php").queryParam("length","10").queryParam("type","uint8");
-            // getting JSON data
-            System.out.println(service.accept(MediaType.APPLICATION_XML).get(String.class));/*/
-            
-            //String urlTxt = "https://172.28.2.2:3128/API/jsonI.php?length="+qtd+"&type=uint8";
             String urlTxt = "https://qrng.anu.edu.au/API/jsonI.php?length="+qtd+"&type=uint8";
-            System.out.println(urlTxt);
             URL url = new URL(urlTxt);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //connection.setRequestProperty("Accept-Charset", charset);
@@ -54,14 +45,12 @@ public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
             int responseCode = connection.getResponseCode();
             
             InputStream is = connection.getInputStream();
-            is.read();
             Scanner scanner = new Scanner(is);
-            //System.out.println(connection.getContent());
-            System.out.println(scanner.nextLine());
-            System.out.println(responseCode);
-            connection.disconnect();
-            
-            
+            String [] resultadoAsString = scanner.nextLine().split("\\[")[1].split("\\]")[0].split(",");
+            for (int i = 0; i < qtd; i++) {
+                array[i] = Integer.parseInt(resultadoAsString[i]);
+            }
+            connection.disconnect();            
         } catch (MalformedURLException ex) {
             Logger.getLogger(GeradorAleatorioQrngAnu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -71,9 +60,49 @@ public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
         return array;
     }
 
+    
     public static void main(String[] args) {
         GeradorAleatorio gerador = new GeradorAleatorioQrngAnu();
-        System.out.println("r=" + Arrays.toString(gerador.get(2)));
+        System.out.println("r=" + Arrays.toString(gerador.get(52,1,52,-1)));
+    }
+
+    @Override
+    public int[] get(int n, int min, int max) {
+        int [] numeros = get(n);
+        int [] numerosAdpatados = new int [n];
+        
+        for (int i = 0; i < n; i++) {
+            double numero = numeros[i];
+            //System.out.println(numero);
+            numero = numero / 255.0;
+            //System.out.println(numero);
+            numero = numero * max;
+            //System.out.println(numero);
+            numero = numero + min;
+            numerosAdpatados[i] = (int) numero;
+        }
+        
+        return numerosAdpatados;
+    }
+    
+    @Override
+    public int[] get(int n, int min, int max, int var) {
+        int [] numeros = get(n);
+        int [] numerosAdpatados = new int [n];
+        
+        for (int i = 0; i < n; i++) {
+            double numero = numeros[i];
+            System.out.println(numero);
+            numero = numero / 255.0;
+            System.out.println(numero);
+            numero = numero * max;
+            System.out.println(numero);
+            numero = numero + min;
+            numerosAdpatados[i] = (int) numero;
+            max = max + var;
+        }
+        
+        return numerosAdpatados;
     }
 
 }
