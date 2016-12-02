@@ -73,11 +73,8 @@ public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
         
         for (int i = 0; i < n; i++) {
             double numero = numeros[i];
-            //System.out.println(numero);
             numero = numero / 255.0;
-            //System.out.println(numero);
             numero = numero * max;
-            //System.out.println(numero);
             numero = numero + min;
             numerosAdpatados[i] = (int) numero;
         }
@@ -92,11 +89,8 @@ public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
         
         for (int i = 0; i < n; i++) {
             double numero = numeros[i];
-            System.out.println(numero);
             numero = numero / 255.0;
-            System.out.println(numero);
             numero = numero * max;
-            System.out.println(numero);
             numero = numero + min;
             numerosAdpatados[i] = (int) numero;
             max = max + var;
