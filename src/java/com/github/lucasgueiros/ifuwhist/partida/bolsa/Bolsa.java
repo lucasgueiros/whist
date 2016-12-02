@@ -129,6 +129,11 @@ public class Bolsa implements Serializable {
     public void setOeste(Collection<Carta> oeste) {
         this.oeste = oeste;
     }
+
+    @Override
+    public String toString() {
+        return "Bolsa{" + "trunfo=" + trunfo + ", norte=" + norte + ", sul=" + sul + ", leste=" + leste + ", oeste=" + oeste + ", dealer=" + dealer + '}';
+    }
     
     
     
