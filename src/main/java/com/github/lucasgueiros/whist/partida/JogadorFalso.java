@@ -1,5 +1,6 @@
-package com.github.lucasgueiros.whist.jogador;
+package com.github.lucasgueiros.whist.partida;
 
+import com.github.lucasgueiros.whist.jogador.Jogador;
 import java.util.List;
 import java.util.Map;
 

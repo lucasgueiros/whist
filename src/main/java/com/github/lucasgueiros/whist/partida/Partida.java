@@ -7,6 +7,7 @@
 
 package com.github.lucasgueiros.whist.partida;
 
+import com.github.lucasgueiros.whist.partida.eventos.PartidaInterface;
 import com.github.lucasgueiros.whist.partida.vaza.Vaza;
 import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.partida.eventos.RepetidorDeEventoPartida;
@@ -25,8 +26,8 @@ import com.github.lucasgueiros.whist.partida.vaza.Carta;
 import com.github.lucasgueiros.whist.partida.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
-import com.github.lucasgueiros.whist.webservice.aletoriedade.GeradorAleatorioJavaRandom;
-import com.github.lucasgueiros.whist.webservice.aletoriedade.GeradorAleatorioQrngAnu;
+import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioJavaRandom;
+import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioQrngAnu;
 
 /**
  *

@@ -5,8 +5,6 @@
  */
 package com.github.lucasgueiros.whist.partida.eventos;
 
-import com.github.lucasgueiros.whist.partida.Partida;
-import com.github.lucasgueiros.whist.partida.PartidaInterface;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,10 +15,10 @@ import java.util.Set;
  */
 public class RepetidorDeEventoPartida  {
     
-    private PartidaInterface partida;
-    private Set<ListenerPartida> listeners = new HashSet<>();
+    private final PartidaInterface partida;
+    private final Set<ListenerPartida> listeners = new HashSet<>();
 
-    public RepetidorDeEventoPartida(Partida partida) {
+    public RepetidorDeEventoPartida(PartidaInterface partida) {
         this.partida = partida;
     }
     

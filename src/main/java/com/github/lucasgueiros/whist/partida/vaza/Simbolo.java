@@ -33,4 +33,14 @@ public enum Simbolo {
         }
     }
     
+    public String toStringExt(){
+        switch(this) {
+            case A: return "ace"; 
+            case K: return "king"; 
+            case Q: return "queen"; 
+            case J: return "jack";
+            default: return toString();
+        }
+    }
+    
 }

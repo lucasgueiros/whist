@@ -6,7 +6,6 @@
 package com.github.lucasgueiros.whist.partida.eventos;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.PartidaInterface;
 
 /**
  *

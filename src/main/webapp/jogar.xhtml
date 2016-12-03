@@ -77,7 +77,7 @@
                     <p:panel class="frequpdate">
                         <c:forEach items="#{partidaSessionBean.cartas}" var="carta" varStatus="lstatus">
                             <p:commandLink  style="position: relative; left: #{status.index * -50}px; z-index: #{status.index}" action="#{partidaSessionBean.play(carta)}">
-                                <h:graphicImage  value="#{propriedades.getCarta(carta)}" alt="#{carta.toString()}" class="cartaVertical"/>
+                                <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" class="cartaVertical"/>
                             </p:commandLink>
                         </c:forEach>    
                     </p:panel>

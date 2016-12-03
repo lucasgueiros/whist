@@ -10,7 +10,7 @@ import com.github.lucasgueiros.whist.partida.vaza.Carta;
 import com.github.lucasgueiros.whist.partida.vaza.ComparaCartas;
 import com.github.lucasgueiros.whist.partida.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.vaza.Simbolo;
-import com.github.lucasgueiros.whist.webservice.aletoriedade.GeradorAleatorio;
+import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorio;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
