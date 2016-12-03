@@ -57,6 +57,10 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         return partida.getNaipeDeTrunfo().toString();//partida.getTrumph().getNaipe().toString();
     }
     
+    public String getTrumphNaipeValue() {
+        return PropriedadesApplicationBean.getString("imagens.naipes."+getTrumphNaipe());
+    }
+    
     public String getCurrentNaipe() {
         Naipe s = partida.getNaipeCorrente();
         if(s!=null) return s.toString();
@@ -92,6 +96,12 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
         Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
         if(carta==null) return "";
         return carta.toString();
+    }
+    
+    public String getCartaImagem(String position){
+        Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
+        if(carta==null) return "";
+        return PropriedadesApplicationBean.getImagem(carta);
     }
     
     public String goSozinho(Jogador north) {
