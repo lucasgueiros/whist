@@ -195,10 +195,6 @@ public class Partida implements PartidaInterface {
 
     @Override
     public void iniciar() {
-        // limpe as mão, talvez seja desnecessário?
-        for(Posicao po : Posicao.values()) {
-            maos.get(po).clear();
-        }
         // embaralhe e crie a bolsa
         bolsa = new EmbaralhadorSimples().embaralhar(dador, new GeradorAleatorioQrngAnu());
         // distribua as cartas
