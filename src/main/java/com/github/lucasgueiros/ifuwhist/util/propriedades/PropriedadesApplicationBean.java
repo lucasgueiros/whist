@@ -24,7 +24,7 @@ public class PropriedadesApplicationBean  implements Serializable {
     
     static {
         properties = new Properties();
-        InputStream inputStream = PropriedadesApplicationBean.class.getClassLoader().getResourceAsStream("/resources/strings.properties");
+        InputStream inputStream = PropriedadesApplicationBean.class.getClassLoader().getResourceAsStream("strings.properties");
         try {
             if (inputStream == null) {
                 throw new FileNotFoundException();

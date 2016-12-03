@@ -39,7 +39,7 @@ public class UsandoWS {
             System.out.println("Quem é o dador?");
             String dador = scan.next().toUpperCase();
             
-            String urlTxt = "http://localhost:8080/whist/rest/shuffle/qrng?dealer=" + dador;
+            String urlTxt = "http://localhost:8080/whist/embaralhar/qrng?dealer=" + dador;
             URL url = new URL(urlTxt);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //connection.setRequestProperty("Accept-Charset", charset);

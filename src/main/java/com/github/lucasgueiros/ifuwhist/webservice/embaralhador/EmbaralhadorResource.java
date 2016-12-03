@@ -14,24 +14,24 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author ogi
  */
-@Path("/shuffle")
-public class EmbaralhadorWS {
+@Path("/qrng")
+public class EmbaralhadorResource {
     
-    @GET
+    /*@GET
     @Path("/java")
     @Produces(MediaType.APPLICATION_JSON)
     public Bolsa getBolsaSimplesJava(@QueryParam("dealer") Posicao dealer) {
         return new EmbaralhadorSimples().embaralhar(dealer, new GeradorAleatorioJavaRandom());
-    }
+    }*/
     
     @GET
-    @Path("/qrng")
     @Produces(MediaType.APPLICATION_JSON)
     public Bolsa getBolsaQrng(@QueryParam("dealer") Posicao dealer) {
         return new EmbaralhadorSimples().embaralhar(dealer, new GeradorAleatorioQrngAnu());
