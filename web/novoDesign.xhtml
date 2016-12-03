@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .invisivel {
+               border: 0;
+            }
+        </style>
+            
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="west" size="20%" class="invisivel"/>
+            <p:layoutUnit position="east" size="20%" class="invisivel"/>
+            <p:layoutUnit position="center" class="invisivel">
+                <p:layout>
+                    <p:layoutUnit position="north" size="10%" class="invisivel">
+                        <p:layout>
+                            <p:layoutUnit position="west" size="12%" class="invisivel">
+                                <h:graphicImage value="imagens/logo1.svg" height="100%"/>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" class="invisivel"/>
+                            <p:layoutUnit position="east" size="20%" class="invisivel">
+                                <p:commandButton value="Fazer login"/>
+                            </p:layoutUnit>
+                        </p:layout>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        OLAA
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
+
