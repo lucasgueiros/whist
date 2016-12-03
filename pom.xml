@@ -205,42 +205,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Criando banco de dados -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sql-maven-plugin</artifactId>
-				<version>1.5</version>
-				<dependencies>
-					<dependency>
-						<groupId>postgresql</groupId>
-						<artifactId>postgresql</artifactId>
-						<version>9.1-901-1.jdbc4</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgressql://localhost:5432/whist</url>
-					<username>postgres</username>
-					<password>ifpe</password>
-				</configuration>
-				<executions>
-					<execution>
-						<id>create-db</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<url>jdbc:postgresql://localhost:5432</url>
-							<!-- no transaction -->
-							<autocommit>true</autocommit>
-							<sqlCommand>create database whist</sqlCommand>
-							<onError>continue</onError>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
 		</plugins>
 
 	</build>
