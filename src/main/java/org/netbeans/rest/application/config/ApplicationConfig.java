@@ -30,7 +30,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.github.lucasgueiros.ifuwhist.webservice.embaralhador.EmbaralhadorResource.class);
+        resources.add(com.github.lucasgueiros.whist.webservice.embaralhador.EmbaralhadorResource.class);
     }
     
 }
