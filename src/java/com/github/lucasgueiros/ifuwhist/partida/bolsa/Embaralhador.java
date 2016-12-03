@@ -7,6 +7,7 @@ package com.github.lucasgueiros.ifuwhist.partida.bolsa;
 
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
+import com.github.lucasgueiros.ifuwhist.webservice.aletoriedade.GeradorAleatorio;
 
 /**
  *
@@ -18,7 +19,8 @@ public interface Embaralhador {
      * Gera um nova bolsa aleatoriamente, apenas define-se o "imaginável" dealer.
      * 
      * @param posicao dealer
+     * @param geradorAleatorio
      * @return 
      */
-    public Bolsa embaralhar(Posicao posicao);
+    public Bolsa embaralhar(Posicao posicao, GeradorAleatorio geradorAleatorio);
 }

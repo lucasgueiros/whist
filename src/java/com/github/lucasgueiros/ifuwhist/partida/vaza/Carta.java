@@ -7,12 +7,19 @@ package com.github.lucasgueiros.ifuwhist.partida.vaza;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.io.Serializable;
+import java.util.Objects;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
  * @author lucas
  */
-public final class Carta implements Comparable<Carta> {
+@XmlJavaTypeAdapter (Carta.StringAdpater.class)
+public final class Carta implements Serializable, Comparable<Carta> {
+    
+    private static final long serialVersionUID = 2L;
 
     /*
      * This card defines the trumph suit for each deal
@@ -97,4 +104,81 @@ public final class Carta implements Comparable<Carta> {
         }
     }
 
+    public static class StringAdpater extends XmlAdapter<String,Carta>{
+
+        @Override
+        public String marshal(Carta carta) throws Exception {
+            return carta.toString();
+        }
+
+        @Override
+        public Carta unmarshal(String string) throws Exception {
+            char naipeChar = string.charAt(0);
+            Naipe naipe;
+            switch(naipeChar) {
+                case 'S':
+                    naipe=Naipe.SPADES;
+                    break;
+                case 'H':
+                    naipe=Naipe.HEARTS;
+                    break;
+                case 'D':
+                    naipe=Naipe.DIAMONDS;
+                    break;
+                case 'C':
+                    naipe=Naipe.CLUBS;
+                    break;
+                default:
+                    naipe=Naipe.SPADES;
+                    break;
+            }
+            String simboloString = string.substring(1);
+            Simbolo simbolo;
+            switch(simboloString) {
+                case "A":
+                    simbolo = Simbolo.A;
+                    break;
+                case "K":
+                    simbolo = Simbolo.K;
+                    break;
+                case "Q":
+                    simbolo = Simbolo.Q;
+                    break;
+                case "J":
+                    simbolo = Simbolo.J;
+                    break;
+                case "10":
+                    simbolo = Simbolo.N10;
+                    break;
+                case "9":
+                    simbolo = Simbolo.N9;
+                    break;
+                case "8":
+                    simbolo = Simbolo.N8;
+                    break;
+                case "7":
+                    simbolo = Simbolo.N7;
+                    break;
+                case "6":
+                    simbolo = Simbolo.N6;
+                    break;
+                case "5":
+                    simbolo = Simbolo.N5;
+                    break;
+                case "4":
+                    simbolo = Simbolo.N4;
+                    break;
+                case "3":
+                    simbolo = Simbolo.N3;
+                    break;
+                case "2":
+                    simbolo = Simbolo.N2;
+                    break;
+                default:
+                    simbolo = Simbolo.A;
+            }
+            return Carta.getCarta(naipe, simbolo);
+        }
+    }
+    
 }

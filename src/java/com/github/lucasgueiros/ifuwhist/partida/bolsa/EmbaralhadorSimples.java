@@ -10,6 +10,7 @@ import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.ComparaCartas;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Simbolo;
+import com.github.lucasgueiros.ifuwhist.webservice.aletoriedade.GeradorAleatorio;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -22,8 +23,8 @@ import java.util.Random;
 public class EmbaralhadorSimples implements Embaralhador {
 
     @Override
-    public Bolsa embaralhar(Posicao dealer){
-        long seed = (long) Math.random();
+    public Bolsa embaralhar(Posicao dealer, GeradorAleatorio geradorAleatorio){
+        //long seed = (long) Math.random();
         
         Carta [] maoDealer = new Carta[13];
         Carta [] maoEsquerda = new Carta[13];
@@ -38,9 +39,16 @@ public class EmbaralhadorSimples implements Embaralhador {
             }
         }
         
-        Random r = new Random(seed);
+        //Random r = new Random(seed);
         // embaralhe
-        Collections.shuffle(set, r);
+        Collections.shuffle(set, new Random(){
+            private int [] alea = geradorAleatorio.get(52,0,51,-1);
+            
+            @Override
+            public int nextInt(int bound) {
+                return alea[bound-1];
+            }
+        });
         
         // distribua
         // até 13

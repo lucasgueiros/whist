@@ -8,9 +8,13 @@ package com.github.lucasgueiros.ifuwhist.partida.bolsa;
 import com.github.lucasgueiros.ifuwhist.mesa.Posicao;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Carta;
 import com.github.lucasgueiros.ifuwhist.partida.vaza.Naipe;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
@@ -20,14 +24,20 @@ import java.util.List;
  * 
  * @author lucas
  */
-public class Bolsa {
+@XmlRootElement
+public class Bolsa implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+
     private Naipe trunfo;
     private Collection<Carta> norte;
     private Collection<Carta> sul;
     private Collection<Carta> leste;
     private Collection<Carta> oeste;
     private Posicao dealer;
+
+    public Bolsa() {
+    }
 
     private Bolsa(Naipe trunfo, Posicao dealer) {
         this.trunfo = trunfo;
@@ -60,6 +70,7 @@ public class Bolsa {
         return trunfo;
     }
 
+    @XmlElement
     public void setTrunfo(Naipe trunfo) {
         this.trunfo = trunfo;
     }
@@ -67,7 +78,8 @@ public class Bolsa {
     public Posicao getDealer() {
         return dealer;
     }
-
+    
+    @XmlElement
     public void setDealer(Posicao dealer) {
         this.dealer = dealer;
     }
@@ -86,6 +98,7 @@ public class Bolsa {
         return norte;
     }
 
+    @XmlElement (name="NORTH")
     public void setNorte(Collection<Carta> norte) {
         this.norte = norte;
     }
@@ -94,6 +107,7 @@ public class Bolsa {
         return sul;
     }
 
+    @XmlElement (name="SOUTH")
     public void setSul(Collection<Carta> sul) {
         this.sul = sul;
     }
@@ -102,6 +116,7 @@ public class Bolsa {
         return leste;
     }
 
+    @XmlElement (name="EAST")
     public void setLeste(Collection<Carta> leste) {
         this.leste = leste;
     }
@@ -110,8 +125,14 @@ public class Bolsa {
         return oeste;
     }
 
+    @XmlElement (name="WEST")
     public void setOeste(Collection<Carta> oeste) {
         this.oeste = oeste;
+    }
+
+    @Override
+    public String toString() {
+        return "Bolsa{" + "trunfo=" + trunfo + ", norte=" + norte + ", sul=" + sul + ", leste=" + leste + ", oeste=" + oeste + ", dealer=" + dealer + '}';
     }
     
     
