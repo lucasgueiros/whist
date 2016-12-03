@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.whist.partida;
+package com.github.lucasgueiros.whist.partida.eventos;
 
 import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.partida.excecoes.NaoEstaNaVezException;

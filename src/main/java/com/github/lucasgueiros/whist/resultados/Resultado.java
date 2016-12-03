@@ -8,8 +8,7 @@ package com.github.lucasgueiros.whist.resultados;
 
 import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.Partida;
-import com.github.lucasgueiros.whist.partida.PartidaInterface;
+import com.github.lucasgueiros.whist.partida.eventos.PartidaInterface;
 import java.util.Date;
 
 import javax.persistence.Column;

@@ -1,6 +1,5 @@
 package com.github.lucasgueiros.whist.util.propriedades;
 
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,32 +40,17 @@ public class PropriedadesApplicationBean  implements Serializable {
         return properties.getProperty(key);
     }
 
-    public static String getImagem(Carta carta) {
-        String url = "cartas/";
-        switch(carta.getSimbolo()) {
-            case A: url += "ace"; break;
-            case K: url += "king"; break;
-            case Q: url += "queen"; break;
-            case J: url += "jack"; break;            
-            default: url+=carta.getSimbolo().toString();
-        }
-        url += "_of_";
-        switch(carta.getNaipe()) {
-            case CLUBS: url += "clubs"; break;
-            case DIAMONDS: url += "diamonds"; break;
-            case HEARTS: url += "hearts"; break;
-            case SPADES: url += "spades"; break;
-        }
-        url += ".svg";
-        return url;
+    public static String getImagem(String naipeext, String simboloext) {
+        return "cartas/" + simboloext + "_of_" + naipeext + ".svg";
     }
-
+    
     public String get(String key) {
         return PropriedadesApplicationBean.getString(key);
     }
     
-    public String getCarta(Carta carta) {
-        return PropriedadesApplicationBean.getImagem(carta);
+    public String getCarta(String naipe, String simbolo) {
+        return PropriedadesApplicationBean.getImagem(naipe, simbolo);
     }
+    
     
 }

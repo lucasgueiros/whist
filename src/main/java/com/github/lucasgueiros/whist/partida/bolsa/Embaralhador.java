@@ -6,8 +6,7 @@
 package com.github.lucasgueiros.whist.partida.bolsa;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.webservice.aletoriedade.GeradorAleatorio;
+import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorio;
 
 /**
  *

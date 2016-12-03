@@ -6,8 +6,8 @@
 
 package com.github.lucasgueiros.whist.partida;
 
+import com.github.lucasgueiros.whist.partida.eventos.PartidaInterface;
 import com.github.lucasgueiros.whist.partida.excecoes.NaoEstaNaVezException;
-import com.github.lucasgueiros.whist.jogador.JogadorFalso;
 import com.github.lucasgueiros.whist.jogador.Jogador;
 import java.io.Serializable;
 import java.util.List;
@@ -101,7 +101,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     public String getCartaImagem(String position){
         Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
         if(carta==null) return "";
-        return PropriedadesApplicationBean.getImagem(carta);
+        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
     }
     
     public String goSozinho(Jogador north) {
