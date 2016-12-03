@@ -1,0 +1,11 @@
+language: java
+
+jdk:
+  - oraclejdk8
+  
+services:
+  - postgresql
+  
+before_script:
+  - sed -i 's/ifpe//' src/main/resources/META-INF/persistence.xml
+  - psql -c 'create database whist;' -U postgres
