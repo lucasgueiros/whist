@@ -11,15 +11,16 @@
         </title>
     </h:head>
     <h:body id="obody">
-        <h:form id="oform">
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
-            <h1>Index</h1>
-			
-            <c:if id="oif" test="#{usuarioSessionBean.autenticado}">
-                <p:outputLabel id="oMensagemBoasVindas" value="Bem-vindo, #{usuarioSessionBean.jogador.nome}"/>
-            </c:if>
-
-        </h:form>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form id="oform">
+                    <h1>Index</h1>		
+                    <c:if id="oif" test="#{usuarioSessionBean.autenticado}">
+                        <p:outputLabel id="oMensagemBoasVindas" value="Bem-vindo, #{usuarioSessionBean.jogador.nome}"/>
+                    </c:if>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

@@ -87,6 +87,17 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+                <!-- Incluindo tema -->
+                <dependency>
+                    <groupId>org.primefaces.themes</groupId>
+                    <artifactId>le-frog</artifactId>
+                    <version>1.0.6</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.primefaces.themes</groupId>
+                    <artifactId>south-street</artifactId>
+                    <version>1.0.10</version>
+                </dependency>   
 		<!-- WebService -->
 		<dependency>
     			<groupId>org.json</groupId>
@@ -209,7 +220,11 @@
 
 	</build>
 
-
-
-
+        <repositories>
+            <repository>
+		<id>prime-repo</id>
+		<name>Prime Repo</name>
+		<url>http://repository.primefaces.org</url>
+            </repository>
+        </repositories>
 </project>

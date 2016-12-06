@@ -9,24 +9,27 @@
             #{propriedades.get('pagina.paraCompletarOCadastro.titulo')}</title>
     </h:head>
     <h:body>
-        <h:form id="oForm">
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
-            <p:fieldset legend="Cadastro">
-                <p:panelGrid columns="2">
-                    <h:outputText value="Usuário: "/>
-                    <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
-                    
-                    <h:outputText value="Senha: "/>
-                    <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
-                    
-                    <h:outputText value="Nome: "/>
-                    <p:inputText id="oNomeField" value="#{usuarioSessionBean.nome}"/>
-                    
-                    <p:commandButton id="oCadastrarButton"  value="Cadastrar" action="#{usuarioSessionBean.finalizarCadastrar()}"/>
-                                  
-                </p:panelGrid>
-            </p:fieldset>            
-        </h:form>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form id="oForm">
+                    <p:fieldset legend="Cadastro">
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Usuário: "/>
+                            <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
+
+                            <h:outputText value="Senha: "/>
+                            <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
+
+                            <h:outputText value="Nome: "/>
+                            <p:inputText id="oNomeField" value="#{usuarioSessionBean.nome}"/>
+
+                            <p:commandButton id="oCadastrarButton"  value="Cadastrar" action="#{usuarioSessionBean.finalizarCadastrar()}"/>
+
+                        </p:panelGrid>
+                    </p:fieldset>            
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

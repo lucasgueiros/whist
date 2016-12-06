@@ -9,8 +9,8 @@
             #{propriedades.get('pagina.consulta.rankingDeJogadores.titulo')}</title>
     </h:head>
     <h:body>
+        <ui:composition template="comum/template.xhtml"> <ui:define name="conteudo">
         <h:form>
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>#{propriedades.get('pagina.consulta.rankingDeJogadores.titulo')}</h1>
             
             <p:dataTable value="#{resultadosSessionBean.ranking}" var="jogador">
@@ -22,6 +22,7 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+            </ui:define></ui:composition>
     </h:body>
 </html>
 
