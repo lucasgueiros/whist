@@ -10,9 +10,12 @@
         </title>
     </h:head>
     <h:body>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
+                
+            
         <h:form id="oForm">
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
-            <p:fieldset legend="Login ou Cadastro">
+            <p:fieldset legend="Login">
                 <p:panelGrid columns="2">
                     <h:outputText value="Usuário: "/>
                     <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
@@ -25,6 +28,8 @@
                 </p:panelGrid>
             </p:fieldset>
         </h:form>
+                </ui:define>
+            </ui:composition>
     </h:body>
 </html>
 

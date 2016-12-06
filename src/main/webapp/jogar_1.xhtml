@@ -30,13 +30,14 @@
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <!-- Será atualizado por ajax a cada 2 segundos! -->
             <p:poll update="@(.frequpdate)" interval="2" />
-            <p:panel class="frequpdate">
+            
+            <p:panel>
                 <h:outputText value="Naipe de trunfo: "/>
                 <h:graphicImage value="#{partidaSessionBean.trumphNaipeValue}" alt="#{partidaSessionBean.trumphNaipe}" height="50px"/>
                 <br/>
                 <h:outputText value="#{partidaSessionBean.placar}"/>
             </p:panel>
-            <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field" style="overflow-y: auto">
+            <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field">
                 <p:panelGrid columns="1" id="opanelgrid">
                     <p:panel class="frequpdate"  >
                         <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('SOUTH'))}" var="carta" varStatus="status">
@@ -45,10 +46,10 @@
                     </p:panel>
                     <p:panelGrid columns="3">
                         <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta" varStatus="status">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta" varStatus="status">
                                 <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
                                 <br/>
-                            </c:forEach>
+                            </c:forEach>oog
                         </p:panel>
                         <h:panelGroup style="align-self: center">
                             <table>
@@ -70,7 +71,7 @@
                             </table>
                         </h:panelGroup>
                         <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta" varStatus="status">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta" varStatus="status">
                                 <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
                                 <br/>
                             </c:forEach>

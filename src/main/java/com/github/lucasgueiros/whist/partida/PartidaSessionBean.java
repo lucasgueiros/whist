@@ -54,6 +54,7 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
     }
     
     public String getTrumphNaipe() {
+        if(partida.getNaipeDeTrunfo()==null) return "";
         return partida.getNaipeDeTrunfo().toString();//partida.getTrumph().getNaipe().toString();
     }
     
@@ -166,6 +167,10 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
 
     public void setPartida(Partida partida) {
         this.partida = partida;
+    }
+    
+    public String getPlacar() {
+        return getPlacarNS() + " NS x EW " + getPlacarEW();
     }
     
 }

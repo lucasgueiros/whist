@@ -9,8 +9,8 @@
             #{propriedades.get('pagina.consulta.meusResultados.titulo')}</title>
     </h:head>
     <h:body>
+        <ui:composition template="comum/template.xhtml"> <ui:define name="conteudo">
         <h:form>
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <h1>#{propriedades.get('pagina.consulta.meusResultados.titulo')}</h1>
             
             
@@ -46,7 +46,7 @@
                 
             </p:dataTable>
             
-        </h:form>
+        </h:form></ui:define></ui:composition>
     </h:body>
 </html>
 
