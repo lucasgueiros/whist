@@ -1,0 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.github.lucasgueiros.whist.sala;
+
+import com.github.lucasgueiros.whist.equipe.Equipe;
+import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
+import com.github.lucasgueiros.whist.usuario.Usuario;
+import com.github.lucasgueiros.whist.util.propriedades.PropriedadesApplicationBean;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+/**
+ *
+ * @author lucas
+ */
+@ManagedBean
+@RequestScoped
+public class SalaRequestBean {
+    
+    private String nomeDaSala;
+    private Usuario usuario;
+
+    public String getNomeDaSala() {
+        return nomeDaSala;
+    }
+
+    public void setNomeDaSala(String nomeDaSala) {
+        this.nomeDaSala = nomeDaSala;
+    }
+
+    public Sala criarSalaUmMesa(){
+        SalaUmaMesa sala = new SalaUmaMesa();
+        
+        // já que só tem um jogador, adicione logo ele.
+        Equipe equipe = new Equipe(TipoDeEquipe.INDIVIDUAL);
+        equipe.setMembros(usuario);
+        sala.adicionarEquipe(equipe);
+        
+        return sala;
+    }
+    
+    public String preparaCriarSalaUmaMesa(Usuario usuario){
+        this.usuario = usuario;
+        return PropriedadesApplicationBean.getString("pagina.criarSala.umaMesa");
+    }
+    
+}

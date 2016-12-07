@@ -11,6 +11,7 @@
             <p:menuitem value="Início" icon="ui-icon-home" action="#{propriedades.get('pagina.index')}"/>
             <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.meusResultados')}"/>
             <p:menuitem value="Ranking" action="#{propriedades.get('pagina.consulta.rankingDeJogadores')}"/>
+            <p:menuitem value="Criar Sala com Uma mesa" action="#{salaRequestBean.preparaCriarSalaUmaMesa(usuarioSessionBean.jogador)}"/>
             <p:menuitem value="Jogar Sozinho" action="#{partidaSessionBean.goSozinho(usuarioSessionBean.jogador)}" />
             <p:menuitem value="Sair" icon="ui-icon-arrowthick-1-n" action="#{usuarioSessionBean.sair()}"/>
             <p:menuitem value="Ajuda" icon="ui-icon-help" action="#{propriedades.get('pagina.ajuda')}"/>
