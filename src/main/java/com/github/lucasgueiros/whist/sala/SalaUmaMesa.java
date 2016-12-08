@@ -7,6 +7,7 @@ package com.github.lucasgueiros.whist.sala;
 
 import com.github.lucasgueiros.whist.equipe.Equipe;
 import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
+import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
 
 /**
@@ -65,6 +66,10 @@ public class SalaUmaMesa implements Sala {
     public Equipe getEquipeOeste() {
         return equipeOeste;
     }
+    
+    public boolean prontoParaJogar(){
+        return mesa!=null;
+    }
 
     @Override
     public final TipoDeEquipe getTipoDeEquipe() {
@@ -76,6 +81,16 @@ public class SalaUmaMesa implements Sala {
         if(equipe.getTipoDeEquipe() == TipoDeEquipe.INDIVIDUAL){
             this.adicionarEquipeIndividual(equipe);
         }
+        // se todas as equipes estiverem aqui e eu não tiver criado a mesa ainda...
+        if(mesa==null && equipeNorte!=null && equipeLeste!=null && equipeOeste!=null && equipeSul!=null ){
+            // a relação entre MESA e EQUIPE está bem confusa, refaça isso!
+            this.mesa = new Mesa(equipeNorte.getMembro(0),equipeSul.getMembro(0),equipeLeste.getMembro(0),equipeOeste.getMembro(0));
+        }
+    }
+
+    @Override
+    public Mesa getMesa(Jogador jogador) {
+        return this.mesa.getPosicao(jogador) == null ? null : mesa;
     }
     
 }

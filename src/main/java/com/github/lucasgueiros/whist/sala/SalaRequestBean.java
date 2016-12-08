@@ -33,11 +33,7 @@ public class SalaRequestBean {
 
     public Sala criarSalaUmMesa(){
         SalaUmaMesa sala = new SalaUmaMesa();
-        
-        // já que só tem um jogador, adicione logo ele.
-        Equipe equipe = new Equipe(TipoDeEquipe.INDIVIDUAL);
-        equipe.setMembros(usuario);
-        sala.adicionarEquipe(equipe);
+        sala.setNome(nomeDaSala);
         
         return sala;
     }
