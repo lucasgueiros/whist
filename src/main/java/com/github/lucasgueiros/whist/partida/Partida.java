@@ -26,8 +26,7 @@ import com.github.lucasgueiros.whist.partida.vaza.Carta;
 import com.github.lucasgueiros.whist.partida.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
-import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioJavaRandom;
-import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioQrngAnu;
+import com.github.lucasgueiros.whist.util.aletoriedade.GeradorPadrao;
 
 /**
  *
@@ -196,7 +195,7 @@ public class Partida implements PartidaInterface {
     @Override
     public void iniciar() {
         // embaralhe e crie a bolsa
-        bolsa = new EmbaralhadorSimples().embaralhar(dador, new GeradorAleatorioQrngAnu());
+        bolsa = new EmbaralhadorSimples().embaralhar(dador, GeradorPadrao.getGerador());
         // distribua as cartas
         for (Posicao posicao : Posicao.values()) {
             maos.get(posicao).addAll(bolsa.getMao(posicao));
