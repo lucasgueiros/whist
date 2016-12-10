@@ -7,7 +7,7 @@ package com.github.lucasgueiros.whist.equipe;
 
 import com.github.lucasgueiros.whist.usuario.Usuario;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import com.github.lucasgueiros.whist.sala.Sala;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -20,6 +20,12 @@ public class EquipeRequestBean {
     
         private Usuario usuario;
 
+    private Sala sala;
+
+   public void setSala(Sala sala){
+       this.sala = sala;
+   }
+        
     /**
      * Get the value of usuario
      *
@@ -82,6 +88,11 @@ public class EquipeRequestBean {
         Equipe equipe = new Equipe(TipoDeEquipe.DUPLA);
         equipe.setMembros(usuario,minhaDupla);
         return equipe;
+    }
+    
+    public void convidar(){
+        Convite convite = new Convite(usuario,minhaDupla,"Por favor, aceite.", sala);
+        new EquipeApplicationBean().adicionarConvite(convite);
     }
     
 }

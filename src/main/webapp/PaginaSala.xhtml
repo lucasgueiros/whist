@@ -24,7 +24,8 @@
                     
                     <p:poll update="@(.atualizar)" interval="2"/>
                     
-                    <p:commandButton class="atualizar" value="Montar uma equipe" action="#{partidaSessionBean.go()}" disabled="#{!salaSessionBean.sala.prontoParaJogar()}" >
+                    <p:commandButton class="atualizar" value="Comecar a jogar" action="#{partidaSessionBean.go()}" 
+                                     disabled="#{!salaSessionBean.sala.prontoParaJogar()}" >
                         <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
                         <f:setPropertyActionListener target="#{salaSessionBean.mesa}" value="#{salaSessionBean.umaMesa}" />
                         <f:setPropertyActionListener target="#{partidaSessionBean.partida}" value="#{salaSessionBean.mesa.partida}"/>
