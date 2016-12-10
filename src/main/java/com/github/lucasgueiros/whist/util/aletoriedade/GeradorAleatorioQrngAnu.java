@@ -32,6 +32,19 @@ import java.util.logging.Logger;
 
 public class GeradorAleatorioQrngAnu implements GeradorAleatorio {
 
+    public void testar() throws MalformedURLException, IOException, Exception{
+        String urlTxt = "https://qrng.anu.edu.au/API/jsonI.php?length=1&type=uint8";
+        URL url = new URL(urlTxt);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //connection.setRequestProperty("Accept-Charset", charset);
+        connection.setRequestMethod("POST");
+        int responseCode = connection.getResponseCode();
+        connection.disconnect();
+        if(responseCode!=200){
+            throw new Exception("rc:"+responseCode);
+        }
+    }
+    
     @Override
     public int[] get(int qtd) {
         int[] array = new int [qtd];
