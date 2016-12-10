@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -11,7 +12,10 @@
             <p:menuitem value="Início" icon="ui-icon-home" action="#{propriedades.get('pagina.index')}"/>
             <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.meusResultados')}"/>
             <p:menuitem value="Ranking" action="#{propriedades.get('pagina.consulta.rankingDeJogadores')}"/>
-            <p:menuitem value="Criar Sala com Uma mesa" action="#{salaRequestBean.preparaCriarSalaUmaMesa(usuarioSessionBean.jogador)}"/>
+            <p:submenu label="Criar sala">
+                <p:menuitem value="Com Uma mesa" action="#{salaRequestBean.preparaCriarSalaUmaMesa(usuarioSessionBean.jogador)}"/>
+                <p:menuitem value="Dupla vs Maquina" action="#{propriedades.get('pagina.criarSala.umaMesa')}"/>
+            </p:submenu>
             <p:menuitem value="Entrar em uma sala" action="#{propriedades.get('pagina.escolherSala')}" />
             <p:menuitem value="Jogar Sozinho" action="#{partidaSessionBean.goSozinho(usuarioSessionBean.jogador)}" />
             <p:menuitem value="Sair" icon="ui-icon-arrowthick-1-n" action="#{usuarioSessionBean.sair()}"/>

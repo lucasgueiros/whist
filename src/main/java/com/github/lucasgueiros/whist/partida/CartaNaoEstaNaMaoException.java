@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.whist.partida.excecoes;
 
-import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
+package com.github.lucasgueiros.whist.partida;
+
 
 /**
  *
  * @author lucas
  */
-public class CartaJaJogadaException extends CartaInvalidaException {
+public class CartaNaoEstaNaMaoException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6882326314812713707L;
     
 }

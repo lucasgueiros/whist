@@ -14,12 +14,22 @@
                 <h:form id="oform">
                     <h:outputText value="Você está na sala #{salaSessionBean.sala.nome} que recebe equipes #{salaSessionBean.sala.tipoDeEquipe}."/>
                     
-                    <p:commandButton value="Eu quero jogar!"
-                        action="#{salaSessionBean.sala.adicionarEquipe(equipeRequestBean.buildIndividual(usuarioSessionBean.jogador))}"/>
+                    <p:commandButton value="Montar Dupla" action="#{propriedades.get('pagina.equipe.dupla')}"/>
+                    
+                    <p:commandButton value="Eu quero jogar!" action="#{salaSessionBean.adicionarEquipe()}">
+                        <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                        <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                        <f:setPropertyActionListener target="#{salaSessionBean.equipe}" value="#{equipeRequestBean.individual}"/>
+                    </p:commandButton>
                     
                     <p:poll update="@(.atualizar)" interval="2"/>
                     
-                    <p:commandButton class="atualizar" value="Montar uma equipe" action="#{partidaSessionBean.go(usuarioSessionBean.jogador, salaSessionBean.sala.getMesa(usuarioSessionBean.jogador))}" disabled="#{!salaSessionBean.sala.prontoParaJogar()}"/>
+                    <p:commandButton class="atualizar" value="Montar uma equipe" action="#{partidaSessionBean.go()}" disabled="#{!salaSessionBean.sala.prontoParaJogar()}" >
+                        <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                        <f:setPropertyActionListener target="#{salaSessionBean.mesa}" value="#{salaSessionBean.umaMesa}" />
+                        <f:setPropertyActionListener target="#{partidaSessionBean.partida}" value="#{salaSessionBean.mesa.partida}"/>
+                        <f:setPropertyActionListener target="#{partidaSessionBean.posicao}" value="#{salaSessionBean.posicao}"/>
+                    </p:commandButton>
                 </h:form>
             </ui:define>
         </ui:composition>

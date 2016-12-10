@@ -26,7 +26,12 @@ public class SalaUmaMesa implements Sala {
     
     
     public void adicionarEquipeIndividual(Equipe equipe) {
-        if(equipe.getTipoDeEquipe()!=TipoDeEquipe.INDIVIDUAL) return;
+        if(equipe.getTipoDeEquipe()!=TipoDeEquipe.INDIVIDUAL
+                || equipe ==null) return;
+        if(equipe.equals(equipeNorte) || equipe.equals(equipeLeste) ||
+                equipe.equals(equipeOeste) || equipe.equals(equipeSul) ){
+            return;
+        }
         if(equipeNorte==null ){
             equipeNorte = equipe;
         } else if(equipeLeste==null){
@@ -67,6 +72,7 @@ public class SalaUmaMesa implements Sala {
         return equipeOeste;
     }
     
+    @Override
     public boolean prontoParaJogar(){
         return mesa!=null;
     }

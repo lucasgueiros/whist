@@ -6,9 +6,9 @@
 package com.github.lucasgueiros.whist.webservice.usandows;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.bolsa.Bolsa;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.bolsa.Bolsa;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioQrngAnu;
 import java.io.IOException;
 import java.io.InputStream;

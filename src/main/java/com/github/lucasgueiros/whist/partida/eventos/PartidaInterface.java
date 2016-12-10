@@ -5,14 +5,12 @@
  */
 package com.github.lucasgueiros.whist.partida.eventos;
 
-import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.partida.excecoes.NaoEstaNaVezException;
-import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
-import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
+import com.github.lucasgueiros.whist.partida.CartaNaoEstaNaMaoException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -108,21 +106,10 @@ public interface PartidaInterface {
     public void addListener(ListenerPartida listenerPartida);
     
     /**
-     * Inicia o jogo:
-     * 
-     * Emabralha as cartas
-     * Distribui
-     * Arruma a mesa.
-     * 
-     * @see dealV1 dealV2
+     * Cada jogador avisa que esta pronto. Quando todos estiverem, a partida começa.
+     * @param posicao 
      */
-    public void iniciar();
-
-    /**
-     * Retorna a mesa em que a partida está sendo jogada.
-     * @return 
-     */
-    public Mesa getMesa();
+    public void estaPronto(Posicao posicao);
     
     /**
      * Quantidade de pontos feitos por NS
@@ -165,4 +152,10 @@ public interface PartidaInterface {
      * @return a posicao do jogador que tem a vez.
      */
     public Posicao getVez();
+
+    /**
+     * O jogo já comecou?
+     * @return se já iniciou
+     */
+    public boolean iniciou();
 }

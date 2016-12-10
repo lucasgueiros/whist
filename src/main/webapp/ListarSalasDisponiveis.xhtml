@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -19,7 +20,9 @@
                             <h:outputText value="#{sala.tipoDeEquipe}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:commandButton value="Entrar" action="#{salaSessionBean.entrar(sala)}"/>
+                            <p:commandButton value="Entrar" action="#{propriedades.get('pagina.sala')}">
+                                <f:setPropertyActionListener target="#{salaSessionBean.sala}" value="#{sala}"/>
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:form>

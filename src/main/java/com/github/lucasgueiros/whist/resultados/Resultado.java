@@ -58,14 +58,14 @@ public class Resultado {
         this(partida.getDataDeInicio(),
                 new Date(),partida.getPontosParaNS(),
                 partida.getPontosParaEW());
-        if(partida.getMesa().getJogador(Posicao.NORTH).isUsuario())
-            this.north = (Usuario) partida.getMesa().getJogador(Posicao.NORTH);
-        if(partida.getMesa().getJogador(Posicao.EAST).isUsuario())
-            this.east = (Usuario) partida.getMesa().getJogador(Posicao.EAST);
-        if(partida.getMesa().getJogador(Posicao.SOUTH).isUsuario())
-            this.south = (Usuario) partida.getMesa().getJogador(Posicao.SOUTH);
-        if(partida.getMesa().getJogador(Posicao.WEST).isUsuario())
-            this.west = (Usuario) partida.getMesa().getJogador(Posicao.WEST);
+        //if(partida.getMesa().getJogador(Posicao.NORTH).isUsuario())
+        //    this.north = (Usuario) partida.getMesa().getJogador(Posicao.NORTH);
+        //if(partida.getMesa().getJogador(Posicao.EAST).isUsuario())
+        //    this.east = (Usuario) partida.getMesa().getJogador(Posicao.EAST);
+        //if(partida.getMesa().getJogador(Posicao.SOUTH).isUsuario())
+        //    this.south = (Usuario) partida.getMesa().getJogador(Posicao.SOUTH);
+        //if(partida.getMesa().getJogador(Posicao.WEST).isUsuario())
+        //    this.west = (Usuario) partida.getMesa().getJogador(Posicao.WEST);
     }
     
     public Resultado(Date start, Date end, int pointsNS, int pointsEW) {

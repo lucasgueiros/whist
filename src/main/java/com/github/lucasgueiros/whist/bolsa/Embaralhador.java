@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.whist.partida.bolsa;
+package com.github.lucasgueiros.whist.bolsa;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
 import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorio;

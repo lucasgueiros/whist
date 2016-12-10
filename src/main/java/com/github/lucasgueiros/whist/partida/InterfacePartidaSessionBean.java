@@ -6,7 +6,7 @@
 package com.github.lucasgueiros.whist.partida;
 
 import com.github.lucasgueiros.whist.partida.eventos.PartidaInterface;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Carta;
 import java.util.List;
 
 /**

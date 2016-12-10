@@ -5,6 +5,7 @@
  */
 package com.github.lucasgueiros.whist.equipe;
 
+import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.usuario.Usuario;
 
 /**
@@ -35,6 +36,10 @@ public class Equipe {
     public Usuario getMembro(int  i) {
         if(i >= tipoDeEquipe.getTamanho()) return null;
         return membros[i];
+    }
+    
+    public boolean isMembro(Jogador usuario){
+        return usuario != null && ( usuario.equals(membros[0]) || usuario.equals(membros[1]) || usuario.equals(membros[2]) || usuario.equals(membros[3]) );
     }
     
 }

@@ -1,4 +1,4 @@
-package com.github.lucasgueiros.whist.partida.vaza;
+package com.github.lucasgueiros.whist.vaza;
 
 import java.util.Comparator;
 

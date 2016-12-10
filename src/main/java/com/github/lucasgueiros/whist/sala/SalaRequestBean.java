@@ -23,6 +23,14 @@ public class SalaRequestBean {
     private String nomeDaSala;
     private Usuario usuario;
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public String getNomeDaSala() {
         return nomeDaSala;
     }
@@ -41,6 +49,12 @@ public class SalaRequestBean {
     public String preparaCriarSalaUmaMesa(Usuario usuario){
         this.usuario = usuario;
         return PropriedadesApplicationBean.getString("pagina.criarSala.umaMesa");
+    }
+    
+    public Sala criarSalaDuplaVsMaquina(){
+        SalaDuplaVsMaquina sala = new SalaDuplaVsMaquina();
+        sala.setNome(nomeDaSala);
+        return sala;
     }
     
 }

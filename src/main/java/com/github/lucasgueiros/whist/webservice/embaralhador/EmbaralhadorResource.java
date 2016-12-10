@@ -6,8 +6,8 @@
 package com.github.lucasgueiros.whist.webservice.embaralhador;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.bolsa.Bolsa;
-import com.github.lucasgueiros.whist.partida.bolsa.EmbaralhadorSimples;
+import com.github.lucasgueiros.whist.bolsa.Bolsa;
+import com.github.lucasgueiros.whist.bolsa.EmbaralhadorSimples;
 import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioJavaRandom;
 import com.github.lucasgueiros.whist.util.aletoriedade.GeradorAleatorioQrngAnu;
 import javax.ws.rs.GET;

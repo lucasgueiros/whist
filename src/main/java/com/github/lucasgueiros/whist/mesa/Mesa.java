@@ -7,6 +7,7 @@
 package com.github.lucasgueiros.whist.mesa;
 
 import com.github.lucasgueiros.whist.jogador.Jogador;
+import com.github.lucasgueiros.whist.partida.Partida;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class Mesa {
     private Map<Posicao,Jogador> players = new HashMap<>();
     private Posicao nowDealer = Posicao.WEST;
     private boolean temJogadoresFalsos;
+    private Partida partida;
    
     public Mesa(Jogador north, Jogador south, Jogador east, Jogador west ) {
         if(north==null) {
@@ -37,6 +39,8 @@ public class Mesa {
         this.players.put(Posicao.NORTH, north);
         this.players.put(Posicao.SOUTH, south);
         this.players.put(Posicao.WEST, west);
+        
+        this.partida = new Partida(nowDealer = nowDealer.next());
     }
     
     //public Posicao addJogador(Usuario p) {
@@ -104,6 +108,10 @@ public class Mesa {
 
     public boolean temJogadoresFalsos() {
         return temJogadoresFalsos;
+    }
+
+    public Partida getPartida() {
+        return partida;
     }
     
     
