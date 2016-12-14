@@ -59,9 +59,15 @@ public class SalaDuplaVsMaquina implements Sala {
         if(equipe != null && this.dupla == null &&
                 equipe.getTipoDeEquipe()==TipoDeEquipe.DUPLA ){
             this.dupla = equipe;
-            this.falsoE = new JogadorFalso(Posicao.EAST);
-            this.falsoW = new JogadorFalso(Posicao.WEST);
+            JogadorFalso jfe = new JogadorFalso(Posicao.EAST);
+            JogadorFalso jfw = new JogadorFalso(Posicao.WEST);
+            this.falsoE = jfe;
+            this.falsoW = jfw;
             this.mesa = new Mesa(this.dupla.getMembro(0), this.dupla.getMembro(1), falsoE, falsoW);
+            this.mesa.getPartida().addListener(jfe);
+            this.mesa.getPartida().addListener(jfw);
+            this.mesa.getPartida().estaPronto(Posicao.EAST);
+            this.mesa.getPartida().estaPronto(Posicao.WEST);
         }
     }
 

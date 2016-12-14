@@ -16,6 +16,7 @@
                 <p:menuitem value="Com Uma mesa" action="#{salaRequestBean.preparaCriarSalaUmaMesa(usuarioSessionBean.jogador)}"/>
                 <p:menuitem value="Dupla vs Maquina" action="#{propriedades.get('pagina.criarSala.umaMesa')}"/>
             </p:submenu>
+            <p:menuitem value="Convites" action="#{propriedades.get('pagina.equipe.convite')}"/>
             <p:menuitem value="Entrar em uma sala" action="#{propriedades.get('pagina.escolherSala')}" />
             <p:menuitem value="Jogar Sozinho" action="#{partidaSessionBean.goSozinho(usuarioSessionBean.jogador)}" />
             <p:menuitem value="Sair" icon="ui-icon-arrowthick-1-n" action="#{usuarioSessionBean.sair()}"/>

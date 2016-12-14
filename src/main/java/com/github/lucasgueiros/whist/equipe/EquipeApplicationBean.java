@@ -19,7 +19,7 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class EquipeApplicationBean {
     
-    private static List<Convite> convites;
+    private static final List<Convite> convites = new LinkedList<>();
     
     public void adicionarConvite(Convite convite) {
         convites.add(convite);
@@ -32,7 +32,7 @@ public class EquipeApplicationBean {
                 paramim.add(convite);
             }
         }
-        return paramim;
+        return convites;
     }
     
 }
