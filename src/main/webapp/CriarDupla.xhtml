@@ -15,7 +15,7 @@
                     <p:dataTable value="#{usuarioApplicationBean.usuarios}" var="usuario"
                                  emptyMessage="Só tem você"
                                  selectionMode="single" selection="#{equipeRequestBean.minhaDupla}" rowKey="#{usuario.id}"
-                                 paginatorAlwaysVisible="false" paginator="true" rows="5">
+                                 paginatorAlwaysVisible="false" paginator="true" rows="10">
                         <p:column headerText="Nome">
                             <h:outputText value="#{usuario.nome}"/>
                         </p:column>

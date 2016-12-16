@@ -28,11 +28,11 @@ public class EquipeApplicationBean {
     public List<Convite> recuperarConvite(Usuario usuario){
         List<Convite> paramim = new LinkedList<>();
         for(Convite convite : convites){
-            if(convite.getAlvo().equals(usuario)){
+            if(convite.getAlvo().equals(usuario) && ! convite.isAceito()){
                 paramim.add(convite);
             }
         }
-        return convites;
+        return paramim;
     }
     
 }

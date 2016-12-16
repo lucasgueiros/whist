@@ -18,13 +18,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class EquipeRequestBean {
     
-        private Usuario usuario;
+    private Usuario usuario;
 
     private Sala sala;
 
-   public void setSala(Sala sala){
-       this.sala = sala;
-   }
+    public void setSala(Sala sala){
+        this.sala = sala;
+    }
         
     /**
      * Get the value of usuario
@@ -91,7 +91,7 @@ public class EquipeRequestBean {
     }
     
     public void convidar(){
-        Convite convite = new Convite(usuario,minhaDupla,"Por favor, aceite.", sala);
+        Convite convite = new Convite(minhaDupla,usuario,"Por favor, aceite.", sala);
         new EquipeApplicationBean().adicionarConvite(convite);
     }
     

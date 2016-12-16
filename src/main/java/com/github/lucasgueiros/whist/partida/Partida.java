@@ -67,7 +67,7 @@ public class Partida implements PartidaInterface {
     
     private RepetidorDeEventoPartida repetidor;
     
-    private final Map<Posicao,Boolean> estaPronto;
+    private final Map<Posicao,Boolean> estaPronto = new EnumMap<>(Posicao.class);;
     private boolean todosEstaoProntos;
 
     
@@ -75,7 +75,7 @@ public class Partida implements PartidaInterface {
      * Contrutor padrão. Cria as estruturas de dados.
      */
     public Partida() {
-        estaPronto = new EnumMap<>(Posicao.class);
+        //estaPronto = new EnumMap<>(Posicao.class);
         this.todosEstaoProntos = false;
         this.maos = new EnumMap<>(Posicao.class);
         this.vazas = new Vaza[13];

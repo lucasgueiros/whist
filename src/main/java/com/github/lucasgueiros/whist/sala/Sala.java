@@ -16,6 +16,8 @@ import com.github.lucasgueiros.whist.mesa.Mesa;
  */
 public interface Sala {
     
+    public void setNome(String nome);
+    
     public Mesa getMesa(Jogador jogador);
     
     public String getNome();

@@ -23,6 +23,9 @@
                             <p:commandButton value="Dupla vs Maquina" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaDuplaVsMaquina())}">
                                 <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
                             </p:commandButton>
+                            <p:commandButton value="Dupla vs Dupla" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaDuasDuplas())}">
+                                <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                            </p:commandButton>
                         </p:panelGrid>
                         
                     </p:fieldset>

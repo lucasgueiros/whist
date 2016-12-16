@@ -14,7 +14,9 @@
                 <h:form id="oform">
                     <h:outputText value="Você está na sala #{salaSessionBean.sala.nome} que recebe equipes #{salaSessionBean.sala.tipoDeEquipe}."/>
                     
-                    <p:commandButton value="Montar Dupla" action="#{propriedades.get('pagina.equipe.dupla')}"/>
+                    <p:commandButton value="Montar Dupla" action="#{propriedades.get('pagina.equipe.dupla')}">
+                        <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                    </p:commandButton>
                     
                     <p:commandButton value="Eu quero jogar!" action="#{salaSessionBean.adicionarEquipe()}">
                         <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>

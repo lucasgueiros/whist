@@ -30,7 +30,7 @@ public class SalaSessionBean {
 
     private Mesa mesa;
     
-        private Usuario usuario;
+    private Usuario usuario;
 
     /**
      * Get the value of usuario

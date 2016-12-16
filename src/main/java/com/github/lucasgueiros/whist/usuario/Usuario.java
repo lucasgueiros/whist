@@ -148,6 +148,11 @@ public class Usuario implements Jogador {
     public boolean isUsuario() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nome=" + nome + ", login=" + login + '}';
+    }
  
     
     

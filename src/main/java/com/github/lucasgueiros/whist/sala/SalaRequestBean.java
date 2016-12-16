@@ -57,4 +57,10 @@ public class SalaRequestBean {
         return sala;
     }
     
+    public Sala criarSalaDuasDuplas(){
+        SalaDuasDuplas sala = new SalaDuasDuplas();
+        sala.setNome(nomeDaSala);
+        return sala;
+    }
+    
 }
