@@ -11,59 +11,75 @@
         </title>
         <script>
             function jogar(carta) {
-                var xmlHttp = new XMLHttpRequest(); 
-                
-                xmlHttp.open("POST", "JogarCartaServlet", true); 
+                var xmlHttp = new XMLHttpRequest();
+
+                xmlHttp.open("POST", "JogarCartaServlet", true);
                 xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xmlHttp.onload = function () {
                     // fazer alguma coisa com a resposta
                 };
-                xmlHttp.send("carta="+carta);
+                xmlHttp.send("carta=" + carta);
             }
         </script>
         <style>
-            .ui-panelgrid td, .ui-panelgrid tr, .ui-panel td, .ui-panel tr
-            {
-                border-style: none !important
-            }
+
             img.cartaVertical {
                 width: 50px;
+                height: 70px;
             }
             img.cartaHorizontal {
                 height: 50px;
+                width: 70px;
             }
             .cartaMenos25 {
                 left: -25px;
             }
+            .ui-panelgrid td, .ui-panelgrid tr, .ui-panel td, .ui-panel tr {
+                border-style: none !important
+            }		
         </style>
-    </h:head>
+    </h:head>                                                                                                                                                                                                                                                                                                                                                                                           
     <h:body>
         <h:form id="formulario" >
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <!-- Será atualizado por ajax a cada 2 segundos! -->
             <p id="result"></p>
-            <p:poll update="@(.frequpdate)" interval="2" />
+
             <p:panel class="frequpdate">
                 <h:outputText value="Naipe de trunfo: "/>
                 <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
                 <br/>
                 <h:outputText value="#{partidaSessionBean.placarString}"/>
             </p:panel>
-            <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field" style="overflow-y: auto">
-                <p:panelGrid columns="1" id="opanelgrid">
-                    <p:panel class="frequpdate"  >
-                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroDeCartasParceiro())}" var="carta" varStatus="status">
-                            <h:graphicImage style="position: relative; left: #{status.index * -37}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
-                        </c:forEach>
-                    </p:panel>
-                    <p:panelGrid columns="3">
-                        <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasEsquerda)}" var="carta" varStatus="status">
-                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
-                                <br/>
+
+            <p:poll update="@(.frequpdate)" interval="2" />
+
+            <p:panel class="frequpdate">
+                <table>
+                    <tr>
+                        <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                        <td class="frequpdate">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroDeCartasParceiro())}" var="carta" varStatus="status" class="frequpdate">
+                                <c:choose>
+                                    <c:when test="#{status.index == 0}">
+                                        <h:graphicImage style="position: relative; z-index: #{status.index}; margin-left: 0px;" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:graphicImage style="position: relative; margin-left: #{-37}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
-                        </p:panel>
-                        <h:panelGroup style="align-self: center">
+                        </td>
+                        <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                    </tr>
+                    <tr>
+                        <td style="max-width: 70px; max-height: 100px" >
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasEsquerda)}" var="carta" varStatus="status"  class="frequpdate">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" 
+                                                style="position: relative; margin-top: #{status.index * -37}px; z-index: #{status.index}"/>
+                            </c:forEach>
+                        </td>
+                        <td>
                             <table>
                                 <tr>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
@@ -81,24 +97,36 @@
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
                                 </tr>
                             </table>
-                        </h:panelGroup>
-                        <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasEsquerda)}" var="carta" varStatus="status">
-                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
-                                <br/>
+                        </td>
+                        <td style="max-width: 70px; max-height: 100px">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasDireita)}" var="carta" varStatus="status"  class="frequpdate">
+                                <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; margin-top: #{status.index * -37}px; z-index: #{status.index}"/>
                             </c:forEach>
-                        </p:panel>
-                    </p:panelGrid>
-                    <p:panel class="frequpdate">
-                        <c:forEach items="#{partidaSessionBean.cartasProprias}" var="carta" varStatus="status">
-                            <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" 
-                                             class="cartaVertical" onclick="jogar('#{carta.toString()}')" 
-                                             style="position: relative; left: #{status.index * -37}px; z-index: #{status.index}"/>
-                        </c:forEach>    
-                    </p:panel>
-                </p:panelGrid>
-            </p:fieldset>
-        </h:form>        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                        <td>
+                                <c:forEach items="#{partidaSessionBean.cartasProprias}" var="carta" varStatus="status">
+                                    <c:choose>
+                                        <c:when test="#{status.index == 0}">
+                                            <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" 
+                                                             class="cartaVertical" onclick="jogar('#{carta.toString()}')" 
+                                                             style="position: relative; margin-left: 0px; z-index: #{status.index}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" 
+                                                             class="cartaVertical" onclick="jogar('#{carta.toString()}')" 
+                                                             style="position: relative; margin-left: #{ -37}px; z-index: #{status.index}"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                        </td>
+                        <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
+                    </tr>
+                </table>
+            </p:panel>
+        </h:form>
     </h:body>
 </html>
 
