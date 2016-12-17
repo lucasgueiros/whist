@@ -32,20 +32,20 @@
             <p:poll update="@(.frequpdate)" interval="2" />
             <p:panel class="frequpdate">
                 <h:outputText value="Naipe de trunfo: "/>
-                <h:graphicImage value="#{partidaSessionBean.trumphNaipeValue}" alt="#{partidaSessionBean.trumphNaipe}" height="50px"/>
+                <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
                 <br/>
-                <h:outputText value="#{partidaSessionBean.placar}"/>
+                <h:outputText value="#{partidaSessionBean.placarString}"/>
             </p:panel>
             <p:fieldset id="field" class="frequpdate" legend="Jogando" widgetVar="field" style="overflow-y: auto">
                 <p:panelGrid columns="1" id="opanelgrid">
                     <p:panel class="frequpdate"  >
-                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('SOUTH'))}" var="carta" varStatus="status">
+                        <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroDeCartasParceiro())}" var="carta" varStatus="status">
                             <h:graphicImage style="position: relative; left: #{status.index * -25}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
                         </c:forEach>
                     </p:panel>
                     <p:panelGrid columns="3">
                         <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('WEST'))}" var="carta" varStatus="status">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasEsquerda)}" var="carta" varStatus="status">
                                 <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
                                 <br/>
                             </c:forEach>
@@ -54,30 +54,30 @@
                             <table>
                                 <tr>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
-                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('SOUTH') }" value="#{ partidaSessionBean.getCartaImagem('SOUTH') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.cartaDaVazaStringParceiro }" value="#{ partidaSessionBean.cartaDaVazaImagemParceiro }" class="cartaVertical"/></td>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
                                 </tr>
                                 <tr>
-                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('EAST') }" value="#{ partidaSessionBean.getCartaImagem('EAST') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.cartaDaVazaStringEsquerda }" value="#{ partidaSessionBean.cartaDaVazaImagemEsquerda }" class="cartaVertical"/></td>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
-                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('WEST') }" value="#{ partidaSessionBean.getCartaImagem('WEST') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.cartaDaVazaStringDireita }" value="#{ partidaSessionBean.cartaDaVazaImagemDireita }" class="cartaVertical"/></td>
                                 </tr>
                                 <tr>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
-                                    <td><h:graphicImage alt="#{ partidaSessionBean.getCarta('NORTH') }" value="#{ partidaSessionBean.getCartaImagem('NORTH') }" class="cartaVertical"/></td>
+                                    <td><h:graphicImage alt="#{ partidaSessionBean.cartaDaVazaStringProprio }" value="#{ partidaSessionBean.cartaDaVazaImagemProprio }" class="cartaVertical"/></td>
                                     <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
                                 </tr>
                             </table>
                         </h:panelGroup>
                         <p:panel>
-                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroCartas('EAST'))}" var="carta" varStatus="status">
+                            <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.numeroDeCartasEsquerda)}" var="carta" varStatus="status">
                                 <h:graphicImage value="versos/versoHorizontal1.svg" alt="carta" class="cartaHorizontal" style="position: relative; up: #{status.index * -25}px; z-index: #{status.index}"/>
                                 <br/>
                             </c:forEach>
                         </p:panel>
                     </p:panelGrid>
                     <p:panel class="frequpdate">
-                        <c:forEach items="#{partidaSessionBean.cartas}" var="carta" varStatus="lstatus">
+                        <c:forEach items="#{partidaSessionBean.cartasProprias}" var="carta" varStatus="lstatus">
                             <p:commandLink  style="position: relative; left: #{status.index * -50}px; z-index: #{status.index}" action="#{partidaSessionBean.play(carta)}">
                                 <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" class="cartaVertical"/>
                             </p:commandLink>

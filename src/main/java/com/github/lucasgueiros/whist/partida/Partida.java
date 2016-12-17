@@ -8,7 +8,7 @@
 package com.github.lucasgueiros.whist.partida;
 
 import com.github.lucasgueiros.whist.partida.eventos.PartidaInterface;
-import com.github.lucasgueiros.whist.partida.vaza.Vaza;
+import com.github.lucasgueiros.whist.vaza.Vaza;
 import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.partida.eventos.RepetidorDeEventoPartida;
 import com.github.lucasgueiros.whist.partida.excecoes.NaoEstaNaVezException;
@@ -18,14 +18,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.bolsa.Bolsa;
-import com.github.lucasgueiros.whist.partida.bolsa.EmbaralhadorSimples;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.bolsa.Bolsa;
+import com.github.lucasgueiros.whist.bolsa.EmbaralhadorSimples;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
-import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.whist.util.aletoriedade.GeradorPadrao;
 
 /**
@@ -42,8 +40,8 @@ public class Partida implements PartidaInterface {
     /** * Momento do início do jogo. */
     private Date dataDeInicio;
     
-    /** * A mesa aonde está sendo jogada a Partida */
-    private Mesa mesa;
+    ///** * A mesa aonde está sendo jogada a Partida */
+    //private Mesa mesa;
     
     // For score
     /** * quantas tricks NS já ganhou */
@@ -69,27 +67,38 @@ public class Partida implements PartidaInterface {
     
     private RepetidorDeEventoPartida repetidor;
     
+    private final Map<Posicao,Boolean> estaPronto = new EnumMap<>(Posicao.class);;
+    private boolean todosEstaoProntos;
+
+    
     /**
      * Contrutor padrão. Cria as estruturas de dados.
      */
     public Partida() {
+        //estaPronto = new EnumMap<>(Posicao.class);
+        this.todosEstaoProntos = false;
         this.maos = new EnumMap<>(Posicao.class);
         this.vazas = new Vaza[13];
         maos.put(Posicao.NORTH, new LinkedList<>());
         maos.put(Posicao.EAST, new LinkedList<>());
         maos.put(Posicao.WEST, new LinkedList<>());
         maos.put(Posicao.SOUTH, new LinkedList<>());
+        for(Posicao p : Posicao.values()){
+            estaPronto.put(p, false);
+        }
+        this.repetidor = new RepetidorDeEventoPartida(this);
     }
 
-    public Partida(Mesa mesa, Posicao proximoNowDealer) {
+    public Partida(Posicao proximoNowDealer) {
         this();
-        this.mesa = mesa;
+        //this.mesa = mesa;
         this.dador = proximoNowDealer;
-        this.repetidor = new RepetidorDeEventoPartida(this);
+        //this.repetidor = new RepetidorDeEventoPartida(this);
     }
     
     @Override
     public void jogar(Posicao posicao, Carta card) throws CartaNaoEstaNaMaoException, CartaInvalidaException, NaoEstaNaVezException  { // card to be played!
+        if(!todosEstaoProntos) return;
         // Pegue a vaza atual
         Vaza vaza = vazas[numeroDaVaza];        
         // deve ser sua vez
@@ -145,11 +154,13 @@ public class Partida implements PartidaInterface {
     
     @Override
     public Naipe getNaipeDeTrunfo() {
+        if(!todosEstaoProntos) return null;
        return trunfo;
     }
 
     @Override
     public Naipe getNaipeCorrente() {
+        if(!todosEstaoProntos) return null;
         return this.vazas[numeroDaVaza].getCorrente();
     }
 
@@ -170,21 +181,27 @@ public class Partida implements PartidaInterface {
 
     @Override
     public int getNumeroDeCartas(Posicao posicao) {
+        if(!todosEstaoProntos) return 0;
         return maos.get(posicao).size();
     }
 
     @Override
     public boolean estaNaVezDe(Posicao posicao) {
+        if(!todosEstaoProntos) return false;
         return this.vazas[numeroDaVaza].getVez().equals(posicao);
     }
 
     @Override
     public Carta getCartaDaVazaAtual(Posicao posicao) {
-        return this.vazas[numeroDaVaza].getCartas().get(posicao);
+        if(!todosEstaoProntos) return null;
+        Vaza vaza = this.vazas[numeroDaVaza];
+        Map<Posicao,Carta> cartas = vaza.getCartas();
+        return cartas.get(posicao);
     }
 
     @Override
     public List<Carta> getMao(Posicao posicao) {
+        if(!todosEstaoProntos) return null;
         List<Carta> toReturn  = new LinkedList<>();
         for (Carta card : this.maos.get(posicao)) {
             toReturn.add(card);
@@ -192,8 +209,8 @@ public class Partida implements PartidaInterface {
         return toReturn;
     }
 
-    @Override
-    public void iniciar() {
+    private void iniciar() {
+        this.dataDeInicio = new Date();
         // embaralhe e crie a bolsa
         bolsa = new EmbaralhadorSimples().embaralhar(dador, GeradorPadrao.getGerador());
         // distribua as cartas
@@ -224,10 +241,10 @@ public class Partida implements PartidaInterface {
         return this.getVazasParaEW() - 6 >= 0 ? this.getVazasParaEW() - 6 : 0;
     }
  
-    @Override
+    /*@Override
     public Mesa getMesa() {
         return mesa;
-    }
+    }*/
 
     @Override
     public void addListener(ListenerPartida e) {
@@ -241,17 +258,40 @@ public class Partida implements PartidaInterface {
     
     @Override
     public Posicao getPrimeiroDaVaza() {
+        if(!todosEstaoProntos) return null;
         return vazas[numeroDaVaza].getPrimeiro();
     }
     
     @Override
     public Map<Posicao,Carta> getVaza() {
+        if(!todosEstaoProntos) return null;
         return this.vazas[numeroDaVaza].getCartas();
     }
 
     @Override
     public Posicao getVez() {
+        if(!todosEstaoProntos) return null;
         return vazas[numeroDaVaza].getVez();
+    }
+
+    @Override
+    public boolean iniciou() {
+        return todosEstaoProntos;//iniciou;
+    }
+    
+    @Override
+    public void estaPronto(Posicao posicao) {
+        if(estaPronto.get(posicao)){
+            return;
+        }
+        estaPronto.put(posicao, true);
+        todosEstaoProntos = true;
+        for(Posicao p : Posicao.values()){
+            todosEstaoProntos = todosEstaoProntos && estaPronto.get(p);
+        }
+        if(todosEstaoProntos){
+            iniciar();
+        }
     }
     
 }

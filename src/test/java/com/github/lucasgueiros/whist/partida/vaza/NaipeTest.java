@@ -5,6 +5,7 @@
  */
 package com.github.lucasgueiros.whist.partida.vaza;
 
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

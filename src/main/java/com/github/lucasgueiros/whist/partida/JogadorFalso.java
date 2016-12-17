@@ -8,10 +8,9 @@ import com.github.lucasgueiros.whist.mesa.Posicao;
 import com.github.lucasgueiros.whist.partida.eventos.EventoPartida;
 import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.partida.excecoes.NaoEstaNaVezException;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
-import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

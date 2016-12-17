@@ -5,6 +5,7 @@
  */
 package com.github.lucasgueiros.whist.partida.vaza;
 
+import com.github.lucasgueiros.whist.vaza.Simbolo;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

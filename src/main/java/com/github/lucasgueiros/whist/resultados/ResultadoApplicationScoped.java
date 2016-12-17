@@ -31,8 +31,8 @@ public class ResultadoApplicationScoped implements ListenerPartida {
     @Override
     public void partidaAcabou(EventoPartida informacoesAdicionais) {
         if(informacoesAdicionais!=null && 
-                informacoesAdicionais.getPartida() !=null &&
-                informacoesAdicionais.getPartida().getMesa() !=null){
+                informacoesAdicionais.getPartida() !=null ){
+                //informacoesAdicionais.getPartida().getMesa() !=null){
             Resultado resultado = new Resultado(informacoesAdicionais.getPartida());
             this.repositorioResultado.adicionar(resultado);
         }

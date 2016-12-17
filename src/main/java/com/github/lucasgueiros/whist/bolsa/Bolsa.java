@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.whist.partida.bolsa;
+package com.github.lucasgueiros.whist.bolsa;
 
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;

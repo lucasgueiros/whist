@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lucasgueiros.whist.partida.vaza;
+package com.github.lucasgueiros.whist.vaza;
 
-import com.github.lucasgueiros.whist.partida.excecoes.CartaJaJogadaException;
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.vaza.Carta;
+import com.github.lucasgueiros.whist.vaza.Naipe;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -35,9 +34,9 @@ public class Vaza {
         this.vez = primeiro;
     }
 
-    public void jogar(Carta carta) throws CartaJaJogadaException {
+    public void jogar(Carta carta) throws CartaJaJogadaNestaVazaException {
         if(vaza.values().contains(carta))
-            throw new CartaJaJogadaException();
+            throw new CartaJaJogadaNestaVazaException();
         // coloque a carta na trick
         this.vaza.put(vez, carta);
         // mova a vez para o próximo jogador

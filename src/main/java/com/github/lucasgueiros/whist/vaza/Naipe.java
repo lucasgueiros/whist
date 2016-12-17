@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.github.lucasgueiros.whist.partida.vaza;
+package com.github.lucasgueiros.whist.vaza;
 
 /**
  *

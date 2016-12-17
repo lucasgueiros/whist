@@ -15,12 +15,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
-import com.github.lucasgueiros.whist.partida.vaza.Carta;
-import com.github.lucasgueiros.whist.partida.vaza.Naipe;
+import com.github.lucasgueiros.whist.vaza.Carta;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
-import com.github.lucasgueiros.whist.partida.excecoes.CartaNaoEstaNaMaoException;
 import com.github.lucasgueiros.whist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.whist.util.propriedades.PropriedadesApplicationBean;
 import org.slf4j.Logger;
@@ -32,123 +29,66 @@ import org.slf4j.LoggerFactory;
  */
 @SessionScoped
 @ManagedBean
-public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
+public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, InterfacePartidaSessionBean {
     
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Mesa mesa;
     private PartidaInterface partida;
-    private Jogador jogador;
+    //private Jogador jogador;
     private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
+    private Posicao posicao;
     
     public PartidaSessionBean() {
     	
     }
     
-    
-    public String getMyPosicao() {
-        Posicao p = mesa.getPosicao(this.jogador);
-        return p.toString();
-    }
-    
-    public String getTrumphNaipe() {
-        if(partida.getNaipeDeTrunfo()==null) return "";
-        return partida.getNaipeDeTrunfo().toString();//partida.getTrumph().getNaipe().toString();
-    }
-    
-    public String getTrumphNaipeValue() {
-        return PropriedadesApplicationBean.getString("imagens.naipes."+getTrumphNaipe());
-    }
-    
-    public String getCurrentNaipe() {
-        Naipe s = partida.getNaipeCorrente();
-        if(s!=null) return s.toString();
-        else return "NONE";
-    }
-    
-    public int getPlacarTotal() {
-        return partida.getNumeroDaVaza();
-    }
-    
-    public int getPlacarNS() {
-        return partida.getVazasParaNS();
-    }
-    
-    public int getPlacarEW() {
-        return partida.getVazasParaEW();
-    }
-    
-    public int getNumeroCartas(String position) {
-        return partida.getNumeroDeCartas(Posicao.valueOf(position));
-    }
-    
-    public boolean isTurn(String position) {
-        return partida.estaNaVezDe(Posicao.valueOf(position));
-    }
-    
-    public String getNome(String position) {
-        Jogador pl = mesa.getJogador(Posicao.valueOf(position));
-        return pl.getLogin();
-    }
-    
-    public String getCarta(String position) {
-        Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
-        if(carta==null) return "";
-        return carta.toString();
-    }
-    
-    public String getCartaImagem(String position){
-        Carta carta = partida.getCartaDaVazaAtual(Posicao.valueOf(position));
-        if(carta==null) return "";
-        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
-    }
-    
     public String goSozinho(Jogador north) {
-        this.jogador = north;
+        //this.jogador = north;
         JogadorFalso south=new JogadorFalso(Posicao.SOUTH);
         JogadorFalso west=new JogadorFalso(Posicao.WEST);
         JogadorFalso east=new JogadorFalso(Posicao.EAST);
-        mesa = new Mesa(north,south, east, west);
-        partida = new Partida(mesa,mesa.getProximoNowDealer());
+        //mesa = new Mesa(north,south, east, west);
+        this.posicao = Posicao.NORTH;
+        partida = new Partida(Posicao.NORTH);
         partida.addListener(west);
         partida.addListener(east);
         partida.addListener(south);
-        partida.iniciar();
+        for(Posicao p : Posicao.values()){
+            partida.estaPronto(posicao);
+        }
         return PropriedadesApplicationBean.getString("pagina.jogar");
     }
     
-    public String go(Jogador jogador, Mesa mesa){//Partida partida) {
-    	if(mesa == null) {
-            return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");
-        }
+    public String go(){//Partida partida) {
+    	//if(mesa == null) {
+        //    return PropriedadesApplicationBean.getString("pagina.jogar.esperarParaSerIncluidoNumaMesa");
+        //}
             
     	
-    	partida = new Partida(mesa,mesa.getProximoNowDealer());
-        partida.iniciar();
-        this.jogador = jogador;
-        this.mesa = mesa;
+    	//partida = new Partida(mesa,mesa.getProximoNowDealer());
+        //partida.iniciar();
+        partida.estaPronto(posicao);
+        //this.jogador = jogador;
+        //this.mesa = mesa;
         return PropriedadesApplicationBean.getString("pagina.jogar");//"jogar.xhtml";
     }
 
     public boolean isPronto() {
-        return mesa != null;
+        //return mesa != null; 
+        return this.partida.iniciou();
     }
     
-    public boolean isPronto(Mesa mesa) {
+    /*public boolean isPronto(Mesa mesa) {
         this.mesa = mesa;
         return this.mesa != null;
-    }
-
-    public List<Carta> getCartas() {
-        Posicao posicao = this.mesa.getPosicao(this.jogador);
-        return partida.getMao(posicao);
-    }
+    }*/
     
+    @Override
     public void play(Carta c) {
             try {
-                partida.jogar(this.mesa.getPosicao(this.jogador),c);
+                partida.jogar(posicao,c);
             } catch (CartaNaoEstaNaMaoException ex) {  // isso só acontece se não for a vez da pessoa.
                 logger.error("CartaNaoEstaNaMaoException");
                 SaidaParaArquivo.file.println("CartaNaoEstaNaMaoException");
@@ -161,16 +101,140 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable{
             }
     }
 
+    @Override
     public PartidaInterface getPartida() {
         return partida;
     }
 
+    @Override
     public void setPartida(Partida partida) {
         this.partida = partida;
     }
     
-    public String getPlacar() {
-        return getPlacarNS() + " NS x EW " + getPlacarEW();
+    @Override
+    public String getNaipeDeTrunfoImagem() {
+        return PropriedadesApplicationBean.getString("imagens.naipes."+getNaipeDetrunfoString());
+    }
+
+    @Override
+    public String getNaipeDetrunfoString() {
+        if(partida.getNaipeDeTrunfo()==null) return "";
+        return partida.getNaipeDeTrunfo().toString();
+    }
+
+    @Override
+    public String getPlacarString() {
+        return partida.getVazasParaNS() + " NS x EW " + partida.getVazasParaEW();
+    }
+
+    @Override
+    public int getNumeroDeCartasParceiro() {
+        return partida.getNumeroDeCartas(posicao.getParceiro());
+    }
+
+    @Override
+    public int getNumeroDeCartasEsquerda() {
+        return partida.getNumeroDeCartas(posicao.getEsquerda());
+    }
+
+    @Override
+    public int getNumeroDeCartasDireita() {
+        return partida.getNumeroDeCartas(posicao.getDireita());
+    }
+
+    @Override
+    public String getCartaDaVazaStringParceiro() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getParceiro());
+        if(carta==null) return "";
+        return carta.toString();
+    }
+
+    @Override
+    public String getCartaDaVazaStringProprio() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao);
+        if(carta==null) return "";
+        return carta.toString();
+    }
+
+    @Override
+    public String getCartaDaVazaStringDireita() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getDireita());
+        if(carta==null) return "";
+        return carta.toString();
+    }
+
+    @Override
+    public String getCartaDaVazaStringEsquerda() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getEsquerda());
+        if(carta==null) return "";
+        return carta.toString();
+    }
+
+    @Override
+    public String getCartaDaVazaImagemParceiro() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getParceiro());
+        if(carta==null) return "";
+        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
+    }
+
+    @Override
+    public String getCartaDaVazaImagemProprio() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao);
+        if(carta==null) return "";
+        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
+    }
+
+    @Override
+    public String getCartaDaVazaImagemDireita() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getDireita());
+        if(carta==null) return "";
+        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
+    }
+
+    @Override
+    public String getCartaDaVazaImagemEsquerda() {
+        Carta carta = partida.getCartaDaVazaAtual(posicao.getEsquerda());
+        if(carta==null) return "";
+        return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
+    }
+
+    @Override
+    public List<Carta> getCartasProprias() {
+        return partida.getMao(posicao);
+    }
+
+    @Override
+    public String getPosicaoPropria() {
+        return this.posicao.toString();
+    }
+
+    @Override
+    public String getPosicaoParceiro() {
+        return this.posicao.getParceiro().toString();
+    }
+
+    @Override
+    public String getPosicaoDireita() {
+        return this.posicao.getDireita().toString();
+    }
+
+    @Override
+    public String getPosicaoEsquerda() {
+        return this.posicao.getEsquerda().toString();
+    }
+
+    @Override
+    public String getVez() {
+        if(partida.getVez()==null) return "";
+        return this.partida.getVez().toString();
+    }
+
+    public Posicao getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(Posicao posicao) {
+        this.posicao = posicao;
     }
     
 }
