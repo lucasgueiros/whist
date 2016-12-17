@@ -9,6 +9,18 @@
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.jogar.titulo')}
         </title>
+        <script>
+            function jogar(carta) {
+                var xmlHttp = new XMLHttpRequest(); 
+                
+                xmlHttp.open("POST", "JogarCartaServlet", true); 
+                xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xmlHttp.onload = function () {
+                    // fazer alguma coisa com a resposta
+                };
+                xmlHttp.send("carta="+carta);
+            }
+        </script>
         <style>
             .ui-panelgrid td, .ui-panelgrid tr, .ui-panel td, .ui-panel tr
             {
@@ -29,6 +41,7 @@
         <h:form id="formulario" >
             <ui:include src="#{propriedades.get('pagina.menu')}"/>
             <!-- Será atualizado por ajax a cada 2 segundos! -->
+            <p id="result"></p>
             <p:poll update="@(.frequpdate)" interval="2" />
             <p:panel class="frequpdate">
                 <h:outputText value="Naipe de trunfo: "/>
@@ -40,7 +53,7 @@
                 <p:panelGrid columns="1" id="opanelgrid">
                     <p:panel class="frequpdate"  >
                         <c:forEach items="#{intervalosBean.getIntevalo(partidaSessionBean.getNumeroDeCartasParceiro())}" var="carta" varStatus="status">
-                            <h:graphicImage style="position: relative; left: #{status.index * -25}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
+                            <h:graphicImage style="position: relative; left: #{status.index * -37}px; z-index: #{status.index}" value="versos/versoVertical1.svg" alt="carta" class="cartaVertical"/>
                         </c:forEach>
                     </p:panel>
                     <p:panelGrid columns="3">
@@ -77,10 +90,10 @@
                         </p:panel>
                     </p:panelGrid>
                     <p:panel class="frequpdate">
-                        <c:forEach items="#{partidaSessionBean.cartasProprias}" var="carta" varStatus="lstatus">
-                            <p:commandLink  style="position: relative; left: #{status.index * -50}px; z-index: #{status.index}" action="#{partidaSessionBean.play(carta)}">
-                                <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" class="cartaVertical"/>
-                            </p:commandLink>
+                        <c:forEach items="#{partidaSessionBean.cartasProprias}" var="carta" varStatus="status">
+                            <h:graphicImage  value="#{propriedades.getCarta(carta.naipe.toStringExt(), carta.simbolo.toStringExt())}" alt="#{carta.toString()}" 
+                                             class="cartaVertical" onclick="jogar('#{carta.toString()}')" 
+                                             style="position: relative; left: #{status.index * -37}px; z-index: #{status.index}"/>
                         </c:forEach>    
                     </p:panel>
                 </p:panelGrid>
