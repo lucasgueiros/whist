@@ -86,13 +86,14 @@ public class Partida implements PartidaInterface {
         for(Posicao p : Posicao.values()){
             estaPronto.put(p, false);
         }
+        this.repetidor = new RepetidorDeEventoPartida(this);
     }
 
     public Partida(Posicao proximoNowDealer) {
         this();
         //this.mesa = mesa;
         this.dador = proximoNowDealer;
-        this.repetidor = new RepetidorDeEventoPartida(this);
+        //this.repetidor = new RepetidorDeEventoPartida(this);
     }
     
     @Override

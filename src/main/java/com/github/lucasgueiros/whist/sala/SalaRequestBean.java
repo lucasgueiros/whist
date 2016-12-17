@@ -63,4 +63,10 @@ public class SalaRequestBean {
         return sala;
     }
     
+    public Sala criarSalaUmContraMaquina(){
+        SalaUmContraMaquinas sala = new SalaUmContraMaquinas();
+        sala.setNome(nomeDaSala);
+        return sala;
+    }
+    
 }

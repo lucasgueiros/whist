@@ -19,6 +19,9 @@
                         <p:panelGrid columns="2">
                             <h:outputText value="Nome da sala: "/>
                             <p:inputText value="#{salaRequestBean.nomeDaSala}"/>
+                            <p:commandButton value="Um contra maquinas" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaUmContraMaquina())}">
+                                <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                            </p:commandButton>
                             <p:commandButton value="Uma mesa" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaUmMesa())}"/>
                             <p:commandButton value="Dupla vs Maquina" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaDuplaVsMaquina())}">
                                 <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
@@ -26,6 +29,7 @@
                             <p:commandButton value="Dupla vs Dupla" action="#{salaApplicationBean.adicionarSala(salaRequestBean.criarSalaDuasDuplas())}">
                                 <f:setPropertyActionListener target="#{equipeRequestBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
                             </p:commandButton>
+                            
                         </p:panelGrid>
                         
                     </p:fieldset>
