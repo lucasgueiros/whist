@@ -9,9 +9,10 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
                 <h:form id="oform">
-                    
+
                     <p:dataTable value="#{usuarioApplicationBean.usuarios}" var="usuario"
                                  emptyMessage="Só tem você"
                                  selectionMode="single" selection="#{equipeRequestBean.minhaDupla}" rowKey="#{usuario.id}"
@@ -20,18 +21,19 @@
                             <h:outputText value="#{usuario.nome}"/>
                         </p:column>
                     </p:dataTable>
-                    
+
                     <p:commandButton value="Convidar" action="#{equipeRequestBean.convidar()}">
                         <f:setPropertyActionListener target="#{equipeRequestBean.sala}" value="#{salaSessionBean.sala}"/>
                     </p:commandButton>
-                        
-                    
+
+
                     <p:commandButton action="#{salaSessionBean.adicionarEquipe()}">
                         <f:setPropertyActionListener target="#{salaSessionBean.equipe}" value="#{equipeRequestBean.dupla}"/>
                         <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
                     </p:commandButton>
                 </h:form>
-        
+            </ui:define>        
+        </ui:composition>
     </h:body>
 </html>
 

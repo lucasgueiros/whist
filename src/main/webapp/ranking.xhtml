@@ -9,20 +9,22 @@
             #{propriedades.get('pagina.consulta.rankingDeJogadores.titulo')}</title>
     </h:head>
     <h:body>
-        <ui:composition template="comum/template.xhtml"> <ui:define name="conteudo">
-        <h:form>
-            <h1>#{propriedades.get('pagina.consulta.rankingDeJogadores.titulo')}</h1>
-            
-            <p:dataTable value="#{resultadosSessionBean.ranking}" var="jogador">
-                <p:column headerText="usuario">
-                    <h:outputText value="#{jogador.login}"/>
-                </p:column>
-                <p:column headerText="pontuacao"> <!--sortby="JDV{jogador.pontuacao}">-->
-                    <h:outputText value="#{jogador.pontuacao}"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
-            </ui:define></ui:composition>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form>
+                    <h1>#{propriedades.get('pagina.consulta.rankingDeJogadores.titulo')}</h1>
+
+                    <p:dataTable value="#{resultadosSessionBean.ranking}" var="jogador">
+                        <p:column headerText="usuario">
+                            <h:outputText value="#{jogador.login}"/>
+                        </p:column>
+                        <p:column headerText="pontuacao"> <!--sortby="JDV{jogador.pontuacao}">-->
+                            <h:outputText value="#{jogador.pontuacao}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

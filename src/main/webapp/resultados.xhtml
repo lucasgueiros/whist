@@ -9,44 +9,46 @@
             #{propriedades.get('pagina.consulta.meusResultados.titulo')}</title>
     </h:head>
     <h:body>
-        <ui:composition template="comum/template.xhtml"> <ui:define name="conteudo">
-        <h:form>
-            <h1>#{propriedades.get('pagina.consulta.meusResultados.titulo')}</h1>
-            
-            
-            
-            <p:dataTable value="#{resultadosSessionBean.getResultados(usuarioSessionBean.jogador)}" var="resultado">
-                
-                <p:column  headerText="id">
-                    <h:outputText value="#{resultado.id}"/>
-                </p:column>
-                
-                <p:column  headerText="Points NS">
-                    <h:outputText value="#{resultado.pointsNS}"/>
-                </p:column>
-                
-                <p:column  headerText="Points EW">
-                    <h:outputText value="#{resultado.pointsEW}"/>
-                </p:column>
-                <p:column  headerText="Date">
-                    <h:outputText value="#{resultado.end}"/>
-                </p:column>
-                <p:column  headerText="North Player">
-                    <h:outputText value="#{resultado.north.login}"/>
-                </p:column>
-                <p:column  headerText="East Player">
-                    <h:outputText value="#{resultado.east.login}"/>
-                </p:column>
-                <p:column  headerText="South Player">
-                    <h:outputText value="#{resultado.south.login}"/>
-                </p:column>
-                <p:column  headerText="West Player">
-                    <h:outputText value="#{resultado.west.login}"/>
-                </p:column>
-                
-            </p:dataTable>
-            
-        </h:form></ui:define></ui:composition>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form>
+                    <h1>#{propriedades.get('pagina.consulta.meusResultados.titulo')}</h1>
+
+
+
+                    <p:dataTable value="#{resultadosSessionBean.getResultados(usuarioSessionBean.jogador)}" var="resultado">
+
+                        <p:column  headerText="id">
+                            <h:outputText value="#{resultado.id}"/>
+                        </p:column>
+
+                        <p:column  headerText="Points NS">
+                            <h:outputText value="#{resultado.pointsNS}"/>
+                        </p:column>
+
+                        <p:column  headerText="Points EW">
+                            <h:outputText value="#{resultado.pointsEW}"/>
+                        </p:column>
+                        <p:column  headerText="Date">
+                            <h:outputText value="#{resultado.end}"/>
+                        </p:column>
+                        <p:column  headerText="North Player">
+                            <h:outputText value="#{resultado.north.login}"/>
+                        </p:column>
+                        <p:column  headerText="East Player">
+                            <h:outputText value="#{resultado.east.login}"/>
+                        </p:column>
+                        <p:column  headerText="South Player">
+                            <h:outputText value="#{resultado.south.login}"/>
+                        </p:column>
+                        <p:column  headerText="West Player">
+                            <h:outputText value="#{resultado.west.login}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form></ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

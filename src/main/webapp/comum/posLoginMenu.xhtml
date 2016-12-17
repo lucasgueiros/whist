@@ -12,13 +12,9 @@
             <p:menuitem value="Início" icon="ui-icon-home" action="#{propriedades.get('pagina.index')}"/>
             <p:menuitem value="Resultados" action="#{propriedades.get('pagina.consulta.meusResultados')}"/>
             <p:menuitem value="Ranking" action="#{propriedades.get('pagina.consulta.rankingDeJogadores')}"/>
-            <p:submenu label="Criar sala">
-                <p:menuitem value="Com Uma mesa" action="#{salaRequestBean.preparaCriarSalaUmaMesa(usuarioSessionBean.jogador)}"/>
-                <p:menuitem value="Dupla vs Maquina" action="#{propriedades.get('pagina.criarSala.umaMesa')}"/>
-            </p:submenu>
+            <p:menuitem value="Criar sala" action="#{propriedades.get('pagina.criarSala.umaMesa')}"/>
             <p:menuitem value="Convites" action="#{propriedades.get('pagina.equipe.convite')}"/>
             <p:menuitem value="Entrar em uma sala" action="#{propriedades.get('pagina.escolherSala')}" />
-            <p:menuitem value="Jogar Sozinho" action="#{partidaSessionBean.goSozinho(usuarioSessionBean.jogador)}"/>
             <p:menuitem value="Sair" icon="ui-icon-arrowthick-1-n" action="#{usuarioSessionBean.sair()}"/>
             <p:menuitem value="Ajuda" icon="ui-icon-help" action="#{propriedades.get('pagina.ajuda')}"/>
         </p:slideMenu>

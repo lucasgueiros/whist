@@ -11,35 +11,35 @@
     <h:body>
         <ui:composition template="/comum/template.xhtml">
             <ui:define name="conteudo">
-        <h:form>
-            <p:dataTable value="#{equipeApplicationBean.recuperarConvite(usuarioSessionBean.jogador)}"
-                         var="convite">
-                <p:column headerText="mensagem">
-                    <h:outputText value="#{convite.mensagem}"/>
-                </p:column>
-                <p:column headerText="origem">
-                    <h:outputText value="#{convite.origem}"/>
-                </p:column>
-                <p:column headerText="destino">
-                    <h:outputText value="#{convite.alvo}"/>
-                </p:column>
-                <p:column headerText="sala">
-                    <h:outputText value="#{convite.sala}" />
-                </p:column>
-                <p:column headerText="aceitar">
-                    <p:commandButton value="Aceitar" action="#{propriedades.get('pagina.sala')}">
-                        <f:setPropertyActionListener target="#{convite.aceito}" value="#{true}"/>
-                        <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
-                        <f:setPropertyActionListener target="#{salaSessionBean.sala}" value="#{convite.sala}"/>
-                        <f:setPropertyActionListener target="#{salaSessionBean.equipe}" value="#{convite.equipe}"/>
-                    </p:commandButton>
-                </p:column>
-                
-            </p:dataTable>
-                
-        </h:form>
-                </ui:define>
-            </ui:composition>
+                <h:form>
+                    <p:dataTable value="#{equipeApplicationBean.recuperarConvite(usuarioSessionBean.jogador)}"
+                                 var="convite">
+                        <p:column headerText="mensagem">
+                            <h:outputText value="#{convite.mensagem}"/>
+                        </p:column>
+                        <p:column headerText="origem">
+                            <h:outputText value="#{convite.origem}"/>
+                        </p:column>
+                        <p:column headerText="destino">
+                            <h:outputText value="#{convite.alvo}"/>
+                        </p:column>
+                        <p:column headerText="sala">
+                            <h:outputText value="#{convite.sala}" />
+                        </p:column>
+                        <p:column headerText="aceitar">
+                            <p:commandButton value="Aceitar" action="#{propriedades.get('pagina.sala')}">
+                                <f:setPropertyActionListener target="#{convite.aceito}" value="#{true}"/>
+                                <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
+                                <f:setPropertyActionListener target="#{salaSessionBean.sala}" value="#{convite.sala}"/>
+                                <f:setPropertyActionListener target="#{salaSessionBean.equipe}" value="#{convite.equipe}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
