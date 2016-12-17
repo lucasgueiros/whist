@@ -12,24 +12,24 @@
     <h:body>
         <ui:composition template="comum/template.xhtml">
             <ui:define name="conteudo">
-                
-            
-        <h:form id="oForm">
-            <p:fieldset legend="Login">
-                <p:panelGrid columns="2">
-                    <h:outputText value="Usuário: "/>
-                    <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
-                    
-                    <h:outputText value="Senha: "/>
-                    <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
-                    
-                    <p:commandButton id="oLoginButton" value="Login" action="#{usuarioSessionBean.autenticar()}"/>
-                    <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{usuarioSessionBean.cadastro()}"/>
-                </p:panelGrid>
-            </p:fieldset>
-        </h:form>
-                </ui:define>
-            </ui:composition>
+
+
+                <h:form id="oForm">
+                    <p:fieldset legend="Login">
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Usuário: "/>
+                            <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
+
+                            <h:outputText value="Senha: "/>
+                            <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
+
+                            <p:commandButton id="oLoginButton" value="Login" action="#{usuarioSessionBean.autenticar()}"/>
+                            <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{usuarioSessionBean.cadastro()}"/>
+                        </p:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

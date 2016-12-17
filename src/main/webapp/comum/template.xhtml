@@ -7,13 +7,36 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
-        <style>
-            .invisivel {
-               border: 0px;
-               background: white;
+        <script>
+            function jogar(carta) {
+                var xmlHttp = new XMLHttpRequest();
+
+                xmlHttp.open("POST", "JogarCartaServlet", true);
+                xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xmlHttp.onload = function () {
+                    // fazer alguma coisa com a resposta
+                };
+                xmlHttp.send("carta=" + carta);
             }
-        </style>
+        </script>
             
+        <style>
+            img.cartaVertical {
+    width: 50px;
+    height: 70px;
+}
+img.cartaHorizontal {
+    height: 50px;
+    width: 70px;
+}
+.cartaMenos25 {
+    left: -25px;
+}
+.invisivel {
+    border: 0px;
+    background: white;
+}
+        </style>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -30,7 +53,11 @@
                     
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="east" size="20%"/>
+            <p:layoutUnit position="east" size="20%">
+                <ui:insert name="lateral">
+                    LATERAL
+                </ui:insert>
+            </p:layoutUnit>
             <p:layoutUnit position="north" size="13%">
                 <h:graphicImage value="imagens/logo1.svg" width="10%" style="padding-left: 22%"/>
                 <!--<p:outputPanel style="float: right; padding-right: 20%">

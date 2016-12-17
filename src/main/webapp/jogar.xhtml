@@ -9,49 +9,29 @@
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.jogar.titulo')}
         </title>
-        <script>
-            function jogar(carta) {
-                var xmlHttp = new XMLHttpRequest();
-
-                xmlHttp.open("POST", "JogarCartaServlet", true);
-                xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xmlHttp.onload = function () {
-                    // fazer alguma coisa com a resposta
-                };
-                xmlHttp.send("carta=" + carta);
-            }
-        </script>
         <style>
 
-            img.cartaVertical {
-                width: 50px;
-                height: 70px;
-            }
-            img.cartaHorizontal {
-                height: 50px;
-                width: 70px;
-            }
-            .cartaMenos25 {
-                left: -25px;
-            }
-            .ui-panelgrid td, .ui-panelgrid tr, .ui-panel td, .ui-panel tr {
-                border-style: none !important
-            }		
+            		
         </style>
     </h:head>                                                                                                                                                                                                                                                                                                                                                                                           
     <h:body>
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="lateral">
+                <h:form>
+                    <p:poll update="@(.frequpdate2)" interval="2" />
+                    <p:panel class="frequpdate2">
+                        <h:outputText value="Naipe de trunfo: "/>
+                        <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
+                        <br/>
+                        <h:outputText value="#{partidaSessionBean.placarString}"/>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+            <ui:define name="conteudo">
+                
         <h:form id="formulario" >
-            <ui:include src="#{propriedades.get('pagina.menu')}"/>
+
             <!-- Será atualizado por ajax a cada 2 segundos! -->
-            <p id="result"></p>
-
-            <p:panel class="frequpdate">
-                <h:outputText value="Naipe de trunfo: "/>
-                <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
-                <br/>
-                <h:outputText value="#{partidaSessionBean.placarString}"/>
-            </p:panel>
-
             <p:poll update="@(.frequpdate)" interval="2" />
 
             <p:panel class="frequpdate">
@@ -127,6 +107,8 @@
                 </table>
             </p:panel>
         </h:form>
+                </ui:define>
+            </ui:composition>
     </h:body>
 </html>
 

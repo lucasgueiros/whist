@@ -9,7 +9,8 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
+        <ui:composition template="comum/template.xhtml">
+            <ui:define name="conteudo">
                 <h:form id="oform">
                     <h:outputText value="Você está na sala #{salaSessionBean.sala.nome} que recebe equipes #{salaSessionBean.sala.tipoDeEquipe}."/>
                     
@@ -33,6 +34,8 @@
                         <f:setPropertyActionListener target="#{partidaSessionBean.posicao}" value="#{salaSessionBean.posicao}"/>
                     </p:commandButton>
                 </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
