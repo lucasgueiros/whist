@@ -236,5 +236,10 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
     public void setPosicao(Posicao posicao) {
         this.posicao = posicao;
     }
+
+    @Override
+    public boolean acabou() {
+        return this.partida.acabou();
+    }
     
 }

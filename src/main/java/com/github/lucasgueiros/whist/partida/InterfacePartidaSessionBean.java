@@ -41,6 +41,7 @@ public interface InterfacePartidaSessionBean {
     public String getPosicaoEsquerda();
     
     public String getVez();
+    public boolean acabou();
     
     public void play(Carta c);
     

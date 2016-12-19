@@ -9,12 +9,13 @@ import com.github.lucasgueiros.whist.equipe.Equipe;
 import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
 import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
+import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 
 /**
  *
  * @author lucas
  */
-public interface Sala {
+public interface Sala extends ListenerPartida {
     
     public void setNome(String nome);
     

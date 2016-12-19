@@ -9,6 +9,7 @@ import com.github.lucasgueiros.whist.equipe.Equipe;
 import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
 import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
+import com.github.lucasgueiros.whist.partida.eventos.EventoPartida;
 
 /**
  *
@@ -97,6 +98,16 @@ public class SalaUmaMesa implements Sala {
     @Override
     public Mesa getMesa(Jogador jogador) {
         return this.mesa.getPosicao(jogador) == null ? null : mesa;
+    }
+
+    @Override
+    public void partidaAcabou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alguemJogou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

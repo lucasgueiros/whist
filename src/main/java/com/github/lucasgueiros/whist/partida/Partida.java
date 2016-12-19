@@ -195,6 +195,7 @@ public class Partida implements PartidaInterface {
     public Carta getCartaDaVazaAtual(Posicao posicao) {
         if(!todosEstaoProntos) return null;
         Vaza vaza = this.vazas[numeroDaVaza];
+        if(vaza==null) return null;
         Map<Posicao,Carta> cartas = vaza.getCartas();
         return cartas.get(posicao);
     }
@@ -292,6 +293,11 @@ public class Partida implements PartidaInterface {
         if(todosEstaoProntos){
             iniciar();
         }
+    }
+
+    @Override
+    public boolean acabou() {
+        return this.acabou;
     }
     
 }

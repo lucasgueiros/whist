@@ -158,4 +158,10 @@ public interface PartidaInterface {
      * @return se já iniciou
      */
     public boolean iniciou();
+    
+    /**
+     * O joga já acabou?
+     * @return se o jogo acabou
+     */
+    public boolean acabou();
 }

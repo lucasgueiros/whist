@@ -4,15 +4,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.jogar.titulo')}
         </title>
-        <style>
-
-            		
-        </style>
     </h:head>                                                                                                                                                                                                                                                                                                                                                                                           
     <h:body>
         <ui:composition template="comum/template.xhtml">
@@ -24,6 +21,12 @@
                         <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
                         <br/>
                         <h:outputText value="#{partidaSessionBean.placarString}"/>
+                        <p:commandButton value="Próximo jogo" disabled="#{!partidaSessionBean.acabou()}"
+                                         action="#{partidaSessionBean.go()}" >
+                            <f:setPropertyActionListener target="#{salaSessionBean.mesa}" value="#{salaSessionBean.umaMesa}" />
+                            <f:setPropertyActionListener target="#{partidaSessionBean.partida}" value="#{salaSessionBean.mesa.partida}"/>
+                            <f:setPropertyActionListener target="#{partidaSessionBean.posicao}" value="#{salaSessionBean.posicao}"/>
+                        </p:commandButton>
                     </p:panel>
                 </h:form>
             </ui:define>

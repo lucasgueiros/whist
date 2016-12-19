@@ -11,6 +11,7 @@ import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
 import com.github.lucasgueiros.whist.partida.JogadorFalso;
+import com.github.lucasgueiros.whist.partida.eventos.EventoPartida;
 
 /**
  *
@@ -74,6 +75,16 @@ public class SalaDuplaVsMaquina implements Sala {
     @Override
     public boolean prontoParaJogar() {
         return mesa!=null;
+    }
+
+    @Override
+    public void partidaAcabou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alguemJogou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

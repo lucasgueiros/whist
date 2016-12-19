@@ -11,6 +11,8 @@ import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
 import com.github.lucasgueiros.whist.partida.JogadorFalso;
+import com.github.lucasgueiros.whist.partida.eventos.EventoPartida;
+import com.github.lucasgueiros.whist.partida.eventos.ListenerPartida;
 import com.github.lucasgueiros.whist.usuario.Usuario;
 
 /**
@@ -22,6 +24,10 @@ public class SalaUmContraMaquinas implements Sala {
     private String nome;
     private Mesa mesa;
     private Equipe equipe;
+    
+    JogadorFalso south = new JogadorFalso(Posicao.SOUTH);
+            JogadorFalso east = new JogadorFalso(Posicao.EAST);
+            JogadorFalso west = new JogadorFalso(Posicao.WEST);
     
     @Override
     public void setNome(String nome) {
@@ -49,17 +55,14 @@ public class SalaUmContraMaquinas implements Sala {
             this.equipe = equipe;
             Usuario north = equipe.getMembro(0);
             
-            JogadorFalso south = new JogadorFalso(Posicao.SOUTH);
-            JogadorFalso east = new JogadorFalso(Posicao.EAST);
-            JogadorFalso west = new JogadorFalso(Posicao.WEST);
-            
             this.mesa = new Mesa(north, south, east, west);
+            
+            this.mesa.getPartida().addListener(this);
             
             this.mesa.getPartida().addListener(south);
             this.mesa.getPartida().addListener(east);
             this.mesa.getPartida().addListener(west);
             
-            this.mesa.getPartida().estaPronto(Posicao.NORTH);
             this.mesa.getPartida().estaPronto(Posicao.SOUTH);
             this.mesa.getPartida().estaPronto(Posicao.EAST);
             this.mesa.getPartida().estaPronto(Posicao.WEST);
@@ -69,6 +72,29 @@ public class SalaUmContraMaquinas implements Sala {
     @Override
     public boolean prontoParaJogar() {
         return this.mesa != null;
+    }
+    
+    // IMPLEMENTANDO LISTENER DE PARTIDA
+    @Override
+    public void partidaAcabou(EventoPartida evento) {
+        // nessa sala, eu crio outra mesa e coloco os jogadores
+        Usuario north = equipe.getMembro(0);
+        this.mesa = new Mesa(north, south, east, west);
+        
+        this.mesa.getPartida().addListener(this);
+            
+        this.mesa.getPartida().addListener(south);
+        this.mesa.getPartida().addListener(east);
+        this.mesa.getPartida().addListener(west);
+            
+        this.mesa.getPartida().estaPronto(Posicao.SOUTH);
+        this.mesa.getPartida().estaPronto(Posicao.EAST);
+        this.mesa.getPartida().estaPronto(Posicao.WEST);
+    }
+
+    @Override
+    public void alguemJogou(EventoPartida evento) {
+        // não me importa muito 
     }
     
 }

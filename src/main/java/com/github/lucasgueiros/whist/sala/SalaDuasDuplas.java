@@ -9,6 +9,7 @@ import com.github.lucasgueiros.whist.equipe.Equipe;
 import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
 import com.github.lucasgueiros.whist.jogador.Jogador;
 import com.github.lucasgueiros.whist.mesa.Mesa;
+import com.github.lucasgueiros.whist.partida.eventos.EventoPartida;
 
 /**
  *
@@ -59,6 +60,16 @@ public class SalaDuasDuplas implements Sala {
     @Override
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public void partidaAcabou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alguemJogou(EventoPartida evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

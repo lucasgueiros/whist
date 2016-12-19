@@ -32,7 +32,7 @@ public class RepetidorDeEventoPartida  {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    listener.alguemJogou(evento);
+                    listener.partidaAcabou(evento);
                 }
             }).start();
         }
