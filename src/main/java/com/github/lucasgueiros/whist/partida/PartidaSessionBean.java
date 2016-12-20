@@ -204,23 +204,39 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
     }
 
     @Override
-    public String getPosicaoPropria() {
-        return this.posicao.toString();
+    public String getPosicaoComVezPropria() {
+        if(posicao.equals(partida.getVez())){
+            return ">" +this.posicao.toString()+"<";
+        } else {
+            return this.posicao.toString();
+        }
     }
 
     @Override
-    public String getPosicaoParceiro() {
-        return this.posicao.getParceiro().toString();
+    public String getPosicaoComVezParceiro() {
+        if(posicao.getParceiro().equals(partida.getVez())){
+            return ">" +this.posicao.getParceiro().toString()+"<";
+        } else {
+            return this.posicao.getParceiro().toString();
+        }
     }
 
     @Override
-    public String getPosicaoDireita() {
-        return this.posicao.getDireita().toString();
+    public String getPosicaoComVezDireita() {
+        if(posicao.getDireita().equals(partida.getVez())){
+            return ">" +this.posicao.getDireita().toString()+"<";
+        } else {
+            return this.posicao.getDireita().toString();
+        }
     }
 
     @Override
-    public String getPosicaoEsquerda() {
-        return this.posicao.getEsquerda().toString();
+    public String getPosicaoComVezEsquerda() {
+        if(posicao.getEsquerda().equals(partida.getVez())){
+            return ">" +this.posicao.getEsquerda().toString()+"<";
+        } else {
+            return this.posicao.getEsquerda().toString();
+        }
     }
 
     @Override

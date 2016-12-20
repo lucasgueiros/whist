@@ -72,10 +72,10 @@ public enum Posicao {
     @Override
     public String toString() {
         switch(this){
-            case NORTH: return "NORTH";
-            case WEST: return "WEST";
-            case SOUTH: return "SOUTH";
-            case EAST: return "EAST";
+            case NORTH: return "Norte";
+            case WEST: return "Oeste";
+            case SOUTH: return "Sul";
+            case EAST: return "Leste";
                             
         }
         return null;
