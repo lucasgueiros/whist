@@ -8,6 +8,7 @@ package com.github.lucasgueiros.whist.usuario;
 
 import com.github.lucasgueiros.whist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.whist.util.propriedades.PropriedadesApplicationBean;
+import com.github.lucasgueiros.whist.util.repositorio.FiltroRecuperarTodos;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,7 +20,9 @@ import com.github.lucasgueiros.whist.util.repositorio.RepositorioJPA;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -38,12 +41,14 @@ public class UsuarioSessionBean implements Serializable {
     private String senha;
     private Usuario jogador;
     private String nome;
+    private String senha2;
     
-    private Repositorio<Usuario> repositorioJogador;
+    private Repositorio<Usuario> repositorio;
     
     public UsuarioSessionBean() {
 		//DaoManagerHiber.main(null);
-    	repositorioJogador = new RepositorioJPA<Usuario>(Usuario.class);
+    	repositorio = new RepositorioJPA<Usuario>(Usuario.class);
+        repositorio.recuperar(new FiltroRecuperarTodos()); // para carregar logo essa lista!
     	logger = LoggerFactory.getLogger(UsuarioSessionBean.class);
 	}
 
@@ -74,7 +79,7 @@ public class UsuarioSessionBean implements Serializable {
     public String autenticar()  {
     	//logger.error("OPAAAHHH");
         //jogador = RepositoryFactory.getRepositorioJogador().recuperarPorLogin(login);
-        List<Usuario> consulta = (List<Usuario>) repositorioJogador.recuperar(new FiltroUsuarioLogin(login));
+        List<Usuario> consulta = (List<Usuario>) repositorio.recuperar(new FiltroUsuarioLogin(login));
         if(consulta.size()>0) {
             jogador = consulta.get(0);
         }
@@ -97,7 +102,7 @@ public class UsuarioSessionBean implements Serializable {
     public String finalizarCadastrar() {
         //try RepositoryFactory.getRepositorioJogador().adicionar(jogador);
         this.jogador = new Usuario(nome, login, senha);
-        this.repositorioJogador.adicionar(jogador);        
+        this.repositorio.adicionar(jogador);        
         return PropriedadesApplicationBean.getString("pagina.index");//autenticar(); //$NON-NLS-1$
     }
     
@@ -125,6 +130,23 @@ public class UsuarioSessionBean implements Serializable {
         this.jogador = null;
         // TODO
         return PropriedadesApplicationBean.getString("pagina.index"); //$NON-NLS-1$
+    }
+
+    public String getSenha2() {
+        return senha2;
+    }
+
+    public void setSenha2(String senha2) {
+        this.senha2 = senha2;
+    }
+    
+    public void validarUsuario(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        String login = (String) value;
+        if(!repositorio.recuperar(new FiltroUsuarioLogin(login)).isEmpty()){
+            FacesMessage message = new FacesMessage("Login em uso :/");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(message);
+        }
     }
     
 }
