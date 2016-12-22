@@ -42,6 +42,11 @@ public class ResultadoApplicationScoped implements ListenerPartida {
     public void alguemJogou(EventoPartida evento) {
         //  nada
     }
+
+    @Override
+    public void vazaAcabou(EventoPartida evento) {
+        // nada
+    }
     
     
     

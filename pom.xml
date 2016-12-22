@@ -87,6 +87,11 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
+                <dependency>
+                    <groupId>org.omnifaces</groupId>
+                    <artifactId>omnifaces</artifactId>
+                    <version>1.14</version>
+                </dependency>
                 <!-- Incluindo tema -->
                 <dependency>
                     <groupId>org.primefaces.themes</groupId>
