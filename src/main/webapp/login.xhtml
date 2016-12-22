@@ -15,18 +15,24 @@
 
 
                 <h:form id="oForm">
-                    <p:fieldset legend="Login">
-                        <p:panelGrid columns="2">
-                            <h:outputText value="Usuário: "/>
-                            <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
+                    <p:messages autoUpdate="true" closable="true"  />
+                        <p:panelGrid id="grid" columns="3">
+                            
+                            <h:outputLabel for="fieldLogin" value="Login: " style="font-weight:bold"/>
+                            <p:inputText id="fieldLogin" value="#{usuarioSessionBean.login}" label="fieldUsuario" 
+                                     required="true" requiredMessage="Digite seu login." 
+                                     validator="#{usuarioSessionBean.validarUsuarioComSenha}"/>
+                            <p:message for="fieldLogin" />
+                            
+                            <h:outputLabel for="fieldSenha1" value="Senha: " style="font-weight:bold"/>
+                            <p:password id="fieldSenha1" value="#{usuarioSessionBean.senha}" label="fieldSenha1"
+                                    redisplay="true" 
+                                    required="true" requiredMessage="Por favor, digite sua senha."/>
+                            <p:message for="fieldSenha1" />
 
-                            <h:outputText value="Senha: "/>
-                            <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
-
-                            <p:commandButton id="oLoginButton" value="Login" action="#{usuarioSessionBean.autenticar()}"/>
-                            <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{usuarioSessionBean.cadastro()}"/>
+                            <p:commandButton id="oLoginButton" value="Login" action="#{usuarioSessionBean.autenticar()}"
+                                             style="margin-right:10px" update="grid"/>
                         </p:panelGrid>
-                    </p:fieldset>
                 </h:form>
             </ui:define>
         </ui:composition>
