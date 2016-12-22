@@ -6,6 +6,7 @@
 package com.github.lucasgueiros.whist.sala;
 
 import com.github.lucasgueiros.whist.equipe.Equipe;
+import com.github.lucasgueiros.whist.equipe.TipoDeEquipe;
 import com.github.lucasgueiros.whist.mesa.Mesa;
 import com.github.lucasgueiros.whist.mesa.Posicao;
 import com.github.lucasgueiros.whist.usuario.Usuario;
@@ -118,6 +119,11 @@ public class SalaSessionBean {
     
     public Posicao getPosicao(){
         return this.mesa.getPosicao(usuario);
+    }
+    
+    public boolean isDupla(){
+        if(this.sala == null) return false;
+        return this.sala.getTipoDeEquipe() == TipoDeEquipe.DUPLA;
     }
     
 }
