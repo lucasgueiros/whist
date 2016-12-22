@@ -13,6 +13,8 @@
             <ui:define name="conteudo">
                 <h:form id="oform">
 
+                    <p:poll update="@(.atualizar)" interval="2"/>
+                    
                     <p:dataTable value="#{usuarioApplicationBean.usuarios}" var="usuario"
                                  emptyMessage="Só tem você"
                                  selectionMode="single" selection="#{equipeRequestBean.minhaDupla}" rowKey="#{usuario.id}"
@@ -27,7 +29,7 @@
                     </p:commandButton>
 
 
-                    <p:commandButton action="#{salaSessionBean.adicionarEquipe()}">
+                    <p:commandButton class="atualizar" value="Pronto!" action="#{salaSessionBean.adicionarEquipe()}" disabled="#{!equipeRequestBean.convite.aceito}">
                         <f:setPropertyActionListener target="#{salaSessionBean.equipe}" value="#{equipeRequestBean.dupla}"/>
                         <f:setPropertyActionListener target="#{salaSessionBean.usuario}" value="#{usuarioSessionBean.jogador}"/>
                     </p:commandButton>

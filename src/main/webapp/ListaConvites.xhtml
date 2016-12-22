@@ -18,13 +18,13 @@
                             <h:outputText value="#{convite.mensagem}"/>
                         </p:column>
                         <p:column headerText="origem">
-                            <h:outputText value="#{convite.origem}"/>
+                            <h:outputText value="#{convite.origem.nome}"/>
                         </p:column>
                         <p:column headerText="destino">
-                            <h:outputText value="#{convite.alvo}"/>
+                            <h:outputText value="#{convite.alvo.nome}"/>
                         </p:column>
                         <p:column headerText="sala">
-                            <h:outputText value="#{convite.sala}" />
+                            <h:outputText value="#{convite.sala.nome}" />
                         </p:column>
                         <p:column headerText="aceitar">
                             <p:commandButton value="Aceitar" action="#{propriedades.get('pagina.sala')}">

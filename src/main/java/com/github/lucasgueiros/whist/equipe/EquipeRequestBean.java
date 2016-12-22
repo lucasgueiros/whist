@@ -90,9 +90,19 @@ public class EquipeRequestBean {
         return equipe;
     }
     
+    Convite convite;
+    
     public void convidar(){
-        Convite convite = new Convite(minhaDupla,usuario,"Por favor, aceite.", sala);
+        convite = new Convite(minhaDupla,usuario,"Por favor, aceite.", sala);
         new EquipeApplicationBean().adicionarConvite(convite);
+    }
+
+    public Convite getConvite() {
+        return convite;
+    }
+
+    public void setConvite(Convite convite) {
+        this.convite = convite;
     }
     
 }
