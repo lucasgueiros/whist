@@ -48,7 +48,7 @@ public interface PartidaInterface {
      * @return a quantidade de vazas feitas.
      * @see getVazasParaEW()
      */
-    public int getVazasParaNS();
+    public int getVazasParaNS(int nvaza);
 
     /**
      * Quantas vazas a dupla E-W ganhou.
@@ -56,14 +56,14 @@ public interface PartidaInterface {
      * @return a quantidade de vazas feitas.
      * @see getVazasParaNS()
      */
-    public int getVazasParaEW();
+    public int getVazasParaEW(int nvaza);
 
     /**
      * Retorna o número de cartas na mão de um jogador
      * @param posicao é o jogador
      * @return um int que diz a quantidade de cartas na mão dele.
      */
-    public int getNumeroDeCartas(Posicao posicao);
+    public int getNumeroDeCartas(int nvaza,Posicao posicao);
 
     /**
      * Retorna a posição do jogador que detém a vez.
@@ -78,7 +78,7 @@ public interface PartidaInterface {
      * @param p a posição do jogador
      * @return a carta que ele jogou.s
      */
-    public Carta getCartaDaVazaAtual(Posicao posicao);
+    public Carta getCartaDaVaza(int nvaza,Posicao posicao);
 
     /**
      * Recebe uma jogada, analisa-a de acordo com as regras do Whist e gera as consequências.
@@ -139,23 +139,29 @@ public interface PartidaInterface {
      * Retorna uma cópia das cartas jogadas nessa trick
      * @return 
      */
-    public Map<Posicao,Carta> getVaza();
+    public Map<Posicao,Carta> getVaza(int nvaza);
     
     /** 
      * Primeiro jogador da trick atual.
      * @return a posição dele.
      */
-    public Posicao getPrimeiroDaVaza();
+    public Posicao getPrimeiroDaVaza(int nvaza);
 
     /**
      * De quem e a vez
      * @return a posicao do jogador que tem a vez.
      */
-    public Posicao getVez();
+    public Posicao getVez(int nvaza);
 
     /**
      * O jogo já comecou?
      * @return se já iniciou
      */
     public boolean iniciou();
+
+    public Posicao getVez();
+
+    public Posicao getPrimeiroDaVaza();
+
+    public Map<Posicao, Carta> getVaza();
 }

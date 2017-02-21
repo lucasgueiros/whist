@@ -26,4 +26,24 @@ public class EventoPartida {
         return partida.getVez();
     }
     
+    private Boolean partidaAcabou;
+
+    /**
+     * Get the value of partidaAcabou
+     *
+     * @return the value of partidaAcabou
+     */
+    public Boolean getPartidaAcabou() {
+        return partidaAcabou;
+    }
+
+    /**
+     * Set the value of partidaAcabou
+     *
+     * @param partidaAcabou new value of partidaAcabou
+     */
+    public void setPartidaAcabou(Boolean partidaAcabou) {
+        this.partidaAcabou = partidaAcabou;
+    }
+
 }

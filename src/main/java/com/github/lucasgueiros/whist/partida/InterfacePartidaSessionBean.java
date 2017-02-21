@@ -46,5 +46,9 @@ public interface InterfacePartidaSessionBean {
     
     public PartidaInterface getPartida();
     public void setPartida(Partida partida);
+    /**
+     * Enquanto você não mudar de vaza, vai ficar parada na mesma
+     */
+    public void irParaProximaVaza();
     
 }

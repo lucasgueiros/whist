@@ -9,17 +9,69 @@
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.jogar.titulo')}
         </title>
-        <style>
-
-
-        </style>
     </h:head>                                                                                                                                                                                                                                                                                                                                                                                           
     <h:body>
         <ui:composition template="comum/template.xhtml">
+            <ui:define name="script">
+                <script>
+                    function jogar(carta) {
+                        var xmlHttp = new XMLHttpRequest();
+
+                        xmlHttp.open("POST", "JogarCartaServlet", true);
+                        xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xmlHttp.onload = function () {
+                           // fazer alguma coisa com a resposta
+                        };
+                        xmlHttp.send("carta=" + carta);
+                    }
+                    
+                    function proximaVazaPorServlet(){
+                        var xmlHttp = new XMLHttpRequest();
+
+                        xmlHttp.open("POST", "ProximaVazaServlet", true);
+                        xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xmlHttp.onload = function () {
+                           if(xmlHttp.responseText != 'ok'){
+                               alert(xmlHttp.status + " " + xmlHttp.readyState);
+                           }
+                        };
+                        xmlHttp.send();
+                    }
+                    
+                    var counter = 0;
+                    
+                    function atualizarSeNecessario(){
+                        counter++;
+                        var xmlHttp = new XMLHttpRequest();
+                        
+                        xmlHttp.open("POST", "AtualizarPaginaJogarServlet", true);
+                        xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                        xmlHttp.onload = function () {
+                            
+                           // fazer alguma coisa com a resposta
+                           if(xmlHttp.responseText == 'true'){
+                               counter = 0;
+                               //alert('atualizacao padrao');
+                               //alert('true');
+                               atualizar();
+                           } else if(xmlHttp.responseText == 'wait'){
+                               counter = 0;
+                               //alert('wait');
+                               atualizar();
+                               proximaVazaPorServlet()
+                           } else if(counter>200) { // 4 seg
+                               counter = 0;
+                               atualizar();
+                               proximaVazaPorServlet();
+                           }
+                        };
+                        xmlHttp.send();
+                    }
+                </script>
+            </ui:define>
             <ui:define name="lateral">
                 <h:form>
-                    <p:poll update="@(.frequpdate2)" interval="2" />
-                    <p:panel class="frequpdate2">
+                    <p:panel class="frequpdate">
                         <h:outputText value="Naipe de trunfo: "/>
                         <h:graphicImage value="#{partidaSessionBean.naipeDeTrunfoImagem}" alt="#{partidaSessionBean.naipeDetrunfoString}" height="50px"/>
                         <br/>
@@ -31,10 +83,10 @@
 
                 <h:form id="formulario" >
 
-                    <!-- Será atualizado por ajax a cada 2 segundos! -->
-                    <p:poll update="@(.frequpdate)" interval="2" />
+                    <p:remoteCommand name="atualizar" update="@(.frequpdate)"/>
+                    <p:remoteCommand name="proximaVaza" action="#{partidaSessionBean.irParaProximaVaza()}"/>
 
-                    <p:panel class="frequpdate">
+                    <p:panel class="frequpdate" id="panel">
                         <table>
                             <tr>
                                 <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
@@ -62,10 +114,11 @@
                                     </c:forEach>
                                 </td>
                                 <td>
-                                    <table>
+                                    <p:panel class="frequpdate">
+                                        <table>
                                         <tr>
                                             <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
-                                            <td><h:graphicImage alt="#{ partidaSessionBean.cartaDaVazaStringParceiro }" value="#{ partidaSessionBean.cartaDaVazaImagemParceiro }" class="cartaVertical"/></td>
+                                            <td><h:graphicImage id="cartaParceiro" alt="#{ partidaSessionBean.cartaDaVazaStringParceiro }" value="#{ partidaSessionBean.cartaDaVazaImagemParceiro }" class="cartaVertical"/></td>
                                             <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
                                         </tr>
                                         <tr>
@@ -79,6 +132,7 @@
                                             <td><h:graphicImage value="cartas/black_joker.svg" class="cartaVertical" style="visibility: hidden"/></td>
                                         </tr>
                                     </table>
+                                    </p:panel>
                                 </td>
                                 <td style="max-width: 70px; max-height: 100px">
                                     <h:outputText value="#{partidaSessionBean.posicaoComVezDireita}"/><br/>
@@ -112,6 +166,12 @@
                         </table>
                     </p:panel>
                 </h:form>
+                <script>
+                    jQuery(document).ready(function(){
+                        window.setInterval(atualizarSeNecessario,20);
+                    });
+                </script>
+                    
             </ui:define>
         </ui:composition>
     </h:body>

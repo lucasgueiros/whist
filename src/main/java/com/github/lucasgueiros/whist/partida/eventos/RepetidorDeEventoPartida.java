@@ -38,13 +38,26 @@ public class RepetidorDeEventoPartida  {
         }
     }
     
-    public void mudancaDeVez(){
+    public void mudancaDeVez(boolean partidaAcabou){
         EventoPartida evento = new EventoPartida(partida);
+        evento.setPartidaAcabou(partidaAcabou);
         for(ListenerPartida listener : this.listeners) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     listener.alguemJogou(evento);
+                }
+            }).start();
+        }
+    }
+    
+    public void vazaAcabou(){
+        EventoPartida evento = new EventoPartida(partida);
+        for(ListenerPartida listener : this.listeners) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    listener.vazaAcabou(evento);
                 }
             }).start();
         }

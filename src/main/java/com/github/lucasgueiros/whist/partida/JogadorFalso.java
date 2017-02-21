@@ -127,4 +127,9 @@ public class JogadorFalso implements Jogador, ListenerPartida/* implements Runni
             } 
         }
     }
+
+    @Override
+    public void vazaAcabou(EventoPartida evento) {
+        // nada
+    }
 }
