@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{propriedades.get('pagina.geral.prefixo')} - 
             #{propriedades.get('pagina.paraCompletarOCadastro.titulo')}</title>
@@ -11,22 +12,36 @@
     <h:body>
         <ui:composition template="comum/template.xhtml">
             <ui:define name="conteudo">
-                <h:form id="oForm">
-                    <p:fieldset legend="Cadastro">
-                        <p:panelGrid columns="2">
-                            <h:outputText value="Usuário: "/>
-                            <p:inputText id="oLoginField" value="#{usuarioSessionBean.login}"/>
+                <h:form id="oForm">        
+                    <p:panelGrid id="grid" columns="3">
 
-                            <h:outputText value="Senha: "/>
-                            <p:inputText id="oSenhaField" type="password" value="#{usuarioSessionBean.senha}"/>
+                        <h:outputLabel for="fieldLogin" value="Nome de login: " style="font-weight:bold"/>
+                        <p:inputText id="fieldLogin" value="#{usuarioSessionBean.login}" label="fieldUsuario" 
+                                     required="true" requiredMessage="Por favor, escolha um login."
+                                     validator="#{usuarioSessionBean.validarUsuario}"/>
+                        <p:message for="fieldLogin" />
 
-                            <h:outputText value="Nome: "/>
-                            <p:inputText id="oNomeField" value="#{usuarioSessionBean.nome}"/>
+                        <h:outputLabel for="fieldSenha1" value="Senha: " style="font-weight:bold"/>
+                        <p:password id="fieldSenha1" value="#{usuarioSessionBean.senha}" label="fieldSenha1"
+                                    promptLabel="Insira uma senha" redisplay="true" 
+                                    match="fieldSenha2" validatorMessage="Redigite como aqui."
+                                    required="true" requiredMessage="Por favor, escolha uma senha."/>
+                        <p:message for="fieldSenha1" />
 
-                            <p:commandButton id="oCadastrarButton"  value="Cadastrar" action="#{usuarioSessionBean.finalizarCadastrar()}"/>
+                        <h:outputLabel for="fieldSenha2" value="Redigite a senha: " style="font-weight:bold"/>
+                        <p:password id="fieldSenha2" value="#{usuarioSessionBean.senha2}" label="fieldSenha2" 
+                                    required="true" requiredMessage="Por favor, redigite a senha."/>
+                        <p:message for="fieldSenha2" />
 
-                        </p:panelGrid>
-                    </p:fieldset>            
+                        <h:outputLabel for="fieldNome" value="Nome: " style="font-weight:bold"/>
+                        <p:inputText id="fieldNome" value="#{usuarioSessionBean.nome}" label="nome"
+                                     required="true" requiredMessage="Por favor, digite seu nome."/>
+                        <p:message for="fieldNome" />
+
+                        <p:commandButton id="oCadastrarButton" value="Cadastrar" action="#{usuarioSessionBean.finalizarCadastrar()}"
+                                         style="margin-right:10px" validateClient="true" update="grid"/>
+
+                    </p:panelGrid>            
                 </h:form>
             </ui:define>
         </ui:composition>

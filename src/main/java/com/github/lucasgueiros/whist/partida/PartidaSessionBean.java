@@ -20,8 +20,12 @@ import com.github.lucasgueiros.whist.vaza.Carta;
 import com.github.lucasgueiros.whist.partida.excecoes.CartaInvalidaException;
 import com.github.lucasgueiros.whist.util.SaidaParaArquivo;
 import com.github.lucasgueiros.whist.util.propriedades.PropriedadesApplicationBean;
+import java.util.logging.Level;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.omnifaces.util.Ajax;
 
 /**
  *
@@ -39,6 +43,8 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
     //private Jogador jogador;
     private Logger logger = LoggerFactory.getLogger(PartidaSessionBean.class);
     private Posicao posicao;
+    
+    private int vaza = 0;
     
     public PartidaSessionBean() {
     	
@@ -124,76 +130,76 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
 
     @Override
     public String getPlacarString() {
-        return partida.getVazasParaNS() + " NS x EW " + partida.getVazasParaEW();
+        return partida.getVazasParaNS(vaza) + " NS x EW " + partida.getVazasParaEW(vaza);
     }
 
     @Override
     public int getNumeroDeCartasParceiro() {
-        return partida.getNumeroDeCartas(posicao.getParceiro());
+        return partida.getNumeroDeCartas(vaza,posicao.getParceiro());
     }
 
     @Override
     public int getNumeroDeCartasEsquerda() {
-        return partida.getNumeroDeCartas(posicao.getEsquerda());
+        return partida.getNumeroDeCartas(vaza,posicao.getEsquerda());
     }
 
     @Override
     public int getNumeroDeCartasDireita() {
-        return partida.getNumeroDeCartas(posicao.getDireita());
+        return partida.getNumeroDeCartas(vaza,posicao.getDireita());
     }
 
     @Override
     public String getCartaDaVazaStringParceiro() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getParceiro());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getParceiro());
         if(carta==null) return "";
         return carta.toString();
     }
 
     @Override
     public String getCartaDaVazaStringProprio() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao);
+        Carta carta = partida.getCartaDaVaza(vaza,posicao);
         if(carta==null) return "";
         return carta.toString();
     }
 
     @Override
     public String getCartaDaVazaStringDireita() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getDireita());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getDireita());
         if(carta==null) return "";
         return carta.toString();
     }
 
     @Override
     public String getCartaDaVazaStringEsquerda() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getEsquerda());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getEsquerda());
         if(carta==null) return "";
         return carta.toString();
     }
 
     @Override
     public String getCartaDaVazaImagemParceiro() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getParceiro());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getParceiro());
         if(carta==null) return "";
         return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
     }
 
     @Override
     public String getCartaDaVazaImagemProprio() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao);
+        Carta carta = partida.getCartaDaVaza(vaza,posicao);
         if(carta==null) return "";
         return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
     }
 
     @Override
     public String getCartaDaVazaImagemDireita() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getDireita());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getDireita());
         if(carta==null) return "";
         return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
     }
 
     @Override
     public String getCartaDaVazaImagemEsquerda() {
-        Carta carta = partida.getCartaDaVazaAtual(posicao.getEsquerda());
+        Carta carta = partida.getCartaDaVaza(vaza,posicao.getEsquerda());
         if(carta==null) return "";
         return PropriedadesApplicationBean.getImagem(carta.getNaipe().toStringExt(),carta.getSimbolo().toStringExt());
     }
@@ -204,29 +210,45 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
     }
 
     @Override
-    public String getPosicaoPropria() {
-        return this.posicao.toString();
+    public String getPosicaoComVezPropria() {
+        if(posicao.equals(partida.getVez(vaza))){
+            return ">" +this.posicao.toString()+"<";
+        } else {
+            return this.posicao.toString();
+        }
     }
 
     @Override
-    public String getPosicaoParceiro() {
-        return this.posicao.getParceiro().toString();
+    public String getPosicaoComVezParceiro() {
+        if(posicao.getParceiro().equals(partida.getVez(vaza))){
+            return ">" +this.posicao.getParceiro().toString()+"<";
+        } else {
+            return this.posicao.getParceiro().toString();
+        }
     }
 
     @Override
-    public String getPosicaoDireita() {
-        return this.posicao.getDireita().toString();
+    public String getPosicaoComVezDireita() {
+        if(posicao.getDireita().equals(partida.getVez(vaza))){
+            return ">" +this.posicao.getDireita().toString()+"<";
+        } else {
+            return this.posicao.getDireita().toString();
+        }
     }
 
     @Override
-    public String getPosicaoEsquerda() {
-        return this.posicao.getEsquerda().toString();
+    public String getPosicaoComVezEsquerda() {
+        if(posicao.getEsquerda().equals(partida.getVez(vaza))){
+            return ">" +this.posicao.getEsquerda().toString()+"<";
+        } else {
+            return this.posicao.getEsquerda().toString();
+        }
     }
 
     @Override
     public String getVez() {
-        if(partida.getVez()==null) return "";
-        return this.partida.getVez().toString();
+        if(partida.getVez(vaza)==null) return "";
+        return this.partida.getVez(vaza).toString();
     }
 
     public Posicao getPosicao() {
@@ -240,6 +262,27 @@ public class PartidaSessionBean implements /*PartidaListener,*/ Serializable, In
     @Override
     public boolean acabou() {
         return this.partida.acabou();
+    }
+    
+    private boolean mudou = false;
+
+    public boolean isMudou() {
+        return mudou;
+    }
+
+    public void setMudou(boolean mudou) {
+        this.mudou = mudou;
+    }
+    
+    @Override
+    public synchronized void irParaProximaVaza() {
+            try {
+                wait(1000);
+                vaza = partida.getNumeroDaVaza() - 1;
+                mudou = true;
+            } catch (InterruptedException ex) {
+                java.util.logging.Logger.getLogger(PartidaSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
 }

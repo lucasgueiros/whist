@@ -35,10 +35,10 @@ public interface InterfacePartidaSessionBean {
     
     public List<Carta> getCartasProprias();
     
-    public String getPosicaoPropria();
-    public String getPosicaoParceiro();
-    public String getPosicaoDireita();
-    public String getPosicaoEsquerda();
+    public String getPosicaoComVezPropria();
+    public String getPosicaoComVezParceiro();
+    public String getPosicaoComVezDireita();
+    public String getPosicaoComVezEsquerda();
     
     public String getVez();
     public boolean acabou();
@@ -47,5 +47,9 @@ public interface InterfacePartidaSessionBean {
     
     public PartidaInterface getPartida();
     public void setPartida(Partida partida);
+    /**
+     * Enquanto você não mudar de vaza, vai ficar parada na mesma
+     */
+    public void irParaProximaVaza();
     
 }

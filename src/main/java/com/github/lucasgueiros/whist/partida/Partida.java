@@ -47,6 +47,8 @@ public class Partida implements PartidaInterface {
     /** * quantas tricks NS já ganhou */
     private int vazasParaNS;
     private int vazasParaEW;
+    private int [][] pontuacao = new int [13][2];
+    
     /** * a trick atual */
     private int numeroDaVaza = 0; // 
     /**
@@ -100,7 +102,8 @@ public class Partida implements PartidaInterface {
     public void jogar(Posicao posicao, Carta card) throws CartaNaoEstaNaMaoException, CartaInvalidaException, NaoEstaNaVezException  { // card to be played!
         if(!todosEstaoProntos) return;
         // Pegue a vaza atual
-        Vaza vaza = vazas[numeroDaVaza];        
+        Vaza vaza = vazas[numeroDaVaza];    
+        boolean vazaAcabou = false;
         // deve ser sua vez
         if(!vaza.getVez().equals(posicao)) {
             throw new NaoEstaNaVezException();
@@ -132,10 +135,14 @@ public class Partida implements PartidaInterface {
 
             Posicao ganhador = vaza.getGanhador();
             if (ganhador == Posicao.SOUTH || ganhador == Posicao.NORTH) {
+                pontuacao[numeroDaVaza][0]++;
                 vazasParaNS++; // pontua para NS
             } else {
+                pontuacao[numeroDaVaza][1]++;
                 vazasParaEW++; // pontua para EW
             }
+            vazaAcabou = true;
+            repetidor.vazaAcabou();
             if(this.getNumeroDaVaza()==13){
                 // se tiver acabado o jogo!
                 this.acabou = true;
@@ -146,10 +153,12 @@ public class Partida implements PartidaInterface {
                 Vaza proximaVaza = new Vaza(ganhador, trunfo);
                 // passe para a proxima vaza e adicione-a ao array.
                 vazas[++numeroDaVaza] = proximaVaza;
+                pontuacao[numeroDaVaza][0] = pontuacao[numeroDaVaza-1][0];
+                pontuacao[numeroDaVaza][1] = pontuacao[numeroDaVaza-1][1];
             }
         } 
         // avise ao mundo que mudou de vez
-        repetidor.mudancaDeVez();
+        repetidor.mudancaDeVez(vazaAcabou);
     }
     
     @Override
@@ -163,35 +172,50 @@ public class Partida implements PartidaInterface {
         if(!todosEstaoProntos) return null;
         return this.vazas[numeroDaVaza].getCorrente();
     }
+    
+    public Naipe getNaipeCorrente(int vaza) {
+        if(!todosEstaoProntos) return null;
+        return this.vazas[vaza].getCorrente();
+    }
 
     @Override
     public int getNumeroDaVaza() {
         return numeroDaVaza + 1;
     }
 
-    @Override
     public int getVazasParaNS() {
         return this.vazasParaNS;
     }
+    
+    public int getVazasParaNS(int vaza) {
+        return pontuacao[vaza][0];
+    }
 
-    @Override
     public int getVazasParaEW() {
         return this.vazasParaEW;
     }
+    
+    public int getVazasParaEW(int vaza) {
+        return pontuacao[vaza][1];
+    }
 
-    @Override
     public int getNumeroDeCartas(Posicao posicao) {
         if(!todosEstaoProntos) return 0;
         return maos.get(posicao).size();
     }
 
+    public int getNumeroDeCartas(int vaza,Posicao posicao) {
+        if(!todosEstaoProntos) return 0;
+        if(vaza < numeroDaVaza) return 12 - vaza;
+        return maos.get(posicao).size();
+    }
+    
     @Override
     public boolean estaNaVezDe(Posicao posicao) {
         if(!todosEstaoProntos) return false;
         return this.vazas[numeroDaVaza].getVez().equals(posicao);
     }
 
-    @Override
     public Carta getCartaDaVazaAtual(Posicao posicao) {
         if(!todosEstaoProntos) return null;
         Vaza vaza = this.vazas[numeroDaVaza];
@@ -200,6 +224,14 @@ public class Partida implements PartidaInterface {
         return cartas.get(posicao);
     }
 
+    public Carta getCartaDaVaza(int nvaza, Posicao posicao) {
+        if(!todosEstaoProntos) return null;
+        Vaza vaza = this.vazas[nvaza];
+        if(vaza==null) return null;
+        Map<Posicao,Carta> cartas = vaza.getCartas();
+        return cartas.get(posicao);
+    }
+    
     @Override
     public List<Carta> getMao(Posicao posicao) {
         if(!todosEstaoProntos) return null;
@@ -228,8 +260,13 @@ public class Partida implements PartidaInterface {
         numeroDaVaza = 0;
         // crie a primeira vaza
         vazas[0] = new Vaza(dador.next(), trunfo);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 13; j++) {
+                pontuacao[j][i] = 0;
+            }
+        }
         // avise que "mudou de vez" (de vez de ninguém -> vez de alguém)
-        repetidor.mudancaDeVez();
+        repetidor.mudancaDeVez(true);
     }
 
     @Override
@@ -241,7 +278,7 @@ public class Partida implements PartidaInterface {
     public int getPontosParaEW() {
         return this.getVazasParaEW() - 6 >= 0 ? this.getVazasParaEW() - 6 : 0;
     }
- 
+    
     /*@Override
     public Mesa getMesa() {
         return mesa;
@@ -257,24 +294,36 @@ public class Partida implements PartidaInterface {
         return dataDeInicio;
     }
     
-    @Override
     public Posicao getPrimeiroDaVaza() {
         if(!todosEstaoProntos) return null;
         return vazas[numeroDaVaza].getPrimeiro();
     }
     
-    @Override
+    public Posicao getPrimeiroDaVaza(int vaza) {
+        if(!todosEstaoProntos) return null;
+        return vazas[vaza].getPrimeiro();
+    }
+    
     public Map<Posicao,Carta> getVaza() {
         if(!todosEstaoProntos) return null;
         return this.vazas[numeroDaVaza].getCartas();
     }
+    
+    public Map<Posicao,Carta> getVaza(int vaza) {
+        if(!todosEstaoProntos) return null;
+        return this.vazas[vaza].getCartas();
+    }
 
-    @Override
     public Posicao getVez() {
         if(!todosEstaoProntos) return null;
         return vazas[numeroDaVaza].getVez();
     }
 
+    public Posicao getVez(int vaza) {
+        if(!todosEstaoProntos || vaza != numeroDaVaza) return null;
+        return vazas[numeroDaVaza].getVez();
+    }
+    
     @Override
     public boolean iniciou() {
         return todosEstaoProntos;//iniciou;

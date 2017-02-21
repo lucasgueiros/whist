@@ -20,4 +20,9 @@ public interface ListenerPartida {
      * @param evento 
      */
     public void alguemJogou(EventoPartida evento);
+    /**
+     * É chamado cada vez que uma vaza acaba, i.e., a cada 4 jogadas.
+     * @param evento 
+     */
+    public void vazaAcabou(EventoPartida evento);
 }
